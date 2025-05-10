@@ -1,12 +1,13 @@
 .container {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: fit-content;
     height: fit-content;
-    min-width: 100px;
+    min-width: 150px;
     padding: 0.5rem;
     border-width: 2px;
     border-radius: var(--border-radius-sm);
+    background-color: white;
     align-items: center;
     gap: 10px;
     justify-content: center;
@@ -16,4 +17,10 @@
 .logo {
     height: 42px;
     width: 42px;
+}
+
+@media (max-width: 767px) {
+    .container {
+        width: 100%;
+    }
 }
