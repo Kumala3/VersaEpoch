@@ -67,3 +67,26 @@
   font-weight: var(--font-weight-reg);
   font-size: var(--font-size-body-3);
 }
+
+@media (max-width: 767px) {
+  .container {
+    padding: var(--padding-sm);
+  }
+
+  .sections {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .section {
+    width: 100%;
+  }
+
+  .sectionElements {
+    width: 100%;
+  }
+
+  .slogan {
+    width: 100%;
+  }
+}
