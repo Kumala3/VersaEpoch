@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+    min-width: 100px;
+    padding: 0.5rem;
+    border-width: 2px;
+    border-radius: var(--border-radius-sm);
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    font-weight: var(--font-weight-semi-bold);
+    font-size: var(--font-size-body-1);
+}
+.logo {
+    height: 42px;
+    width: 42px;
+}

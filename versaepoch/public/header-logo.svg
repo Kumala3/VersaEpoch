@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="153.43146mm"
+   height="37.828903mm"
+   viewBox="0 0 153.43146 37.828903"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="icon.svg"
+   inkscape:export-filename="icon.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="2.7545174"
+     inkscape:cx="428.20568"
+     inkscape:cy="513.52008"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:export-bgcolor="#ffffff00">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="153.43146"
+       height="37.828903"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-7.295796,-93.901791)">
+    <g
+       id="g19"
+       inkscape:label="Logo Header"
+       transform="translate(-78.380454,-24.451442)"
+       inkscape:export-filename="g12.svg"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <g
+         id="g21"
+         transform="matrix(0.97143935,0,0,0.61097869,4.6380189,52.77758)">
+        <rect
+           style="font-variation-settings:'wght' 300;fill:#000000;fill-opacity:1;stroke:#24bca0;stroke-width:1.69449;stroke-linecap:butt;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+           id="rect14"
+           width="156.24791"
+           height="60.22076"
+           x="84.268028"
+           y="108.17611"
+           inkscape:label="BG" />
+        <path
+           style="font-variation-settings:'wght' 300;opacity:1;fill:none;fill-opacity:1;stroke:#24bca0;stroke-width:1.07115;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+           d="m 84.724454,108.56308 c 0,0 29.301906,2.52541 36.028896,2.72836 6.72699,0.20295 28.20957,-1.59836 42.52688,-1.62877 15.75351,-0.0334 40.02275,1.80396 46.89159,1.5932 6.86884,-0.21076 30.07771,-2.60004 30.07771,-2.60004"
+           id="path16"
+           sodipodi:nodetypes="czazc" />
+        <path
+           style="font-variation-settings:'wght' 300;opacity:1;fill:none;fill-opacity:1;stroke:#24bca0;stroke-width:1.06884;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+           d="m 240.22099,167.97177 c 0,0 -30.12994,-2.3307 -37.0987,-2.32989 -6.96876,8.1e-4 -28.22916,1.59041 -42.55642,1.62066 -15.76447,0.0333 -41.47787,-1.59267 -46.92416,-1.58526 -5.44629,0.007 -29.229264,2.33372 -29.229264,2.33372"
+           id="path17"
+           sodipodi:nodetypes="czazc" />
+      </g>
+      <g
+         id="g20"
+         inkscape:label="Text"
+         transform="matrix(1.0238146,0,0,1.0238146,-8.6372727,-6.1073745)">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.3972px;font-family:Georgia;-inkscape-font-specification:'Georgia, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#f2f2f2;fill-opacity:1;stroke:none;stroke-width:7.84731;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+           x="115.62869"
+           y="148.87431"
+           id="text19"><tspan
+             sodipodi:role="line"
+             id="tspan21"
+             x="115.62869"
+             y="148.87431">ersa   poch</tspan></text>
+        <path
+           style="font-variation-settings:'wght' 300;opacity:1;mix-blend-mode:normal;fill:none;fill-opacity:1;stroke:#24bca0;stroke-width:2.59859;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+           d="m 97.064616,131.31019 9.409844,18.80221 c 1.05865,-1.10639 6.68586,-10.97695 7.00887,-11.50161 0.32302,-0.52466 4.99231,-10.00743 5.3284,-10.78453"
+           id="path15"
+           sodipodi:nodetypes="cccc"
+           inkscape:label="Main V" />
+        <g
+           id="g27"
+           transform="matrix(0.84102535,0,0,0.84102535,27.446413,23.611409)"
+           inkscape:label="Main E">
+          <path
+             style="font-variation-settings:'wght' 300;opacity:1;mix-blend-mode:normal;fill:none;fill-opacity:1;stroke:#24bca0;stroke-width:2.3697;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+             d="m 182.16449,127.27414 c -4.04338,0.0571 -8.08675,0.1141 -12.13013,0.17115 -0.0395,8.82031 -0.0791,17.64061 -0.11864,26.46092 4.06592,0 8.13183,0 12.19775,0"
+             id="path21"
+             inkscape:label="Main E" />
+          <path
+             style="opacity:1;fill:#f2f2f2;fill-opacity:1;stroke:#24bca0;stroke-width:2.58429;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+             d="m 170.9197,140.83629 c 3.62771,0 7.25542,0 10.88313,0"
+             id="path22" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,9 +1,10 @@
 import Image from "next/image";
+import styles from "@/styles/homePage.module.scss";
 
 export default function Home() {
   return (
-    <div >
-      <h1>VersaEpoch is here!</h1>
+    <div className={styles.container}>
+      <h1>VersaEpoch Home Page is Here!</h1>
     </div>
   );
 }
