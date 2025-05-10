@@ -1,7 +1,7 @@
-"use client";
+'use client';
 import { useState } from 'react';
-import Link from "next/link";
-import styles from "@/styles/navDropdown.module.scss";
+import Link from 'next/link';
+import styles from '@/styles/navDropdown.module.scss';
 
 interface NavDropdownElement {
   title: string;
@@ -26,7 +26,10 @@ export function NavDropdown({ title, elements }: NavDropdownProps) {
       {isHovered && (
         <div className={styles.dropdownContainer}>
           {elements.map((item, index) => (
-            <Link href={item.href} key={index} className={styles.dropdownElement}>
+            <Link
+              href={item.href}
+              key={index}
+              className={styles.dropdownElement}>
               {/* Add Icon to each ChatBot */}
               {item.title}
             </Link>
