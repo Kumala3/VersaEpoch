@@ -1,12 +1,212 @@
-import Image from 'next/image';
+'use client';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from '@/styles/homePage.module.scss';
+import { CTAButton } from '@/components/ui/CTAButton';
+import { CloseIcon } from '@/components/ui/CloseIcon';
+import { ChatbotContainer } from '@/components/ChatbotContainer';
+import { FeatureShowcaseCard } from '@/components/ui/FeatureShowcaseCard';
+import Image from 'next/image';
 
-export default function Home() {
+export default function HomePage() {
+  const [isChatbotExploreModalOpened, setIsChatbotExploreModalOpened] =
+    useState<boolean>(false);
+  const router = useRouter();
+
+  const openChatbotExploreModal = () => {
+    console.log('chatbotExploreModal opened!');
+    setIsChatbotExploreModalOpened(true);
+  };
+
+  const redirectTo = (href: string) => {
+    router.push(href);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.heroSection}>
-        <h2>Dive into exploring the evolution of ChatGPT, Claude, Gemini</h2>
+        <h2 className={styles.heroSection__heading}>
+          Dive into exploring the evolution of{' '}
+          <div className={styles.heroSection__animatedText}>
+            <span className={styles.heroSection__boldText}>ChatGPT</span>↓
+            <span className={styles.heroSection__boldText}>Claude</span>↓
+            <span className={styles.heroSection__boldText}>Gemini</span>
+          </div>
+        </h2>
         {/* CTA Button */}
+        <CTAButton
+          title="Start Exploration"
+          onClick={openChatbotExploreModal}
+        />
+      </div>
+
+      {/* Modal */}
+      {isChatbotExploreModalOpened && (
+        <div className={styles.modalBackdrop}>
+          <div className={styles.chatbotExploreModalContainer}>
+            <button
+              className={styles.chatbotExploreModalContainer__closeButton}
+              onClick={() => setIsChatbotExploreModalOpened(false)}
+              aria-label="Close">
+              <CloseIcon />
+            </button>
+            <div className={styles.chatbotExploreModalContainer__textContainer}>
+              <h4 className={styles.chatbotExploreModalContainer__title}>
+                Choose Chatbot&#39;s Evolution you would like to explore:
+              </h4>
+              <h5 className={styles.chatbotExploreModalContainer__subtitle}>
+                Only 0.01% know their evolution & thrive in the AI Era.
+              </h5>
+              <h2
+                className={styles.chatbotExploreModalContainer__prominentText}>
+                Be 0.01%
+              </h2>
+            </div>
+            <div className={styles.chatbotExploreModalContainer__grid}>
+              <ChatbotContainer
+                title="ChatGPT"
+                description="ChatGPT is the most popular chatbot used by over 500+ million
+                  users week to week."
+              />
+              <ChatbotContainer
+                title="Claude"
+                description="Claude is the most popular chatbot for coding, creative
+                  writing, brainstorming by over 15+ million users week to week."
+              />
+              <ChatbotContainer
+                title="Gemini"
+                description="Gemini is closely integrated into Google Products, offers many
+                  free models, staggering context window of over 1M tokens and
+                  is used by over 100 million users week to week."
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ChatGPT Timeline with main features overview Section */}
+      <div className={styles.timelineOverviewContainer}>
+        <h2 className={styles.timelineOverviewContainer__headline}>
+          Detailed, Interactive Timelines
+        </h2>
+        <div
+          className={styles.timelineOverviewContainer__mainFeaturesContainer}>
+          <div className={styles.timelineOverviewContainer__grid}>
+            <FeatureShowcaseCard
+              title="Comprehensive Data"
+              demoImageMain="/comprehensiveDataShowcase.png"
+              mainDescription="View all models, milestones, updates, features, tools covered in one timeline!"
+            />
+            <FeatureShowcaseCard
+              title="Advanced Filtering"
+              demoImageMain="/filterFeatureShowcase.png"
+              mainDescription="Filter the timeline to display only specific data type such as milestone, model or feature."
+              bgColor="greenyellow"
+            />
+            <FeatureShowcaseCard
+              title="Advanced Sorting"
+              demoImageMain="/comprehensiveDataShowcase.png"
+              mainDescription="Sort the timeline cards by date to see exactly what you need in a few clicks!"
+              bgColor="greenyellow"
+            />
+            <FeatureShowcaseCard
+              title="Interactivity"
+              demoImageMain="/comprehensiveDataShowcase.png"
+              mainDescription="View more details such as date, full description, sources, impact and more by opening the card or viewing the full page."
+            />
+          </div>
+
+          {/* TODO: Callout Component with text: "Don't just read, try yourself!" */}
+          <div className={styles.timelineOverviewContainer__ctaContainer}>
+            <CTAButton
+              title="Explore"
+              className={styles.timelineOverviewContainer__ctaButton}
+              onClick={() => redirectTo('/timelines')}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* LLMs Directory Section */}
+      <div className={styles.llmsDirectoryContainer}>
+        <h3 className={styles.llmsDirectoryContainer__headline}>
+          LLMs Directory
+        </h3>
+        <div className={styles.llmsDirectoryContainer__showcaseContainer}>
+          <p className={styles.llmsDirectoryContainer__description}>
+            Discover 100+ Real-Life GenAI UseCases from 10+ industries
+          </p>
+          <Image
+            width={200}
+            height={200}
+            src={"/placeholderImage.png"}
+            // src={'/llmsDirectoryFeaturedImage.png'} /* Replace when the feature is ready */
+            alt="LLMs Directory Featured Image"
+            className={styles.llmsDirectoryContainer__featuredImage}
+          />
+        </div>
+
+        <div className={styles.llmsDirectoryContainer__ctaContainer}>
+          <CTAButton
+            title="Explore"
+            className={styles.llmsDirectoryContainer__ctaButton}
+            onClick={() => redirectTo('/llms-directory')}
+          />
+        </div>
+      </div>
+
+      {/* GenAI UseCases Section */}
+      <div className={styles.genAIUseCasesDirectoryContainer}>
+        <h3 className={styles.genAIUseCasesDirectoryContainer__headline}>
+          GenAI UseCases Directory
+        </h3>
+        <div
+          className={styles.genAIUseCasesDirectoryContainer__showcaseContainer}>
+          <p className={styles.genAIUseCasesDirectoryContainer__description}>
+            Discover 50+ GenAI Use Cases & Learn how to use them
+          </p>
+          <Image
+            width={200}
+            height={200}
+            src={'/placeholderImage.png'}
+            // src={'/genAIUseCasesDirectoryFeaturedImage.png'} /* Replace when feature is ready */
+            alt="GenAI UseCases Directory Featured Image"
+            className={styles.genAIUseCasesDirectoryContainer__featuredImage}
+          />
+        </div>
+        <div className={styles.genAIUseCasesDirectoryContainer__ctaContainer}>
+          <CTAButton
+            title="Explore"
+            className={styles.genAIUseCasesDirectoryContainer__ctaButton}
+            onClick={() => redirectTo('/genai-use-cases-directory')}
+          />
+        </div>
+      </div>
+
+      <div className={styles.promptsDirectoryContainer}>
+        <h3 className={styles.promptsDirectoryContainer__headline}>
+          Prompts Directory
+        </h3>
+        <div className={styles.promptsDirectoryContainer__showcaseContainer}>
+          <p className={styles.promptsDirectoryContainer__description}>
+            Discover 100+ Best Prompts across 15+ industries
+          </p>
+          <Image
+            width={200}
+            height={200}
+            src={'/placeholderImage.png'}
+            // src={'/promptsDirectoryFeaturedImage.png'} /* Replace when feature is ready */
+            alt="Prompts Directory Featured Image"
+            className={styles.promptsDirectoryContainer__featuredImage}
+          />
+        </div>
+        <div className={styles.promptsDirectoryContainer__ctaContainer}>
+          <CTAButton
+            title="Explore"
+            className={styles.promptsDirectoryContainer__ctaButton}
+            onClick={() => redirectTo('/prompts-directory')}
+          />
+        </div>
       </div>
     </div>
   );
