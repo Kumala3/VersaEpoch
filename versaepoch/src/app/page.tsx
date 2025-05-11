@@ -18,14 +18,14 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <div className={styles.heroSection}>
-        <h2 className={styles.heroHeading}>
+        <h2 className={styles.heroSection__heading}>
           Dive into exploring the evolution of{' '}
-          <div className={styles.animatedText}>
-            <span className={styles.boldText}>ChatGPT</span>
+          <div className={styles.heroSection__animatedText}>
+            <span className={styles.heroSection__boldText}>ChatGPT</span>
             ↓
-            <span className={styles.boldText}>Claude</span>
+            <span className={styles.heroSection__boldText}>Claude</span>
             ↓
-            <span className={styles.boldText}>Gemini</span>
+            <span className={styles.heroSection__boldText}>Gemini</span>
           </div>
         </h2>
         {/* CTA Button */}
@@ -45,16 +45,16 @@ export default function Home() {
               aria-label="Close">
               <CloseIcon />
             </button>
-            <div className={styles.headingText}>
-              <h4 className={styles.chatbotModalTitle}>
+            <div className={styles.chatbotExploreModalContainer__textContainer}>
+              <h4 className={styles.chatbotExploreModalContainer__title}>
                 Choose Chatbot&#39;s Evolution you would like to explore:
               </h4>
-              <h5 className={styles.chatbotModalSubtitle}>
+              <h5 className={styles.chatbotExploreModalContainer__subtitle}>
                 Only 0.01% know their evolution & thrive in the AI Era.
               </h5>
-              <h2 className={styles.prominentText}>Be 0.01%</h2>
+              <h2 className={styles.chatbotExploreModalContainer__prominentText}>Be 0.01%</h2>
             </div>
-            <div className={styles.chatbotExploreGrid}>
+            <div className={styles.chatbotExploreModalContainer__grid}>
               <ChatbotContainer
                 title="ChatGPT"
                 description="ChatGPT is the most popular chatbot used by over 500+ million
@@ -77,7 +77,9 @@ export default function Home() {
       )}
 
       {/* ChatGPT Timeline with main features overview Section */}
-      <div className={styles.timelineOverviewContainer}></div>
+      <div className={styles.timelineOverviewContainer}>
+
+      </div>
 
       {/* Chatbots Timeline Grid 3x1 */}
       <div className={styles.chatbotTimelinesContainer}></div>
