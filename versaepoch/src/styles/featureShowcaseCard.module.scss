@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  padding: var(--padding-md);
+  gap: .5rem;
+}
+
+.bg_bisque {
+  background-color: bisque;
+}
+
+.bg_greenyellow {
+  background-color: greenyellow;
+}
+
+.title {
+  color: black;
+  font-weight: var(--font-weight-semi-bold);
+  font-size: var(--font-size-h5);
+}
+
+.description {
+  display: flex;
+  width: 100%;
+  font-size: var(--font-size-body-1);
+}
+
+.mainImage {
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+  box-shadow: 0 0px 10px 1px rgba(0,0,0.5);
+}
