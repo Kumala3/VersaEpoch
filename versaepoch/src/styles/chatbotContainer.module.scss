@@ -1,0 +1,77 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  border-radius: var(--border-radius-sm);
+  transition: all 300ms ease;
+}
+
+.container:hover {
+  transform: scale(1.02);
+  transition: all 300ms ease;
+  box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.5);
+}
+
+.featuredImage {
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: var(--border-radius-sm);
+  border-top-right-radius: var(--border-radius-sm);
+  object-fit: cover;
+}
+
+.title {
+  display: flex;
+  font-weight: var(--font-weight-semi-bold);
+  font-size: var(--font-size-h5);
+  width: 100%;
+  justify-content: center;
+}
+
+.description {
+  font-weight: var(--font-weight-reg);
+  font-size: var(--font-size-body-1);
+  width: 100%;
+  padding-left: var(--padding-sm);
+  padding-right: var(--padding-sm);
+}
+
+.buttonContainer {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .container {
+    cursor: default;
+  }
+
+  .buttonContainer {
+    display: flex;
+    padding: var(--padding-sm);
+  }
+
+  .exploreButton {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: var(--font-size-h6);
+    justify-content: space-between;
+    font-weight: var(--font-weight-semi-bold);
+    background-color: white;
+    border-radius: var(--border-radius-sm);
+    border-width: 2px;
+    border-color: black;
+    padding-right: var(--padding-sm);
+    padding-left: var(--padding-sm);
+    cursor: pointer;
+  }
+
+  .buttonIcon {
+    width: 50px;
+    height: 100%;
+  }
+}
