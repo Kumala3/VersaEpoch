@@ -1,0 +1,61 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  gap: 2rem;
+}
+
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 70vh;
+  background-image: url('/heroBGImage-Timelines.jpg');
+  background-repeat: no-repeat;
+  object-fit: auto;
+  background-position: center;
+  padding-top: var(--padding-md);
+  border-radius: var(--border-radius-md);
+
+  &__headline {
+    display: flex;
+    width: 100%;
+    color: white;
+    justify-content: center;
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+.chatbotsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+  background-color: azure;
+  border-radius: var(--border-radius-md);
+  padding: var(--padding-md);
+  justify-content: center;
+
+  &__headline {
+    display: flex;
+    justify-content: center;
+    font-size: var(--font-size-h4);
+    font-weight: var(--font-weight-bold);
+  }
+
+  &__grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    grid-template-rows: auto auto;
+    background-color: rgb(205, 205, 205);
+    padding: var(--padding-md);
+    border-radius: var(--border-radius-md);
+  }
+}
