@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  gap: 1rem;
+  background-color: wheat;
+  white-space: nowrap;
+  border-radius: var(--border-radius-sm);
+  justify-content: center;
+  align-items: center;
+}
+
+.timelineWrapper {
+  display: flex;
+  position: relative;
+  width: fit-content;
+  height: auto;
+  min-height: 30rem;
+  transition: all 1s;
+  overflow-x: scroll;
+  scroll-snap-type: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardWrapper {
+  position: relative;
+  display: inline-block;
+  width: 350px;
+  height: 10px;
+  background-color: green;
+  scroll-snap-align: start;
+}
+
+.timelineCard {
+  position: relative;
+  left: calc(50% + 16px);
+  padding: 1rem;
+  width: 350px;
+  height: 150px;
+  border-radius: 0 10px 10px 10px;
+}
+
+/* Timeline Point */
+.cardWrapper:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 16px);
+  bottom: 0;
+  width: 24px;
+  height: 24px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: red;
+  z-index: 1;
+  margin-right: -24px;
+}
+
+.cardWrapper:last-child {
+  width: 800px;
+  background-color: aqua;
+}
+
+/* Card Tail */
+.timelineCard::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-width: 16px 16px 0 0;
+  border-color: var(--white) transparent transparent transparent;
+}
+
+/* Cards Above Timeline */
+.cardWrapper:nth-child(odd) .timelineCard {
+  top: -28px;
+  transform: translateY(-100%);
+  border-radius: 10px 10px 10px 0;
+}
+
+.cardWrapper:nth-child(even) .timelineCard {
+  top: calc(100% + 28px);
+}
+
+.cardWrapper:nth-child(even) ::before {
+  top: -10px;
+  border-width: 16px 0px 0px 16px;
+  border-color: transparent transparent transparent var(--white);
+}
