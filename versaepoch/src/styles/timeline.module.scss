@@ -8,41 +8,51 @@
   white-space: nowrap;
   border-radius: var(--border-radius-sm);
   justify-content: center;
+  overflow: visible;
   align-items: center;
+  padding: 2rem 1rem;
 }
 
 .timelineWrapper {
   display: flex;
   position: relative;
   width: fit-content;
+  min-width: 100%;
   height: auto;
-  min-height: 30rem;
+  min-height: 600px;
   transition: all 1s;
-  overflow-x: scroll;
-  scroll-snap-type: none;
-  justify-content: center;
+  overflow-x: auto;
+  overflow-y: visible;
   align-items: center;
+  scroll-behavior: smooth;
+  white-space: nowrap;
 }
 
 .cardWrapper {
   position: relative;
   display: inline-block;
-  width: 350px;
+  width: 450px;
   height: 10px;
-  background-color: green;
+  background-color: rgb(211, 211, 211);
+  // box-shadow: 0 0 5px 1px rgba(0,0,0.15);
   scroll-snap-align: start;
+}
+
+.cardWrapper:first-child {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
 }
 
 .timelineCard {
   position: relative;
   left: calc(50% + 16px);
   padding: 1rem;
-  width: 350px;
-  height: 150px;
+  width: 400px;
+  height: 200px;
   border-radius: 0 10px 10px 10px;
 }
 
-/* Timeline Point */
+/* Timeline Point Except for Last Component */
 .cardWrapper:not(:last-child)::after {
   content: '';
   position: absolute;
@@ -53,27 +63,30 @@
   height: 24px;
   transform: translateY(-50%);
   border-radius: 50%;
-  background: red;
+  background: rgb(0, 183, 167);
   z-index: 1;
   margin-right: -24px;
 }
 
-.cardWrapper:last-child {
-  width: 800px;
-  background-color: aqua;
+.timelineTail {
+  width: 300px !important;
+  flex-shrink: 0;
+  background-color: rgb(211, 211, 211);
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
 }
 
-/* Card Tail */
-.timelineCard::before {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-width: 16px 16px 0 0;
-  border-color: var(--white) transparent transparent transparent;
-}
+// /* Card Tail */
+// .timelineCard::before {
+//   content: '';
+//   position: absolute;
+//   top: 100%;
+//   left: 0;
+//   width: 0;
+//   height: 0;
+//   border-width: 16px 16px 0 0;
+//   border-color: var(--white) transparent transparent transparent;
+// }
 
 /* Cards Above Timeline */
 .cardWrapper:nth-child(odd) .timelineCard {
@@ -84,6 +97,7 @@
 
 .cardWrapper:nth-child(even) .timelineCard {
   top: calc(100% + 28px);
+  border-radius: 0 10px 10px 10px;
 }
 
 .cardWrapper:nth-child(even) ::before {

@@ -8,94 +8,54 @@ import {
   ToolIcon,
 } from '@/components/ui/ContentIcons';
 import { GlobalIcon } from '@/components/ui/UIIcons';
-import { useState } from 'react';
-import { CloseIcon } from '@/components/ui/CloseIcon';
-import Link from 'next/link';
 
 interface TimelineCardProps {
   title: string;
-  description: string;
+  short_description: string;
   date: string;
   impact: 'tiny' | 'small' | 'medium' | 'big';
   type: 'model' | 'update' | 'milestone' | 'feature' | 'tool';
   className: string;
+  onClick: () => void;
 }
 
 export function TimelineCard({
   title,
-  description,
+  short_description,
   date,
-  impact,
   type,
   className,
+  onClick,
 }: TimelineCardProps) {
-  const [isCardOpened, setIsCardOpened] = useState<boolean>(false);
-
-  const CardIcon = (type: string) => {
+  const CardIcon = (type: string, className: string) => {
     switch (type) {
       case 'model':
-        return <ModelIcon />;
+        return <ModelIcon className={className} />;
       case 'tool':
-        return <ToolIcon />;
+        return <ToolIcon className={className} />;
       case 'update':
-        return <UpdateIcon />;
+        return <UpdateIcon className={className} />;
       case 'milestone':
-        return <MilestoneIcon />;
+        return <MilestoneIcon className={className} />;
       case 'feature':
-        return <FeatureIcon />;
+        return <FeatureIcon className={className} />;
       default:
-        return <GlobalIcon />;
+        return <GlobalIcon className={className} />;
     }
   };
 
-  const openCard = () => {
-    console.log(`Card is opened!`);
-    setIsCardOpened(true);
-  };
-
-  const closeCard = () => {
-    setIsCardOpened(false);
-  };
-
   return (
-    <div className={`${styles.container} ${className}`} onClick={() => openCard()}>
+    <div className={`${styles.container} ${className}`} onClick={onClick}>
       <div className={styles.topLayout}>
-        <div>{CardIcon(type)}</div>
-        <h5 className={styles.headline}>{title}</h5>
+        {CardIcon(type, styles.iconType)}
+        <h6 className={styles.headline}>{title}</h6>
       </div>
-      <p className={styles.description}>{description}</p>
-
-      {isCardOpened && (
-        <div className={styles.modalBackdrop}>
-          <div className={styles.modalContainer}>
-            <button
-              onClick={() => closeCard()}
-              className={styles.modalContainer__closeButton}
-              aria-label="Close">
-              <CloseIcon />
-            </button>
-            <div className={styles.modalContainer__topLayout}>
-              <div className={styles.modalContainer__icon}>
-                {CardIcon(type)}
-              </div>
-              <h4 className={styles.modalContainer__headline}>{title}</h4>
-            </div>
-            <div className={styles.modalContainer__metadata}>
-              <span className={styles.modalContainer__date}>Date: {date}</span>
-              <span className={styles.modalContainer__impact}>
-                Impact: {impact}
-              </span>
-            </div>
-            <p className={styles.modalBackdrop__description}>{description}</p>
-            {/* TODO: Think about what ID/name use to fetch data about specific model/feature/tool/update */}
-            <Link
-              href={`/chatgpt/${type}/`}
-              className={styles.modalContainer__viewFullButton}>
-              View Full Page
-            </Link>
-          </div>
-        </div>
-      )}
+      <div className={styles.contentContainer}>
+        <p className={styles.date}>
+          <strong>Date: </strong> {date}
+        </p>
+        <p className={styles.description}>{short_description}</p>
+      </div>
     </div>
   );
 }

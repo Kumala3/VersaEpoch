@@ -8,8 +8,39 @@
     padding-bottom: 2rem;
 }
 
-.timelineContainer {
-    display: flex;
+.headline {
+    color: var(--primary-color);
+    align-self: center;
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-bold);
+}
+
+.introductionText {
+    display: inline;
+    border-left-width: 4px;
+    border-color: rgb(0, 158, 186);
+    padding-left: 1rem;
+    line-height: 2rem;
     width: 100%;
-    gap: 1rem;
+    align-self: center;
+    max-width: 1000px;
+    font-size: var(--font-size-body-1);
+    font-weight: var(--font-weight-med);
+}
+
+.highlightedText {
+    color: #00a486;
+    font-weight: var(--font-weight-bold);
+}
+
+.highlightedText2 {
+    text-decoration: underline;
+    text-decoration-color: #00a486;
+    text-decoration-thickness: 2px;
+    text-decoration-style: dotted;
+}
+
+.introductionContainer {
+    font-size: var(--font-size-body-1);
+    font-weight: var(--font-weight-reg);
 }
