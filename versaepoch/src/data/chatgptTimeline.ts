@@ -17,6 +17,16 @@ export interface TimelineCardData {
   sources: Source[];
 }
 
+{
+  /* TODO: Figure out a way to use markdown to use bullet points, headings, etc. for full_description param*/
+  /* TODO: Use Cases Section for model card, should be optional */
+  /* TODO: Reference to other cards like "GPT-4.1 in ChatGPT" can have a reference to "GPT-4.1" model card release */
+}
+
+{
+  /* IMPORTANT: If there is no title in ChatGPT release note use this: "ChatGPT Release Notes" as a source title */
+}
+
 export const timelineCards: TimelineCardData[] = [
   {
     title: 'ChatGPT Release',
@@ -357,17 +367,344 @@ export const timelineCards: TimelineCardData[] = [
     ],
   },
   {
-    title: "Introducing GPT-4o mini",
-    short_description: "GPT-4o mini is the most capable and cost-efficient small model at a time. GPT-4o mini surpasses GPT-3.5 Turbo and other small models on academic benchmarks across both textual intelligence and multimodal reasoning and supports the same range of languages as GPT-4o",
-    full_description: "GPT‑4o mini enables a broad range of tasks with its low cost and latency, such as applications that chain or parallelize multiple model calls (e.g., calling multiple APIs), pass a large volume of context to the model (e.g., full code base or conversation history), or interact with customers through fast, real-time text responses (e.g., customer support chatbots). Today, GPT‑4o mini supports text and vision in the API, with support for text, image, video and audio inputs and outputs coming in the future. The model has a context window of 128K tokens, supports up to 16K output tokens per request, and has knowledge up to October 2023. Thanks to the improved tokenizer shared with GPT‑4o, handling non-English text is now even more cost effective.",
-    impact: "medium",
-    date: "July 18, 2024",
+    title: 'Introducing GPT-4o mini',
+    short_description:
+      'GPT-4o mini is the most capable and cost-efficient small model at a time. GPT-4o mini surpasses GPT-3.5 Turbo and other small models on academic benchmarks across both textual intelligence and multimodal reasoning and supports the same range of languages as GPT-4o',
+    full_description:
+      'GPT‑4o mini enables a broad range of tasks with its low cost and latency, such as applications that chain or parallelize multiple model calls (e.g., calling multiple APIs), pass a large volume of context to the model (e.g., full code base or conversation history), or interact with customers through fast, real-time text responses (e.g., customer support chatbots). Today, GPT‑4o mini supports text and vision in the API, with support for text, image, video and audio inputs and outputs coming in the future. The model has a context window of 128K tokens, supports up to 16K output tokens per request, and has knowledge up to October 2023. Thanks to the improved tokenizer shared with GPT‑4o, handling non-English text is now even more cost effective.',
+    impact: 'medium',
+    date: 'July 18, 2024',
     type: ['model'],
     sources: [
       {
-        title: "Introducing GPT-4o mini",
-        url: "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/",
+        title: 'Introducing GPT-4o mini',
+        url: 'https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/',
+      },
+    ],
+  },
+  {
+    title: 'ChatGPT Canvas',
+    short_description:
+      'Canvas feature provided a new interface to work with ChatGPT in a better way on writing & coding projects',
+    full_description:
+      'People use ChatGPT every day for help with writing and code. Although the chat interface is easy to use and works well for many tasks, it’s limited when you want to work on projects that require editing and revisions. Canvas offers a new interface for this kind of work. With canvas, ChatGPT can better understand the context of what you’re trying to accomplish. You can highlight specific sections to indicate exactly what you want ChatGPT to focus on. Like a copy editor or code reviewer, it can give inline feedback and suggestions with the entire project in mind.You control the project in canvas. You can directly edit text or code. There’s a menu of shortcuts for you to ask ChatGPT to adjust writing length, debug your code, and quickly perform other useful actions. You can also restore previous versions of your work by using the back button in canvas.Canvas opens automatically when ChatGPT detects a scenario in which it could be helpful. You can also include “use canvas” in your prompt to open canvas and use it to work on an existing project.Writing shortcuts include',
+    date: 'October 3, 2024',
+    type: ['feature'],
+    impact: 'medium',
+    sources: [
+      {
+        title: 'Introducing canvas',
+        url: 'https://openai.com/index/introducing-canvas/',
+      },
+    ],
+  },
+  {
+    title: 'Advanced Voice Mode',
+    short_description:
+      'Advanced Voice Mode (AVM) enables having real-time, natural conversations with ChatGPT while doing tasks like shopping, planning, writing, and brainstorming.',
+    full_description:
+      'Starting today, we’re beginning to roll out Advanced Voice Mode on web (already available on mobile and desktop apps). You can now start a voice chat on chatgpt.com on your desktop and have real-time, natural conversations with ChatGPT while doing tasks like shopping, planning, writing, and brainstorming.',
+    impact: 'medium',
+    date: 'November 19, 2024',
+    type: ['feature', 'update'],
+    sources: [
+      {
+        title: 'Advanced Voice for ChatGPT Web',
+        url: 'https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_772c9094ce',
+      },
+    ],
+  },
+  {
+    title: 'Updates to the ChatGPT Web experience',
+    short_description:
+      'OpenAI announced a bunch of very useful updates to UI interface to make it more intuitive & improve the immersive experience when using ChatGPT',
+    full_description: 'Sidebar redesign',
+    impact: 'small',
+    date: 'November 22, 2024',
+    type: ['update'],
+    sources: [
+      {
+        title: 'Updates to the ChatGPT Web experience',
+        url: 'https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_4082a8d7d4',
+      },
+    ],
+  },
+  {
+    title: 'Video & Screen Share in Advanced Voice Mode + Santa Voice',
+    short_description:
+      'Real-time video, screen share, and image upload capabilities are now available in Advanced Voice Mode (AVM). Santa Voice is available until early January with a holiday spirit!',
+    full_description:
+      'OpenAI introduced new Santa Voice, Real-Time Video & screen share to AVM (Advanced Voice Mode) on Day 6 of 12 days of OpenAI stream series. Real-Time Video allows ChatGPT to see everything around and help you with various tasks from translation to simple navigation. Screenshare can do pretty the same stuff but it sees what is going on your phone instead.',
+    date: 'December 12, 2024',
+    type: ['feature', 'update'],
+    impact: 'small',
+    sources: [
+      {
+        title: 'Santa Voice and Video and Screen Share in Voice Chats',
+        url: 'https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_97cfc3cc7b',
+      },
+    ],
+  },
+  {
+    title: "Projects in ChaGPT",
+    short_description: "Projects lets you organize your chats, custom instructions, and files together into customizable folders to keep things tidy.",
+    full_description: "Projects serve as an all-in-one hub. Instead of using multiple apps, you can integrate ChatGPT’s various capabilities—like Canvas for editing text and code, voice mode for real-time audio interaction, or web search for up-to-date info all in a single organized environment. Professionals & Project Managers create projects to keep everything project related organized in one place. Writers & Content Creators can hold research notes, character sketches and other content organized in a single folder. Students & Researchers can create projects for specific subjects, projects + add custom instructions for each project, which ultimately results in productivity boost.",
+    type: ['feature'],
+    impact: 'medium',
+    date: "December 13, 2024",
+    sources: [
+      {
+        title: "Projects in ChatGPT",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_d673004b21",
+      },
+      {
+        title: "How To Use Projects in ChatGPT?",
+        url: "https://learnprompting.org/blog/how-to-use-openai-chatgpt-projects",
       }
-    ]  
+    ]
+  },
+  {
+    title: "Scheduled tasks in ChatGPT",
+    short_description: "ChatGPT Tasks is a new feature that allows you to automate actions by scheduling them right in the ChatGPT",
+    full_description: "This capability enables ChatGPT to remember our instructions and perform tasks even when we're not online. There are numerous use cases for ChatGPT's scheduled tasks. For instance, we can set up a daily task to receive AI news briefings. If we’re learning a new language, ChatGPT can help us practice daily through scheduled chat sessions.",
+    type: ['feature'],
+    impact: 'small',
+    date: "January 14, 2024",
+    sources: [
+      {
+        title: "Scheduled tasks in ChatGPT",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_c16236d0f4",
+      },
+      {
+        title: "ChatGPT Tasks",
+        url: "https://www.datacamp.com/tutorial/chatgpt-tasks",
+      }
+    ]
+  },
+  {
+    title: "New Updates to Canvas",
+    short_description: "Edit a full model response in Canvas + edit block code in Canvas.",
+    full_description: "This update is available exclusively on the web version with Desktop & Mobile devices not being included in this release",
+    type: ['update'],
+    impact: 'tiny',
+    date: "January 15, 2025",
+    sources: [
+      {
+        title: "New Updates for Canvas",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_710fb9ad37",
+      },
+      {
+        title: "New Updates for Canvas",
+        url: "https://community.openai.com/t/new-updates-for-canvas-on-chatgpt/1092965",
+      }
+    ]
+  },
+  {
+    title: "Improvements to ChatGPT Customization",
+    short_description: "Update to Custom Instructions to make ChatGPT customization easier by specyfiyng to traits, style and any other rules",
+    full_description: "We've updated custom instructions to make it easier to customize how ChatGPT responds to you. With the new UI, you can tell ChatGPT the traits you want it to have, how you want it to talk to you, and any rules you want it to follow.If you're already using custom instructions, this won't change your current settings.The new UI is rolling out now on http://chatgpt.com and desktop on Windows, and is coming to mobile and desktop on MacOS in the next few weeks. Available soon to ChatGPT users in the EU, Norway, Iceland, Liechtenstein, and Switzerland.",
+    type: ['update'],
+    date: "January 17, 2025",
+    impact: "small",
+    sources: [
+      {
+        title: "More personalization in Custom Instructions",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_407213a48f",
+      }
+    ]
+  },
+  {
+    title: "Canvas Sharing",
+    short_description: "You can now share a Canvas as a HTML/REACT code, document, or code.",
+    full_description: "Users can now share a Canvas asset such as rendered React/HTML code, document, or code with another user, similar to how you share a conversation. You can do this from the Canvas toolbar when Canvas is open.",
+    type: ['update'],
+    date: "February 6, 2025",
+    impact: "small",
+    sources: [
+      {
+        title: "Canvas Sharing",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_54c46b74c5",
+      }
+    ]
+  },
+  {
+    title: "GPT-4.5 Release",
+    short_description: "OpenAI's largest model exceling in writing, brainstorming, solving practical problems with less hallucinations.",
+    full_description: "GPT-4.5 is trained for human collaboration combining deep understanding of the world that makes conversations more naturally warm and intuitive. shows stronger aesthetic intuition and creativity. It excels at helping with writing and design.",
+    type: ['model'],
+    date: "February 27, 2025",
+    impact: "medium",
+    sources: [
+      {
+        title: "Introducing GPT-4.5",
+        url: "https://openai.com/index/introducing-gpt-4-5/",
+      }
+    ]
+  },
+  {
+    title: "ChatGPT Image Library",
+    short_description: "A new library that organizes your images allowing you to browser, revisit and reuse your work without digging through past conversations",
+    full_description: "All images you create with ChatGPT are now automatically saved to a new Library in the sidebar, giving you one place to browse, revisit, and reuse your work without digging through past conversations. The Library is rolling out today on Web, iOS, and Android for Free, Plus, and Pro users (Enterprise / Edu support coming soon). For now, it displays images generated with 4o Image Generation while we backfill older creations, and you can remove an image by deleting the conversation where it was made.",
+    type: ['feature'],
+    date: "April 15, 2025",
+    impact: "small",
+    sources: [
+      {
+        title: "ChatGPT Image Library",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_707801a904",
+      }
+    ],
+  },
+  {
+    title: "GPT-4 Retirement",
+    short_description: "Starting April 30, 2025, GPT-4 will retire from ChatGPT and be fully replaced by GPT-4o. Newer, smarter, faster multimodal GPT-4o takes its place.",
+    full_description: "GPT‑4 marked a pivotal moment in ChatGPT’s evolution with GPT‑4o being built on that foundation to deliver even greater capability, consistency, and creativity. Recent upgrades have further improved GPT‑4o’s instruction following, problem solving, and conversational flow, making it a natural successor to GPT‑4. Note: GPT-4 will still be available in the API.",
+    type: ['update'],
+    impact: 'tiny',
+    date: "April 10, 2025",
+    sources: [
+      {
+        title: "Sunsetting GPT‑4 in ChatGPT",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_cbb2e4f019",
+      }
+    ]
+  },
+  {
+    title: "GPT-4o Significant Improvements",
+    short_description: "GPT-4o now feels more intuitive, creative, and collaborative with enhanced insturction-following, smarter coding capabilities and clearer communication style",
+    full_description: "Smarter problem-solving in STEM and coding:GPT-4o has further improved its capability to tackle complex technical and coding problems. It now generates cleaner, simpler frontend code, more accurately thinks through existing code to identify necessary changes, and consistently produces coding outputs that successfully compile and run, streamlining your coding workflows. Enhanced instruction-following and formatting accuracy: GPT-4o is now more adept at following detailed instructions, especially for prompts containing multiple or complex requests. It improves on generating outputs according to the format requested and achieves higher accuracy in classification tasks.",
+    type: ['model', 'update'],
+    date: "March 27, 2025",
+    impact: 'tiny',
+    sources: [
+      {
+        title: "GPT-4o Updates",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_10dcfa2a17",
+      }
+    ]
+  },
+  {
+    title: "o3 & o4-mini Release",
+    short_description: "The release of the smartest reasoning models in ChatGPT setting a new standard in both intelligence & usefullnes",
+    full_description: "Today, we’re releasing OpenAI o3 and o4-mini, the latest in our o-series of models trained to think for longer before responding. These are the smartest models we’ve released to date, representing a step change in ChatGPT's capabilities for everyone from curious users to advanced researchers. For the first time, our reasoning models can agentically use and combine every tool within ChatGPT—this includes searching the web, analyzing uploaded files and other data with Python, reasoning deeply about visual inputs, and even generating images. Critically, these models are trained to reason about when and how to use tools to produce detailed and thoughtful answers in the right output formats, typically in under a minute, to solve more complex problems. This allows them to tackle multi-faceted questions more effectively, a step toward a more agentic ChatGPT that can independently execute tasks on your behalf. The combined power of state-of-the-art reasoning with full tool access translates into significantly stronger performance across academic benchmarks and real-world tasks, setting a new standard in both intelligence and usefulness. Memory with Search: ChatGPT can also use memories to inform search queries when ChatGPT searches the web using third-party search providers.",
+    type: ['model', 'announcement'],
+    impact: 'big',
+    date: "April 16, 2025",
+    sources: [
+      {
+        title: "Introducing OpenAI o3 and o4-mini",
+        url: "https://openai.com/index/introducing-o3-and-o4-mini/",
+      },
+      {
+        title: "o3 and o4-mini in ChatGPT",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_40089b1bfc",
+      }
+    ]
+  },
+  {
+    title: "GPT-4o Improvements",
+    short_description: "Improvements aim to improve the model’s default personality to make it feel more intuitive and effective across a variety of tasks.",
+    full_description: "We’re making additional improvements to GPT-4o, optimizing when it saves memories and enhancing problem-solving capabilities for STEM. We’ve also made subtle changes to the way it responds, making it more proactive and better at guiding conversations toward productive outcomes.",
+    date: "April 29, 2025",
+    impact: "tiny",
+    type: ['update'],
+    sources: [
+      {
+        title: "Improvements to GPT-4o",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_c03c420095",
+      }
+    ]
+  },
+  {
+    title: "Fixes of GPT-4o Sycophancy",
+    short_description: "OpenAI reverted the most recent update of GPT-4o due to issues with overly agreeable responses called sycophancy",
+    full_description: "In last week’s GPT‑4o update, we made adjustments aimed at improving the model’s default personality to make it feel more intuitive and effective across a variety of tasks.When shaping model behavior, we start with baseline principles and instructions outlined in our Model Spec⁠(opens in a new window). We also teach our models how to apply these principles by incorporating user signals like thumbs-up / thumbs-down feedback on ChatGPT responses.However, in this update, we focused too much on short-term feedback, and did not fully account for how users’ interactions with ChatGPT evolve over time. As a result, GPT‑4o skewed towards responses that were overly supportive but disingenuous.",
+    type: ['update'],
+    impact: 'small',
+    date: "April 29, 2025",
+    sources: [
+      {
+        title: "Sycophancy in GPT-4o",
+        url: "https://openai.com/index/sycophancy-in-gpt-4o/",
+      },
+      {
+        title: "Updates to GPT-4o",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_8497c8b1d4",
+      }
+    ]
+  },
+  {
+    title: "Mobile UI Changes",
+    short_description: "A row of individual tool icons from the mobile composer was replaced with a consolidated icon to reduce on-screen clutter",
+    full_description: "We've removed the row of individual tool icons from the mobile composer and replaces it with the new sliders‑style icon to open the Skills menu; tapping that button opens a bottom‑sheet menu where users can choose tools like Create an image or Search the web.  No tools are deprecated—access is simply consolidated to clear space and reduce on‑screen clutter.",
+    date: "May 6, 2025",
+    impact: "tiny",
+    type: ['update'],
+    sources: [
+      {
+        title: "Mobile UI (iOS/Android) changing on Free/Plus/Pro plans",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_acfe64e63a",
+      }
+    ]
+  },
+  {
+    title: "GitHub + DeepResearch, Enhanced Memory and more!",
+    short_description: "DeepResearch now integrates with GitHub to deep research and ask questions of a codebase",
+    full_description: "GitHub + DeepResearch: ChatGPT deep research with GitHub is available globally to Team users. It is also gradually rolling out to Plus and Pro users, except for those in the EEA, Switzerland, and the UK. Enterprise user access will be announced at a later date. Enhanced Memory in ChatGPT: Enhanced memory rolling out to all Plus and Pro users (including the EU). The new memory features are available in the EEA (EU + UK), Switzerland, Norway, Iceland, or Liechtenstein. These features are OFF by default and must be enabled in  Settings > Personalization > Reference  Chat  History. Opt‑in reminders: • Outside the European regions listed above, all Plus and Pro accounts that have memory enabled will receive the upgrade automatically.• If you previously opted out of memory, ChatGPT will not reference past conversations unless you opt back in.",
+    type: ['feature', 'update'],
+    impact: "medium",
+    date: "May 8, 2025",
+    sources: [
+      {
+        title: "ChatGPT Release Notes",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_2a285b2c97"
+      }
+    ]
+  },
+  {
+    title: "Export DeepResearch as PDF + Sharepoint & OneDrive Integrations",
+    short_description: "You can now export Deep Research reports as well-formatted PDFs - complete with tables, images citations, and sources. ChatGPT DeepResearch is now integrates with SharePoint & Onedrive.",
+    full_description: "ChatGPT deep research with Sharepoint and OneDrive is available globally to Team users. It is also gradually rolling out to Plus and Pro users, except for those in the EEA, Switzerland, and the UK. Enterprise user access will be announced at a later date. See: Connecting SharePoint and Microsoft OneDrive to ChatGPT deep research Export Deep Research as PDF for Plus/Pro/TeamYou can now export your deep research reports as well-formatted PDFs—complete with tables, images, linked citations, and sources. To use, click the share icon and select 'Download as PDF.' It works for both new and past reports.",
+    type: ['feature', 'update'],
+    impact: "small",
+    date: "May 12, 2025",
+    sources: [
+      {
+        title: "ChatGPT Release Notes",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_95bc392649"
+      },
+      {
+        title: "Connecting SharePoint and Microsoft OneDrive to ChatGPT deep research",
+        url: "https://help.openai.com/en/articles/11367239-connect-apps-to-chatgpt-deep-research",
+      }
+    ]
+  },
+  {
+    title: "GPT-4.1 in ChatGPT & GPT-4o-mini retirement",
+    short_description: "GPT-4.1 is now available in ChatGPT in request for demand. Compared to GPT-4o, it's even stronger at precise instruction following and web development tasks offering an alternative to OpenAI o3 and o4-mini for simpler, everyday coding needs. GPT-4o-mini gets replaced by GPT-4.1",
+    full_description: "Since its launch in the API in April, GPT-4.1 has become a favorite among developers—by popular demand, we’re making it available directly in ChatGPT.  GPT-4.1 is a specialized model that excels at coding tasks. Compared to GPT-4o, it's even stronger at precise instruction following and web development tasks, and offers an alternative to OpenAI o3 and OpenAI o4-mini for simpler, everyday coding needs. Starting today, Plus, Pro, and Team users can access GPT-4.1 via the more models dropdown in the model picker. Enterprise and Edu users will get access in the coming weeks. GPT-4.1 has the same rate limits as GPT-4o for paid users.  Introducing GPT-4.1 mini, replacing GPT-4o mini, in ChatGPT for all usersGPT-4.1 mini is a fast, capable, and efficient small model, delivering significant improvements compared to GPT-4o mini—in instruction-following, coding, and overall intelligence. Starting today, GPT-4.1 mini replaces GPT-4o mini in the model picker under more models for paid users, and will serve as the fallback model for free users once they reach their GPT-4o usage limits. Rate limits remain the same. Evals for GPT-4.1 and GPT-4.1 mini were originally shared in the blog post accompanying their API release. They also went through standard safety evaluations. Detailed results are available in the newly launched Safety Evaluations Hub.",
+    type: ['update'],
+    impact: "medium",
+    date: "May 14, 2025",
+    sources: [
+      {
+        title: "ChatGPT Release Notes",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_ddb7704ab0",
+      }
+    ]
+  },
+  {
+    title: "Dropbox Integration with DeepResearch",
+    short_description: "You can now connect Dropbox to use with DeepResearch making comprehensive reports with your data",
+    full_description: "ChatGPT deep research with Dropbox is available globally to Team users. It is also gradually rolling out to Plus and Pro users, except for those in the EEA, Switzerland, and the UK. Enterprise user access will be announced at a later date.",
+    date: "May 15, 2025",
+    type: ['update'],
+    impact: 'tiny',
+    sources: [
+      {
+        title: "ChatGPT Release Notes",
+        url: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes#h_ddb7704ab0",
+      }
+    ]
   }
 ];
