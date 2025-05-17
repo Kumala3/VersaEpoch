@@ -5,11 +5,13 @@ import {
   UpdateIcon,
   FeatureIcon,
   MilestoneIcon,
-  ToolIcon,
-} from '@/components/ui/ContentIcons';
+  AnnouncementIcon,
+  CompanyIcon,
+  ResearchIcon,
+} from '@/components/ui/TimelineCardsIcons';
 import { CloseIcon } from '@/components/ui/CloseIcon';
 import { GlobalIcon } from '@/components/ui/UIIcons';
-import { TimelineCardData } from './Timeline';
+import { TimelineCardData, NonEmptyCardTypeArray } from "@/data/chatgptTimeline";
 import { SourceElem } from './SourceElem';
 
 interface TimelineCardModalProps {
@@ -21,26 +23,33 @@ export function TimelineCardModal({
   cardData,
   onClose,
 }: TimelineCardModalProps) {
-  const CardIcon = (type: string) => {
-    switch (type) {
-      case 'model':
-        return <ModelIcon />;
-      case 'tool':
-        return <ToolIcon />;
-      case 'update':
-        return <UpdateIcon />;
-      case 'milestone':
-        return <MilestoneIcon />;
-      case 'feature':
-        return <FeatureIcon />;
-      default:
-        return <GlobalIcon />;
-    }
+  const CardIcon = (type: NonEmptyCardTypeArray, className: string) => {
+      switch (cardData.type[0]) {
+        case 'model':
+          return <ModelIcon className={className} />;
+        case 'announcement':
+          return <AnnouncementIcon className={className} />;
+        case 'update':
+          return <UpdateIcon className={className} />;
+        case 'milestone':
+          return <MilestoneIcon className={className} />;
+        case 'feature':
+          return <FeatureIcon className={className} />;
+        case 'product':
+          return <FeatureIcon className={className} />;
+        case 'company':
+          return <CompanyIcon className={className} />;
+        case 'research':
+          return <ResearchIcon className={className} />;
+        default:
+          return <GlobalIcon className={className} />;
+      }
   };
 
   return (
     <div className={styles.modalBackdrop}>
       <div className={styles.modalContainer}>
+        {/* TODO: Add top image pulled from OpenAI (ask deep research if I can do that) */}
         <div className={styles.modalContainer__mainContent}>
           <div className={styles.modalContainer__topBar}>
             <button
@@ -53,7 +62,7 @@ export function TimelineCardModal({
 
           <div className={styles.modalContainer__topLayout}>
             <div className={styles.modalContainer__icon}>
-              {CardIcon(cardData.type)}
+              {CardIcon(cardData.type, styles.iconType)}
             </div>
             <h4 className={styles.modalContainer__headline}>
               {cardData.title}

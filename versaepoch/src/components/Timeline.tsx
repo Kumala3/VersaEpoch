@@ -24,7 +24,7 @@ export function Timeline() {
         {timelineCards.map((card, index) => (
           <li key={index} className={styles.cardWrapper}>
             <TimelineCard
-              {...card}
+              data={card}
               className={styles.timelineCard}
               onClick={() => openCardModal(card)}
             />

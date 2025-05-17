@@ -14,7 +14,7 @@ type CardType =
   | 'company'
   ;
 
-type NonEmptyCardTypeArray = [CardType, ...CardType[]];
+export type NonEmptyCardTypeArray = [CardType, ...CardType[]];
 
 export interface TimelineCardData {
   title: string;
