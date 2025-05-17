@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background-color: white;
+  border-width: 2px;
+  border-color: black;
+  border-radius: var(--border-radius-sm);
+  padding: var(--padding-sm);
+  cursor: pointer;
+}
+
+.topLayout {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 48px;
+  align-items: center;
+  gap: .5rem;
+}
+
+.iconType {
+  width: fit-content;
+  height: 40px;
+}
+
+.headline {
+  font-size: var(--font-size-h6);
+  font-weight: var(--font-weight-med);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.date {
+  display: flex;
+  flex-direction: row;
+  gap: .5rem;
+}
+
+.description {
+  white-space: wrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  height: fit-content;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

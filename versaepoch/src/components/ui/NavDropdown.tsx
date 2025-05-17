@@ -10,15 +10,19 @@ interface NavDropdownElement {
 
 interface NavDropdownProps {
   title: string;
+  link: string;
   elements: NavDropdownElement[];
 }
 
-export function NavDropdown({ title, elements }: NavDropdownProps) {
+export function NavDropdown({ title, link, elements }: NavDropdownProps) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
+  console.log(`Received href in NavDropdown comp: ${link}`);
+
   return (
-    <div
+    <Link
       className={styles.container}
+      href={`${link}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
       {title}
@@ -36,6 +40,6 @@ export function NavDropdown({ title, elements }: NavDropdownProps) {
           ))}
         </div>
       )}
-    </div>
+    </Link>
   );
 }

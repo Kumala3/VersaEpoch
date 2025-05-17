@@ -1,0 +1,136 @@
+.modalBackdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9;
+}
+
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 500px;
+  height: 100%;
+  overflow-y: auto;
+  width: 90%;
+  height: 100%;
+  justify-content: space-between;
+  max-width: 900px;
+  border-width: 2px;
+  border-color: black;
+  background-color: white;
+  padding: var(--padding-md);
+  border-radius: var(--border-radius-sm);
+  z-index: 10;
+
+  &__mainContent {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    gap: 1rem;
+    padding-bottom: 2rem;
+  }
+
+  &__topLayout {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: fit-content;
+    height: fit-content;
+  }
+
+  &__icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  &__topBar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: end;
+  }
+
+  &__headline {
+    font-size: var(--font-size-h4);
+    font-weight: var(--font-weight-bold);
+  }
+
+}
+
+.viewFullButton {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: fit-content;
+  padding: var(--padding-md);
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: var(--border-radius-sm);
+}
+
+.sourcesList {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  width: 100%;
+  height: fit-content;
+
+  &__headline {
+    font-size: var(--font-size-h6);
+    font-weight: var(--font-weight-med);
+  }
+}
+
+.fullDescription {
+  display: flex;
+  border-width: 2px;
+  border-radius: var(--border-radius-sm);
+  padding: var(--padding-sm);
+  width: 100%;
+  white-space: wrap;
+  font-size: var(--font-size-body-1);
+  font-weight: var(--font-weight-reg);
+  height: 400px;
+  overflow-y: auto;  
+}
+
+.date {
+  display: flex;
+  flex-direction: row;
+  gap: .5rem;
+  font-size: var(--font-size-body-1);
+  font-weight: var(--font-weight-med);
+}
+
+.impact {
+  display: flex;
+  flex-direction: row;
+  gap: .5rem;
+  font-size: var(--font-size-body-1);
+  font-weight: var(--font-weight-med);
+}
+
+.metadata {
+  display: flex;
+  flex-direction: column;
+
+  &__headline {
+    font-size: var(--font-size-h6);
+    font-weight: var(--font-weight-med);
+  }
+}
+
+.closeButton {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
