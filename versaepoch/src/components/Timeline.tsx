@@ -4,6 +4,7 @@ import styles from '@/styles/timeline.module.scss';
 import { TimelineCard } from '@/components/TimelineCard';
 import { TimelineCardModal } from '@/components/TimelineCardModal';
 import { TimelineCardData, timelineCards } from '@/data/chatgptTimeline';
+import {TimelineNavigationPanel} from "@/components/TimelineNavigationPanel";
 
 export function Timeline() {
   const [selectedCard, setSelectedCard] = useState<TimelineCardData | null>(
@@ -37,6 +38,7 @@ export function Timeline() {
       {selectedCard && (
         <TimelineCardModal cardData={selectedCard} onClose={closeCardModal} />
       )}
+      <TimelineNavigationPanel />
     </div>
   );
 }

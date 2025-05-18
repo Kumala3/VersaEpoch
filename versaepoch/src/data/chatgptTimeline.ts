@@ -952,5 +952,5 @@ export const timelineCards: TimelineCardData[] = [
         url: 'https://openai.com/index/introducing-codex/',
       },
     ],
-  },
+  }
 ];

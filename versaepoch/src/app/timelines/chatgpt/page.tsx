@@ -1,5 +1,6 @@
 import styles from '@/styles/chatgptPageTimeline.module.scss';
 import { Timeline } from '@/components/Timeline';
+import { TimelineNavigationPanel } from '@/components/TimelineNavigationPanel';
 
 export default function ChatGPTPageTimeline() {
   return (

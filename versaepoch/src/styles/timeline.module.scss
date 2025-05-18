@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  flex-direction: column;
   position: relative;
   width: 100%;
   height: fit-content;
@@ -8,7 +9,6 @@
   white-space: nowrap;
   border-radius: var(--border-radius-sm);
   justify-content: center;
-  overflow: visible;
   align-items: center;
   padding: 2rem 1rem;
 }
@@ -16,16 +16,19 @@
 .timelineWrapper {
   display: flex;
   position: relative;
-  width: fit-content;
-  min-width: 100%;
-  height: auto;
+  width: 100%;
   min-height: 600px;
+  height: auto;
   transition: all 1s;
   overflow-x: auto;
   overflow-y: visible;
   align-items: center;
   scroll-behavior: smooth;
   white-space: nowrap;
+  background-color: antiquewhite;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: var(--border-radius-sm);
 }
 
 .cardWrapper {
