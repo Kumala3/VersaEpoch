@@ -55,12 +55,16 @@ export function Timeline() {
   }, []);
 
   const goToCard = (index: number) => {
-    // ensures index is within the boundaries
+    // Ensures index is within the boundaries
     const safeIndex = Math.max(0, Math.min(index, timelineCards.length - 1));
     setCurrentCardIndex(safeIndex);
 
-    cardRefs.current[safeIndex]?.scroll({
-      behavior: 'smooth',
+    // Get referenced to elements
+    const targetCard = cardRefs.current[safeIndex];
+
+    // Scrolling functionality
+    targetCard?.scrollIntoView({
+      behavior: 'smooth', block: 'nearest', inline: 'center'
     });
   };
 

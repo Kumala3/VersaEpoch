@@ -25,7 +25,7 @@ export function TimelineNavigationPanel({
 }: TimelineNavigationPanel) {
   return (
     <div className={styles.container}>
-      <h4 className={styles.headline}>Navigation Panel</h4>
+      {/* <h4 className={styles.headline}>Navigation Panel</h4> */}
       <div className={styles.totalCards}>
         <p className={styles.totalCards__stepMetric}>{currentIndex+1}/{totalCards}</p>
       </div>
