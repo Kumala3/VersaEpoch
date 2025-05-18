@@ -6,23 +6,48 @@ import {
   GoToBeginningIcon,
 } from '@/components/ui/UIIcons';
 
-export function TimelineNavigationPanel() {
+interface TimelineNavigationPanel {
+  onNext: () => void;
+  onPrev: () => void;
+  onFirst: () => void;
+  onLast: () => void;
+  currentIndex: number;
+  totalCards: number;
+}
+
+export function TimelineNavigationPanel({
+  onNext,
+  onPrev,
+  onFirst,
+  onLast,
+  currentIndex,
+  totalCards,
+}: TimelineNavigationPanel) {
   return (
     <div className={styles.container}>
       <h4 className={styles.headline}>Navigation Panel</h4>
+      <div className={styles.totalCards}>
+        <p className={styles.totalCards__stepMetric}>{currentIndex+1}/{totalCards}</p>
+      </div>
       <div className={styles.buttonsContainer}>
-        <button aria-label="Previous" className={styles.navigationArrow}>
+        <button
+          aria-label="Previous"
+          onClick={onPrev}
+          className={styles.navigationArrow}>
           <PreviousIcon />
         </button>
-        <button aria-label="Go To The End" className={styles.navigationButton}>
+        <button onClick={onFirst} className={styles.navigationButton}>
           <GoToBeginningIcon className={styles.navigationButton__icon} />
           Go To The Beginning
         </button>
-        <button className={styles.navigationButton}>
+        <button onClick={onLast} className={styles.navigationButton}>
           Go To The End
           <GoToEndIcon className={styles.navigationButton__icon} />
         </button>
-        <button aria-label="Next" className={styles.navigationArrow}>
+        <button
+          aria-label="Next"
+          onClick={onNext}
+          className={styles.navigationArrow}>
           <NextIcon />
         </button>
       </div>

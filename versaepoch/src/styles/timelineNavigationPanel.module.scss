@@ -15,6 +15,18 @@
   font-weight: var(--font-weight-med);
 }
 
+.totalCards {
+  display: flex;
+  flex-direction: row;
+
+  &__stepMetric {
+    display: flex;
+    flex-direction: row;
+    font-size: var(--font-size-body-1);
+    font-weight: var(--font-weight-med);
+  }
+}
+
 .buttonsContainer {
   display: flex;
   flex-direction: row;
