@@ -1,6 +1,6 @@
 import styles from '@/styles/chatgptPageTimeline.module.scss';
 import { Timeline } from '@/components/Timeline';
-import { TimelineNavigationPanel } from '@/components/TimelineNavigationPanel';
+import { timelineCards } from '@/data/chatgptTimeline';
 
 export default function ChatGPTPageTimeline() {
   return (
@@ -28,7 +28,7 @@ export default function ChatGPTPageTimeline() {
         below the timeline.
       </p>
       {/* TODO: Replace with fetching data when backend is implemented */}
-      <Timeline />
+      <Timeline timelineCards={timelineCards} />
     </div>
   );
 }

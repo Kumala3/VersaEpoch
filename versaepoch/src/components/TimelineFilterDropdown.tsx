@@ -5,55 +5,31 @@ import { FilterIcon } from '@/components/ui/UIIcons';
 import { CloseIcon } from './ui/CloseIcon';
 import { TimelineFilterDropdownColumn } from '@/components/TimelineFilterDropdownColumn';
 
-export function TimelineFilterDropdown() {
-  const filterTypeInitialState = {
-    milestone: false,
-    update: false,
-    feature: false,
-    model: false,
-    announcement: false,
-    research: false,
-    company: false,
-    product: false,
+interface TimelineFilterDropdownProps {
+  filterTypeState: {
+    milestone: boolean;
+    update: boolean;
+    announcement: boolean;
+    model: boolean;
+    company: boolean;
+    feature: boolean;
+    research: boolean;
+    product: boolean;
   };
+  filterYearState: { [year: string]: boolean };
+  onFilterTypeChange: (typeName: string, checked: boolean) => void;
+  onFiltersReset: () => void;
+}
 
-  const filterYearInitialState = {
-    '2022': false,
-    '2023': false,
-    '2024': false,
-    '2025': false,
-  };
-
+export function TimelineFilterDropdown({
+  filterTypeState,
+  filterYearState,
+  onFilterTypeChange,
+  onFiltersReset,
+}: TimelineFilterDropdownProps) {
   const [isOpened, setIsOpened] = useState<boolean>(false);
-  const [filterTypeState, setFilterTypeState] = useState(
-    filterTypeInitialState
-  );
-
-  const [filterYearState, setFilterYearState] = useState(
-    filterYearInitialState
-  );
-
-  const handleFilterTypeChange = (filterName: string, checked: boolean) => {
-    setFilterTypeState((prev) => ({
-      ...prev,
-      [filterName]: checked,
-    }));
-  };
-
-  const handleFilterYearChange = (year: string, checked: boolean) => {
-    setFilterYearState((prev) => ({
-      ...prev,
-      [year]: checked,
-    }));
-  };
-
-  const resetAllFilters = () => {
-    setFilterTypeState(filterTypeInitialState);
-    setFilterYearState(filterYearInitialState);
-  };
 
   const openDropdown = () => {
-    console.log(`Filter Dropdown Opened!`);
     setIsOpened(true);
   };
 
@@ -85,7 +61,7 @@ export function TimelineFilterDropdown() {
                   title: 'Milestone',
                   isChecked: filterTypeState.milestone,
                   onChange: () =>
-                    handleFilterTypeChange(
+                    onFilterTypeChange(
                       'milestone',
                       !filterTypeState.milestone
                     ),
@@ -94,13 +70,13 @@ export function TimelineFilterDropdown() {
                   title: 'Update',
                   isChecked: filterTypeState.update,
                   onChange: () =>
-                    handleFilterTypeChange('update', !filterTypeState.update),
+                    onFilterTypeChange('update', !filterTypeState.update),
                 },
                 {
                   title: 'Announcement',
                   isChecked: filterTypeState.announcement,
                   onChange: () =>
-                    handleFilterTypeChange(
+                    onFilterTypeChange(
                       'announcement',
                       !filterTypeState.announcement
                     ),
@@ -109,25 +85,25 @@ export function TimelineFilterDropdown() {
                   title: 'Model',
                   isChecked: filterTypeState.model,
                   onChange: () =>
-                    handleFilterTypeChange('model', !filterTypeState.model),
+                    onFilterTypeChange('model', !filterTypeState.model),
                 },
                 {
                   title: 'Company',
                   isChecked: filterTypeState.company,
                   onChange: () =>
-                    handleFilterTypeChange('company', !filterTypeState.company),
+                    onFilterTypeChange('company', !filterTypeState.company),
                 },
                 {
                   title: 'Feature',
                   isChecked: filterTypeState.feature,
                   onChange: () =>
-                    handleFilterTypeChange('feature', !filterTypeState.feature),
+                    onFilterTypeChange('feature', !filterTypeState.feature),
                 },
                 {
                   title: 'Research',
                   isChecked: filterTypeState.research,
                   onChange: () =>
-                    handleFilterTypeChange(
+                    onFilterTypeChange(
                       'research',
                       !filterTypeState.research
                     ),
@@ -136,11 +112,11 @@ export function TimelineFilterDropdown() {
                   title: 'Product',
                   isChecked: filterTypeState.product,
                   onChange: () =>
-                    handleFilterTypeChange('product', !filterTypeState.product),
+                    onFilterTypeChange('product', !filterTypeState.product),
                 },
               ]}
             />
-            <TimelineFilterDropdownColumn
+            {/* <TimelineFilterDropdownColumn
               headline="Year"
               elements={[
                 {
@@ -168,13 +144,13 @@ export function TimelineFilterDropdown() {
                     handleFilterYearChange('2025', !filterYearState['2025']),
                 },
               ]}
-            />
+            /> */}
           </div>
 
           <div className={styles.dropdownContainer__bottomButtons}>
             <button
               className={styles.dropdownContainer__bottomButtons__resetFilters}
-              onClick={resetAllFilters}>
+              onClick={onFiltersReset}>
               Reset
             </button>
             <button

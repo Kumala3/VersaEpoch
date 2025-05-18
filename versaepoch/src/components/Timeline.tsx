@@ -7,17 +7,79 @@ import { TimelineCardData, timelineCards } from '@/data/chatgptTimeline';
 import { TimelineNavigationPanel } from '@/components/TimelineNavigationPanel';
 import { TimelineFilterDropdown } from './TimelineFilterDropdown';
 
-export function Timeline() {
+interface TimelineProps {
+  timelineCards: TimelineCardData[];
+}
+
+export function Timeline({ timelineCards }: TimelineProps) {
+  const filterTypeInitialState = {
+    milestone: false,
+    update: false,
+    feature: false,
+    model: false,
+    announcement: false,
+    research: false,
+    company: false,
+    product: false,
+  };
+
+  const filterYearInitialState = {
+    '2022': false,
+    '2023': false,
+    '2024': false,
+    '2025': false,
+  };
+
+  const [filterTypeState, setFilterTypeState] = useState(
+    filterTypeInitialState
+  );
+
+  const [filterYearState, setFilterYearState] = useState(
+    filterYearInitialState
+  );
+
   const [selectedCard, setSelectedCard] = useState<TimelineCardData | null>(
     null
   );
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
+  const [filteredCards, setFilteredCards] =
+    useState<TimelineCardData[]>(timelineCards);
+
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     cardRefs.current = cardRefs.current.slice(0, timelineCards.length);
-  }, []);
+  }, [timelineCards.length]);
 
+  const resetAllFilters = () => {
+    setFilterTypeState(filterTypeInitialState);
+    setFilterYearState(filterYearInitialState);
+
+    setFilteredCards(timelineCards);
+
+    console.log(`All filters reset.`);
+  };
+
+  const handleFilterTypeChange = (typeName: string, checked: boolean) => {
+    setFilterTypeState((prev) => ({
+      ...prev,
+      [typeName]: checked,
+    }));
+
+    if (checked === false) {
+      setFilteredCards(timelineCards);
+    } else {
+      const filteredCards = timelineCards.filter((card) => {
+        if (Array.isArray(card.type)) {
+          return card.type.includes(typeName);
+        }
+      });
+
+      setFilteredCards(filteredCards);
+    }
+  };
+
+  /* Handle Timeline Scroll for dynamic filling */
   useEffect(() => {
     const timelineRef = document.querySelector(`.${styles.timelineWrapper}`);
 
@@ -65,7 +127,9 @@ export function Timeline() {
 
     // Scrolling functionality
     targetCard?.scrollIntoView({
-      behavior: 'smooth', block: 'nearest', inline: 'center'
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center',
     });
   };
 
@@ -97,10 +161,15 @@ export function Timeline() {
     <div className={styles.container}>
       <div className={styles.functionsContainer}>
         {/* Filter + Sort functions here */}
-        <TimelineFilterDropdown />
+        <TimelineFilterDropdown
+          filterTypeState={filterTypeState}
+          filterYearState={filterYearState}
+          onFilterTypeChange={handleFilterTypeChange}
+          onFiltersReset={resetAllFilters}
+        />
       </div>
       <ol className={styles.timelineWrapper}>
-        {timelineCards.map((card, index) => (
+        {filteredCards.map((card, index) => (
           <li
             key={index}
             ref={(el) => (cardRefs.current[index] = el)}
@@ -127,7 +196,7 @@ export function Timeline() {
         onFirst={goToFirst}
         onLast={goToLast}
         currentIndex={currentCardIndex}
-        totalCards={timelineCards.length}
+        totalCards={filteredCards.length}
       />
     </div>
   );
