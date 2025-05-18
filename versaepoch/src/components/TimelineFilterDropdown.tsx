@@ -6,8 +6,7 @@ import { CloseIcon } from './ui/CloseIcon';
 import { TimelineFilterDropdownColumn } from '@/components/TimelineFilterDropdownColumn';
 
 export function TimelineFilterDropdown() {
-  const [isOpened, setIsOpened] = useState<boolean>(false);
-  const [filterTypeState, setFilterTypeState] = useState({
+  const filterTypeInitialState = {
     milestone: false,
     update: false,
     feature: false,
@@ -16,14 +15,23 @@ export function TimelineFilterDropdown() {
     research: false,
     company: false,
     product: false,
-  });
+  };
 
-  const [filterYearState, setFilterYearState] = useState({
+  const filterYearInitialState = {
     '2022': false,
     '2023': false,
     '2024': false,
     '2025': false,
-  });
+  };
+
+  const [isOpened, setIsOpened] = useState<boolean>(false);
+  const [filterTypeState, setFilterTypeState] = useState(
+    filterTypeInitialState
+  );
+
+  const [filterYearState, setFilterYearState] = useState(
+    filterYearInitialState
+  );
 
   const handleFilterTypeChange = (filterName: string, checked: boolean) => {
     setFilterTypeState((prev) => ({
@@ -40,10 +48,9 @@ export function TimelineFilterDropdown() {
   };
 
   const resetAllFilters = () => {
-    setFilterTypeState((prev) => {
-      
-    })
-  }
+    setFilterTypeState(filterTypeInitialState);
+    setFilterYearState(filterYearInitialState);
+  };
 
   const openDropdown = () => {
     console.log(`Filter Dropdown Opened!`);
@@ -163,14 +170,19 @@ export function TimelineFilterDropdown() {
               ]}
             />
           </div>
-            
-          {/* TODO: Reset Button */}
-          {/* Cancel text */}
-          <p
-            onClick={closeDropdown}
-            className={styles.dropdownContainer__closeText}>
-            Cancel
-          </p>
+
+          <div className={styles.dropdownContainer__bottomButtons}>
+            <button
+              className={styles.dropdownContainer__bottomButtons__resetFilters}
+              onClick={resetAllFilters}>
+              Reset
+            </button>
+            <button
+              onClick={closeDropdown}
+              className={styles.dropdownContainer__bottomButtons__close}>
+              Cancel
+            </button>
+          </div>
         </div>
       )}
     </div>

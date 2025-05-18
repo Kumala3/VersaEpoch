@@ -38,6 +38,6 @@
 }
 
 .elementContainer:hover {
-  color: rgb(149, 149, 149);
+  color: var(--gray-color);
   transition: color 300ms ease;
 }

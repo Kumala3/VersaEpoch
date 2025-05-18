@@ -64,12 +64,30 @@
     height: fit-content;
   }
 
-  &__closeText {
+  &__bottomButtons {
     display: flex;
+    flex-direction: row;
     align-self: end;
-    width: fit-content;
-    height: fit-content;
-    font-size: var(--font-size-body-1);
-    cursor: pointer;
+    gap: 1rem;
+
+    &__close {
+      font-size: var(--font-size-body-1);
+      cursor: pointer;
+    }
+
+    &__resetFilters {
+      cursor: pointer;
+      font-size: var(--font-size-body-1);
+    }
+
+    &__resetFilters:hover {
+      transition: color 300ms ease;
+      color: var(--gray-color);
+    }
+
+    &__close:hover {
+      transition: color 300ms ease;
+      color: var(--gray-color);
+    }
   }
 }
