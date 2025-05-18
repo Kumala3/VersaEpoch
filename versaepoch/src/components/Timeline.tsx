@@ -5,6 +5,7 @@ import { TimelineCard } from '@/components/TimelineCard';
 import { TimelineCardModal } from '@/components/TimelineCardModal';
 import { TimelineCardData, timelineCards } from '@/data/chatgptTimeline';
 import { TimelineNavigationPanel } from '@/components/TimelineNavigationPanel';
+import { TimelineFilterDropdown } from './TimelineFilterDropdown';
 
 export function Timeline() {
   const [selectedCard, setSelectedCard] = useState<TimelineCardData | null>(
@@ -94,6 +95,10 @@ export function Timeline() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.functionsContainer}>
+        {/* Filter + Sort functions here */}
+        <TimelineFilterDropdown />
+      </div>
       <ol className={styles.timelineWrapper}>
         {timelineCards.map((card, index) => (
           <li

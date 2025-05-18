@@ -30,6 +30,29 @@ function PreviousIcon({ width = 48, height = 48, className }: IconProps) {
   );
 }
 
+function FilterIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/filter-icon.svg'}
+      alt="Filter Icon"
+      className={className}
+    />
+  );
+}
+
+function SortIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/down-arrow.svg'}
+      alt="Sort Icon"
+      className={className}
+    />
+  );
+}
 
 function GoToBeginningIcon({ width = 48, height = 48, className }: IconProps) {
   return (
@@ -67,4 +90,12 @@ function GlobalIcon({ width = 48, height = 48, className }: IconProps) {
   );
 }
 
-export { GlobalIcon, NextIcon, PreviousIcon, GoToEndIcon, GoToBeginningIcon };
+export {
+  GlobalIcon,
+  NextIcon,
+  PreviousIcon,
+  GoToEndIcon,
+  GoToBeginningIcon,
+  FilterIcon,
+  SortIcon,
+};
