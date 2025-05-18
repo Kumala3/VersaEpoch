@@ -40,7 +40,7 @@ export function ChatbotContainer({
 
   return (
     <Link
-      href={`/timeline/${title.toLowerCase()}`}
+      href={`/timelines/${title.toLowerCase()}`}
       className={styles.container}>
       <Image
         width={100}

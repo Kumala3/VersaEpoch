@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  background-color: white;
+  padding: 1rem 2rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.headline {
+  font-size: var(--font-size-h5);
+  font-weight: var(--font-weight-med);
+}
+
+.totalCards {
+  display: flex;
+  flex-direction: row;
+
+  &__stepMetric {
+    display: flex;
+    flex-direction: row;
+    font-size: var(--font-size-h6);
+    font-weight: var(--font-weight-med);
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: var(--padding-sm);
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.65);
+  border-radius: var(--border-radius-sm);
+  background-color: white;
+  align-items: center;
+}
+
+.navigationArrow {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  background-color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border: 3px dotted;
+  border-color: black;
+  cursor: pointer;
+}
+
+.navigationButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  font-size: var(--font-size-body-1);
+  font-weight: var(--font-weight-med);
+  min-width: 100px;
+  width: fit-content;
+  border: 2px solid;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0);
+  border-color: black;
+  background-color: white;
+  height: fit-content;
+  padding: var(--padding-sm);
+  border-radius: var(--border-radius-sm);
+
+  &__icon {
+    width: 50px;
+    height: fit-content;
+  }
+}
