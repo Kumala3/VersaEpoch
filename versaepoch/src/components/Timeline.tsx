@@ -79,6 +79,23 @@ export function Timeline({ timelineCards }: TimelineProps) {
     }
   };
 
+  const handleFilterYearChange = (year: string, checked: boolean) => {
+    setFilterYearState((prev) => ({
+      ...prev,
+      [year]: checked,
+    }));
+  
+    if (checked === false) {
+      setFilteredCards(timelineCards);
+    } else {
+      const filteredCards = timelineCards.filter((card) => {
+        return (card.year === year)
+      })
+
+      setFilteredCards(filteredCards);
+    }
+  };
+
   /* Handle Timeline Scroll for dynamic filling */
   useEffect(() => {
     const timelineRef = document.querySelector(`.${styles.timelineWrapper}`);
@@ -160,11 +177,12 @@ export function Timeline({ timelineCards }: TimelineProps) {
   return (
     <div className={styles.container}>
       <div className={styles.functionsContainer}>
-        {/* Filter + Sort functions here */}
+        {/* Sort function here */}
         <TimelineFilterDropdown
           filterTypeState={filterTypeState}
           filterYearState={filterYearState}
           onFilterTypeChange={handleFilterTypeChange}
+          onFilterYearChange={handleFilterYearChange}
           onFiltersReset={resetAllFilters}
         />
       </div>

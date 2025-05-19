@@ -18,6 +18,7 @@ interface TimelineFilterDropdownProps {
   };
   filterYearState: { [year: string]: boolean };
   onFilterTypeChange: (typeName: string, checked: boolean) => void;
+  onFilterYearChange: (year: string, checked: boolean) => void;
   onFiltersReset: () => void;
 }
 
@@ -25,6 +26,7 @@ export function TimelineFilterDropdown({
   filterTypeState,
   filterYearState,
   onFilterTypeChange,
+  onFilterYearChange,
   onFiltersReset,
 }: TimelineFilterDropdownProps) {
   const [isOpened, setIsOpened] = useState<boolean>(false);
@@ -116,35 +118,35 @@ export function TimelineFilterDropdown({
                 },
               ]}
             />
-            {/* <TimelineFilterDropdownColumn
+            <TimelineFilterDropdownColumn
               headline="Year"
               elements={[
                 {
                   title: '2022',
                   isChecked: filterYearState['2022'],
                   onChange: () =>
-                    handleFilterYearChange('2022', !filterYearState['2022']),
+                    onFilterYearChange('2022', !filterYearState['2022']),
                 },
                 {
                   title: '2023',
                   isChecked: filterYearState['2023'],
                   onChange: () =>
-                    handleFilterYearChange('2023', !filterYearState['2023']),
+                    onFilterYearChange('2023', !filterYearState['2023']),
                 },
                 {
                   title: '2024',
                   isChecked: filterYearState['2024'],
                   onChange: () =>
-                    handleFilterYearChange('2024', !filterYearState['2024']),
+                    onFilterYearChange('2024', !filterYearState['2024']),
                 },
                 {
                   title: '2025',
                   isChecked: filterYearState['2025'],
                   onChange: () =>
-                    handleFilterYearChange('2025', !filterYearState['2025']),
+                    onFilterYearChange('2025', !filterYearState['2025']),
                 },
               ]}
-            /> */}
+            />
           </div>
 
           <div className={styles.dropdownContainer__bottomButtons}>
