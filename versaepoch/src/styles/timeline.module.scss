@@ -31,6 +31,14 @@
   border-radius: var(--border-radius-sm);
 }
 
+.functionsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: fit-content;
+  height: fit-content;
+}
+
 .cardWrapper {
   position: relative;
   display: inline-block;
