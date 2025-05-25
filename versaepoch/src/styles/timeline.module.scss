@@ -31,6 +31,34 @@
   border-radius: var(--border-radius-sm);
 }
 
+.noCardsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+
+  &__headline {
+    font-size: var(--font-size-h4);
+    font-weight: var(--font-weight-bold);
+  }
+
+  &__resetButton {
+    width: 250px;
+    padding: var(--padding-sm);
+    background-color: white;
+    transition: 400ms all ease;
+    border-radius: var(--padding-sm);
+    cursor: pointer;
+  }
+
+  &__resetButton:hover {
+    transition: 400ms all ease;
+    color: white;
+    background-color: var(--primary-color);
+  }
+}
+
 .functionsContainer {
   display: flex;
   flex-direction: row;

@@ -215,36 +215,55 @@ export function Timeline({ timelineCards }: TimelineProps) {
           onFiltersReset={resetAllFilters}
         />
       </div>
+
       <ol className={styles.timelineWrapper}>
-        {filteredCards.map((card, index) => (
-          <li
-            key={index}
-            ref={(el) => (cardRefs.current[index] = el)}
-            className={`${styles.cardWrapper}`}>
-            <TimelineCard
-              data={card}
-              className={`${styles.timelineCard} ${
-                index === currentCardIndex ? styles.timelineCardActive : ''
-              }`}
-              onClick={() => openCardModal(card)}
-            />
-          </li>
-        ))}
-        <li className={`${styles.cardWrapper} ${styles.timelineTail}`}></li>
+        {filteredCards.length !== 0 ? (
+          <>
+            {filteredCards.map((card, index) => (
+              <li
+                key={index}
+                ref={(el) => (cardRefs.current[index] = el)}
+                className={`${styles.cardWrapper}`}>
+                <TimelineCard
+                  data={card}
+                  className={`${styles.timelineCard} ${
+                    index === currentCardIndex ? styles.timelineCardActive : ''
+                  }`}
+                  onClick={() => openCardModal(card)}
+                />
+              </li>
+            ))}
+            <li className={`${styles.cardWrapper} ${styles.timelineTail}`}></li>
+          </>
+        ) : (
+          <div className={styles.noCardsContainer}>
+            <h4 className={styles.noCardsContainer__headline}>
+              Oops, Try Different Filters or Reset Below:
+            </h4>
+            {/* Reset Button */}
+            <button
+              onClick={resetAllFilters}
+              className={styles.noCardsContainer__resetButton}>
+              Reset
+            </button>
+          </div>
+        )}
       </ol>
 
       {/* CardModal */}
       {selectedCard && (
         <TimelineCardModal cardData={selectedCard} onClose={closeCardModal} />
       )}
-      <TimelineNavigationPanel
-        onNext={goToNext}
-        onPrev={goToPrev}
-        onFirst={goToFirst}
-        onLast={goToLast}
-        currentIndex={currentCardIndex}
-        totalCards={filteredCards.length}
-      />
+      {filteredCards.length !== 0 && (
+        <TimelineNavigationPanel
+          onNext={goToNext}
+          onPrev={goToPrev}
+          onFirst={goToFirst}
+          onLast={goToLast}
+          currentIndex={currentCardIndex}
+          totalCards={filteredCards.length}
+        />
+      )}
     </div>
   );
 }
