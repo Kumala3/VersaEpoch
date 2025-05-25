@@ -25,7 +25,6 @@ export function TimelineNavigationPanel({
 }: TimelineNavigationPanel) {
   return (
     <div className={styles.container}>
-      <div className={styles.cardsContainer}>
         {/* <h4 className={styles.headline}>Navigation Panel</h4> */}
         <div className={styles.totalCards}>
           <p className={styles.totalCards__stepMetric}>
@@ -54,7 +53,6 @@ export function TimelineNavigationPanel({
             <NextIcon />
           </button>
         </div>
-      </div>
     </div>
   );
 }
