@@ -23,6 +23,7 @@ export interface TimelineCardData {
   type: NonEmptyCardTypeArray;
   impact: 'tiny' | 'small' | 'medium' | 'big';
   date: string;
+  year: '2022' | '2023' | '2024' | '2025';
   sources: Source[];
 }
 
@@ -49,6 +50,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['milestone'],
     impact: 'big',
     date: 'November 30, 2022',
+    year: '2022',
     sources: [
       {
         title: 'Introducing ChatGPT - OpenAI',
@@ -69,6 +71,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature'],
     impact: 'medium',
     date: 'February 1, 2023',
+    year: '2023',
     sources: [
       {
         title: 'OpenAI Launches ChatGPT Plus for $20/Month, but Only in the US',
@@ -85,6 +88,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['model'],
     impact: 'big',
     date: 'March 14, 2023',
+    year: '2023',
     sources: [
       {
         title: 'GPT-4 - Wikipedia',
@@ -110,6 +114,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature'],
     impact: 'medium',
     date: 'May 24, 2023',
+    year: '2023',
     sources: [
       {
         title: 'OpenAI upgrades ChatGPT with web browsing capabilities',
@@ -130,6 +135,7 @@ export const timelineCards: TimelineCardData[] = [
     type: 'milestone',
     impact: 'medium',
     date: 'May 18, 2023',
+    year: '2023',
     sources: [
       {
         title: 'Introducing the ChatGPT app for iOS - OpenAI',
@@ -154,6 +160,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature'],
     impact: 'medium',
     date: 'July 6, 2023',
+    year: '2023',
     sources: [
       {
         title: 'Code interpreter is now rolling out in beta on web',
@@ -170,6 +177,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature'],
     impact: 'big',
     date: 'July 20, 2023',
+    year: '2023',
     sources: [
       {
         title: 'Custom instructions for ChatGPT',
@@ -186,6 +194,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['update'],
     impact: 'medium',
     date: 'July 25, 2023',
+    year: '2023',
     sources: [
       {
         title: 'ChatGPT will soon have an official Android version available',
@@ -210,6 +219,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['company'],
     impact: 'medium',
     date: 'August 28, 2023',
+    year: '2023',
     sources: [
       {
         title: 'Introducing ChatGPT Enterprise',
@@ -226,6 +236,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature'],
     impact: 'big',
     date: 'September 25, 2023',
+    year: '2023',
     sources: [
       {
         title: 'ChatGPT can now see, hear, and speak - OpenAI',
@@ -249,6 +260,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature'],
     impact: 'medium',
     date: 'October 16, 2023',
+    year: '2023',
     sources: [
       {
         title: 'DALL·E 3 is now rolling out in beta',
@@ -265,6 +277,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature'],
     impact: 'big',
     date: 'November 6, 2023',
+    year: '2023',
     sources: [
       {
         title: 'OpenAI Custom GPTs AI technology',
@@ -281,6 +294,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['model'],
     impact: 'medium',
     date: 'November 6, 2023',
+    year: '2023',
     sources: [
       {
         title:
@@ -298,6 +312,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['announcement'],
     impact: 'big',
     date: 'January 10, 2024',
+    year: '2024',
     sources: [
       {
         title: 'Introducing the GPT Store and ChatGPT Team plan',
@@ -314,6 +329,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature', 'update'],
     impact: 'medium',
     date: 'February 13, 2024',
+    year: '2024',
     sources: [
       {
         title: 'Memory and new controls for ChatGPT',
@@ -330,6 +346,7 @@ export const timelineCards: TimelineCardData[] = [
     date: 'April 1, 2024',
     type: ['announcement', 'update'],
     impact: 'small',
+    year: '2024',
     sources: [
       {
         title: 'Start using ChatGPT instantly',
@@ -346,6 +363,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['model'],
     impact: 'big',
     date: 'May 13, 2024',
+    year: '2024',
     sources: [
       {
         title: "OpenAI debuts GPT-4o 'omni' model now powering ChatGPT",
@@ -371,6 +389,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature'],
     date: 'May 16, 2024',
     impact: 'small',
+    year: '2024',
     sources: [
       {
         title: 'Improvements to data analysis in ChatGPT',
@@ -387,6 +406,7 @@ export const timelineCards: TimelineCardData[] = [
     impact: 'medium',
     date: 'July 18, 2024',
     type: ['model'],
+    year: '2024',
     sources: [
       {
         title: 'Introducing GPT-4o mini',
@@ -403,6 +423,7 @@ export const timelineCards: TimelineCardData[] = [
     impact: 'medium',
     type: ['model'],
     date: 'September 12, 2024',
+    year: '2024',
     sources: [
       {
         title: 'Introducing OpenAI o1',
@@ -431,6 +452,7 @@ export const timelineCards: TimelineCardData[] = [
     date: 'October 3, 2024',
     type: ['feature'],
     impact: 'medium',
+    year: '2024',
     sources: [
       {
         title: 'Introducing canvas',
@@ -445,6 +467,7 @@ export const timelineCards: TimelineCardData[] = [
     date: "October 31, 2024",
     type: ['feature'],
     impact: "small",
+    year: '2024',
     sources: [
       {
         title: "Introducing ChatGPT search",
@@ -461,6 +484,7 @@ export const timelineCards: TimelineCardData[] = [
     impact: 'medium',
     date: 'November 19, 2024',
     type: ['feature', 'update'],
+    year: '2024',
     sources: [
       {
         title: 'Advanced Voice for ChatGPT Web',
@@ -476,6 +500,7 @@ export const timelineCards: TimelineCardData[] = [
     impact: 'small',
     date: 'November 22, 2024',
     type: ['update'],
+    year: '2024',
     sources: [
       {
         title: 'Updates to the ChatGPT Web experience',
@@ -490,6 +515,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['announcement'],
     date: "December 5, 2024",
     impact: 'tiny',
+    year: '2024',
     sources: [
       {
         title: "Introducing ChatGPT Pro",
@@ -504,6 +530,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['product'],
     date: "December 9, 2024",
     impact: "medium",
+    year: '2024',
     sources: [
       {
         title: "Sora is Here",
@@ -520,6 +547,7 @@ export const timelineCards: TimelineCardData[] = [
     date: 'December 12, 2024',
     type: ['feature', 'update'],
     impact: 'small',
+    year: '2024',
     sources: [
       {
         title: 'Santa Voice and Video and Screen Share in Voice Chats',
@@ -536,6 +564,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature'],
     impact: 'medium',
     date: 'December 13, 2024',
+    year: '2024',
     sources: [
       {
         title: 'Projects in ChatGPT',
@@ -556,6 +585,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature'],
     impact: 'small',
     date: 'January 14, 2024',
+    year: '2024',
     sources: [
       {
         title: 'Scheduled tasks in ChatGPT',
@@ -576,6 +606,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['update'],
     impact: 'tiny',
     date: 'January 15, 2025',
+    year: '2025',
     sources: [
       {
         title: 'New Updates for Canvas',
@@ -596,6 +627,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['update'],
     date: 'January 17, 2025',
     impact: 'small',
+    year: '2025',
     sources: [
       {
         title: 'More personalization in Custom Instructions',
@@ -612,6 +644,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['product'],
     date: 'January 23, 2025',
     impact: 'medium',
+    year: '2025',
     sources: [
       {
         title: 'Introducing Operator',
@@ -627,6 +660,7 @@ export const timelineCards: TimelineCardData[] = [
     date: 'January 31, 2025',
     impact: 'medium',
     type: ['model'],
+    year: '2025',
     sources: [
       {
         title: 'OpenAI o3-mini',
@@ -643,6 +677,7 @@ export const timelineCards: TimelineCardData[] = [
     date: 'February 2, 2025',
     impact: 'big',
     type: ['feature'],
+    year: '2025',
     sources: [
       {
         title: 'Introducing Deep Research',
@@ -663,6 +698,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['update'],
     date: 'February 6, 2025',
     impact: 'small',
+    year: '2025',
     sources: [
       {
         title: 'Canvas Sharing',
@@ -679,6 +715,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['model'],
     date: 'February 27, 2025',
     impact: 'medium',
+    year: '2025',
     sources: [
       {
         title: 'Introducing GPT-4.5',
@@ -695,6 +732,7 @@ export const timelineCards: TimelineCardData[] = [
     impact: 'big',
     date: 'March 27, 2025',
     type: ['feature', 'model'],
+    year: '2025',
     sources: [
       {
         title: 'Introducing 4o Image Generation',
@@ -711,6 +749,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature'],
     date: 'April 15, 2025',
     impact: 'small',
+    year: '2025',
     sources: [
       {
         title: 'ChatGPT Image Library',
@@ -727,6 +766,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['update'],
     impact: 'tiny',
     date: 'April 10, 2025',
+    year: '2025',
     sources: [
       {
         title: 'Sunsetting GPT‑4 in ChatGPT',
@@ -743,6 +783,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['model', 'update'],
     date: 'March 27, 2025',
     impact: 'tiny',
+    year: '2025',
     sources: [
       {
         title: 'GPT-4o Updates',
@@ -759,6 +800,7 @@ export const timelineCards: TimelineCardData[] = [
     date: 'April 10, 2025',
     type: ['research'],
     impact: 'medium',
+    year: '2025',
     sources: [
       {
         title: 'BrowseComp: a benchmark for browsing agents',
@@ -773,6 +815,7 @@ export const timelineCards: TimelineCardData[] = [
     date: "APril 14, 2025",
     impact: "small",
     type: ['model'],
+    year: '2025',
     sources: [
       {
         title: "Introducing GPT-4.1 in the API",
@@ -789,6 +832,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['model', 'announcement'],
     impact: 'big',
     date: 'April 16, 2025',
+    year: '2025',
     sources: [
       {
         title: 'Introducing OpenAI o3 and o4-mini',
@@ -809,6 +853,7 @@ export const timelineCards: TimelineCardData[] = [
     date: 'April 29, 2025',
     impact: 'tiny',
     type: ['update'],
+    year: '2025',
     sources: [
       {
         title: 'Improvements to GPT-4o',
@@ -825,6 +870,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['update'],
     impact: 'small',
     date: 'April 29, 2025',
+    year: '2025',
     sources: [
       {
         title: 'Sycophancy in GPT-4o',
@@ -845,6 +891,7 @@ export const timelineCards: TimelineCardData[] = [
     date: 'May 6, 2025',
     impact: 'tiny',
     type: ['update'],
+    year: '2025',
     sources: [
       {
         title: 'Mobile UI (iOS/Android) changing on Free/Plus/Pro plans',
@@ -861,6 +908,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature', 'update'],
     impact: 'medium',
     date: 'May 8, 2025',
+    year: '2025',
     sources: [
       {
         title: 'ChatGPT Release Notes',
@@ -877,6 +925,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['feature', 'update'],
     impact: 'small',
     date: 'May 12, 2025',
+    year: '2025',
     sources: [
       {
         title: 'ChatGPT Release Notes',
@@ -898,6 +947,7 @@ export const timelineCards: TimelineCardData[] = [
     date: 'May 12, 2025',
     impact: 'medium',
     type: ['research'],
+    year: '2025',
     sources: [
       {
         title: 'Introducing HealthBench',
@@ -914,6 +964,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['update'],
     impact: 'medium',
     date: 'May 14, 2025',
+    year: '2025',
     sources: [
       {
         title: 'ChatGPT Release Notes',
@@ -930,6 +981,7 @@ export const timelineCards: TimelineCardData[] = [
     date: 'May 15, 2025',
     type: ['update'],
     impact: 'tiny',
+    year: '2025',
     sources: [
       {
         title: 'ChatGPT Release Notes',
@@ -946,6 +998,7 @@ export const timelineCards: TimelineCardData[] = [
     type: ['product'],
     impact: 'medium',
     date: 'May 16, 2025',
+    year: '2025',
     sources: [
       {
         title: 'Introducing Codex',
