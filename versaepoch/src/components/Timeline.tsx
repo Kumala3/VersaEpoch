@@ -51,18 +51,53 @@ export function Timeline({ timelineCards }: TimelineProps) {
     cardRefs.current = cardRefs.current.slice(0, timelineCards.length);
   }, [timelineCards.length]);
 
-  const resetAllFilters = () => {
-    setFilterTypeState(filterTypeInitialState);
-    setFilterYearState(filterYearInitialState);
+  const applyFilters = () => {
+    // Get an array of all selected type names
+    const selectedTypes = Object.keys(filterTypeState).filter(
+      (key) => filterTypeState[key]
+    );
 
-    setFilteredCards(timelineCards);
+    console.log(`Selected filter types: ${selectedTypes}`);
 
-    console.log(`All filters reset.`);
+    // Get selected Years
+    const selectedYears = Object.keys(filterYearState).filter(
+      (key) => filterYearState[key]
+    );
+
+    console.log(`Selected filter years: ${selectedYears}`);
+
+    // If no filters selected, show all cards
+    if (selectedTypes.length === 0 && selectedYears.length === 0) {
+      setFilteredCards(timelineCards);
+      return;
+    }
+
+    const filteredCards = timelineCards.filter((card) => {
+      let matchesType = true;
+      let matchesYear = true;
+
+      // If any type selected (> 0)
+      if (selectedTypes.length > 0) {
+        if (Array.isArray(card.type)) {
+          matchesType = card.type.some((type) => selectedTypes.includes(type));
+        } else if (typeof card.type === 'string') {
+          matchesType = selectedTypes.includes(card.type);
+        } else {
+          matchesType = false;
+        }
+      }
+
+      // Check year filter (if any year is selected)
+      if (selectedYears.length > 0) {
+        matchesYear = selectedYears.includes(card.year);
+      }
+
+      // Card must match Both Filters (Year & Type)
+      return matchesType && matchesYear;
+    });
+
+    setFilteredCards(filteredCards);
   };
-
-  {
-    /* TODO: Combine several years filtering */
-  }
 
   const handleFilterTypeChange = (typeName: string, checked: boolean) => {
     // Update the filter state with new checkbox value
@@ -70,58 +105,24 @@ export function Timeline({ timelineCards }: TimelineProps) {
       ...prev,
       [typeName]: checked,
     }));
-
-    // Get all current selected values
-    const newFilterState = {
-      ...filterTypeState,
-      [typeName]: checked,
-    };
-
-    // Get an array of all selected type names
-    const selectedTypes = Object.keys(newFilterState).filter(
-      (key) => newFilterState[key]
-    );
-
-    // If no types are selected, show all cards
-    if (selectedTypes.length === 0) {
-      setFilteredCards(timelineCards);
-    } else {
-      const filteredCards = timelineCards.filter((card) => {
-        if (Array.isArray(card.type)) {
-          // Check if any of the card's types match any of the selected types
-          return card.type.some((type) => selectedTypes.includes(type));
-        }
-      });
-
-      setFilteredCards(filteredCards);
-    }
   };
 
   const handleFilterYearChange = (year: string, checked: boolean) => {
+    // Update the year filter state with new checkbox value (False/True)
     setFilterYearState((prev) => ({
       ...prev,
       [year]: checked,
     }));
+  };
 
-    const newFilterState = {
-      ...filterYearState,
-      [year]: checked,
-    };
+  useEffect(() => {
+    applyFilters();
+  }, [filterTypeState, filterYearState]);
 
-    const selectedYears = Object.keys(newFilterState).filter(
-      (key) => newFilterState[key]
-    );
-
-    // If no years selected, show all cards
-    if (selectedYears.length === 0) {
-      setFilteredCards(timelineCards);
-    } else {
-      const filteredCards = timelineCards.filter((card) => {
-        return selectedYears.includes(card.year);
-      });
-
-      setFilteredCards(filteredCards);
-    }
+  const resetAllFilters = () => {
+    setFilterTypeState(filterTypeInitialState);
+    setFilterYearState(filterYearInitialState);
+    setFilteredCards(timelineCards);
   };
 
   /* Handle Timeline Scroll for dynamic filling */

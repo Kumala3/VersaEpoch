@@ -17,8 +17,6 @@ interface NavDropdownProps {
 export function NavDropdown({ title, link, elements }: NavDropdownProps) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
-  console.log(`Received href in NavDropdown comp: ${link}`);
-
   return (
     <Link
       className={styles.container}
