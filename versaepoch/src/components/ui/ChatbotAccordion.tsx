@@ -1,7 +1,8 @@
-"use client";
-import { useState } from "react";
+'use client';
+import { useState } from 'react';
 import styles from '@/styles/ui/chatbotAccordion.module.scss';
-import { ExpandIcon, CollapseIcon } from "@/components/ui/UIIcons";
+import { ExpandIcon, CollapseIcon } from '@/components/ui/UIIcons';
+import { motion, AnimatePresence } from 'motion/react';
 
 export interface ChatbotAccordionProps {
   title: string;
@@ -11,31 +12,62 @@ export interface ChatbotAccordionProps {
 export function ChatbotAccordion({ title, content }: ChatbotAccordionProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const openContainer = () => {
-    setIsOpen(true);
-  }
+  const toggleAccordion = () => {
+    setIsOpen(!isOpen);
+  };
 
-  const closeContainer = () => {
-    setIsOpen(false);
-  }
+  const contentVariants = {
+    hidden: {
+      opacity: 0,
+      height: 0,
+      overflow: 'hidden',
+    },
+    visible: {
+      opacity: 1,
+      height: 'auto',
+      transition: {
+        duration: 0.2,
+        ease: 'easeOut',
+      },
+    },
+    exit: {
+      opacity: 0,
+      height: 0,
+      transition: {
+        duration: 0.2,
+        ease: 'easeIn',
+      },
+    },
+  };
 
   return (
     <div className={styles.container}>
-      {!isOpen ? (
-        <div onClick={openContainer} className={styles.headerContainer}>
-          <h6 className={styles.headerContainer__heading}>{title}</h6>
-          <ExpandIcon className={styles.headerContainer__icon} />
-        </div>
-      ) : (
-        <div onClick={closeContainer} className={styles.headerContainer}>
-          <h6 className={styles.headerContainer__heading}>{title}</h6>
-          <CollapseIcon className={styles.headerContainer__icon} />
-        </div>
-      )}
+      <div onClick={toggleAccordion} className={styles.headerContainer}>
+        <h6 className={styles.headerContainer__heading}>{title}</h6>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3 }}>
+          {isOpen ? (
+            <ExpandIcon className={styles.headerContainer__icon} />
+          ) : (
+            <CollapseIcon className={styles.headerContainer__icon} />
+          )}
+        </motion.div>
+      </div>
 
-      {isOpen && (
-        <section className={styles.openedContainer}>{content}</section>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.section
+            className={styles.openedContainer}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={contentVariants}
+            >
+            {content}
+          </motion.section>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
