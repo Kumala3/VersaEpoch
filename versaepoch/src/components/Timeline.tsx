@@ -9,10 +9,11 @@ import { TimelineFilterDropdown } from '@/components/TimelineFilterDropdown';
 import { TimelineSortDropdown } from '@/components/TimelineSortDropdown';
 
 interface TimelineProps {
+  lastUpdatedOn: string;
   timelineCards: TimelineCardData[];
 }
 
-export function Timeline({ timelineCards }: TimelineProps) {
+export function Timeline({ lastUpdatedOn, timelineCards }: TimelineProps) {
   const filterTypeInitialState = {
     milestone: false,
     update: false,
@@ -255,24 +256,33 @@ export function Timeline({ timelineCards }: TimelineProps) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.functionsContainer}>
-        <TimelineFilterDropdown
-          opened={isFilterDropdownOpen}
-          onOpen={openFilterDropdown}
-          onClose={closeFilterDropdown}
-          filterTypeState={filterTypeState}
-          filterYearState={filterYearState}
-          onFilterTypeChange={handleFilterTypeChange}
-          onFilterYearChange={handleFilterYearChange}
-          onFiltersReset={resetAllFilters}
-        />
-        <TimelineSortDropdown
-          opened={isSortDropdownOpen}
-          selectedSort={selectedSortOrder}
-          onOpen={openSortDropdown}
-          onClose={closeSortDropdown}
-          onSortChange={handleSortOrderChange}
-        />
+      <div className={styles.topContainer}>
+        {/* Last Update On Callout */}
+        <div className={styles.topContainer__lastUpdatedOnContainer}>
+          <p className={styles.topContainer__lastUpdatedOnContainer__text}>
+            Last Updated On: {lastUpdatedOn}
+          </p>
+        </div>
+
+        <div className={styles.topContainer__functionsContainer}>
+          <TimelineFilterDropdown
+            opened={isFilterDropdownOpen}
+            onOpen={openFilterDropdown}
+            onClose={closeFilterDropdown}
+            filterTypeState={filterTypeState}
+            filterYearState={filterYearState}
+            onFilterTypeChange={handleFilterTypeChange}
+            onFilterYearChange={handleFilterYearChange}
+            onFiltersReset={resetAllFilters}
+          />
+          <TimelineSortDropdown
+            opened={isSortDropdownOpen}
+            selectedSort={selectedSortOrder}
+            onOpen={openSortDropdown}
+            onClose={closeSortDropdown}
+            onSortChange={handleSortOrderChange}
+          />
+        </div>
       </div>
 
       <ol className={styles.timelineWrapper}>

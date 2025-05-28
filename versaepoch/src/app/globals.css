@@ -9,7 +9,8 @@
   --secondary-color: #0621a9;
   --neutral-dark: #32614f;
   --gray-color: rgb(149, 149, 149);
-  
+  --subHeadline-color: rgb(50,50,50);
+
   /* Font Sizes */
   --font-size-base: 16px;
 
@@ -62,6 +63,36 @@ body {
   padding: 0;
   min-height: 100vh !important;
   font-size: var(--font-size-base);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+}
+
+h4 {
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+}
+
+h5 {
+  font-size: var(--font-size-h6);
+  font-weight: var(--font-weight-bold);
+}
+
+h6 {
+  font-size: var(--font-size-h6);
+  font-weight: var(--font-weight-bold);
 }
 
 .rootContainer {

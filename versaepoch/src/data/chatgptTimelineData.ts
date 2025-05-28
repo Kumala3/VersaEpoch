@@ -11,8 +11,7 @@ type CardType =
   | 'announcement'
   | 'product'
   | 'research'
-  | 'company'
-  ;
+  | 'company';
 
 export type NonEmptyCardTypeArray = [CardType, ...CardType[]];
 
@@ -461,19 +460,21 @@ export const timelineCards: TimelineCardData[] = [
     ],
   },
   {
-    title: "ChatGPT Search",
-    short_description: "Search feature allows models to use the internet to get fast up-to-date answers.",
-    full_description: "ChatGPT search connects people with original, high-quality content from the web and makes it part of their conversation.",
-    date: "October 31, 2024",
+    title: 'ChatGPT Search',
+    short_description:
+      'Search feature allows models to use the internet to get fast up-to-date answers.',
+    full_description:
+      'ChatGPT search connects people with original, high-quality content from the web and makes it part of their conversation.',
+    date: 'October 31, 2024',
     type: ['feature'],
-    impact: "small",
+    impact: 'small',
     year: '2024',
     sources: [
       {
-        title: "Introducing ChatGPT search",
-        url: "https://openai.com/index/introducing-chatgpt-search/",
-      }
-    ]
+        title: 'Introducing ChatGPT search',
+        url: 'https://openai.com/index/introducing-chatgpt-search/',
+      },
+    ],
   },
   {
     title: 'Advanced Voice Mode',
@@ -509,34 +510,36 @@ export const timelineCards: TimelineCardData[] = [
     ],
   },
   {
-    title: "ChatGPT Pro Release",
-    short_description: "A new Pro plan offers higher limits, early beta access to new features with a $200 price",
-    full_description: "",
+    title: 'ChatGPT Pro Release',
+    short_description:
+      'A new Pro plan offers higher limits, early beta access to new features with a $200 price',
+    full_description: '',
     type: ['announcement'],
-    date: "December 5, 2024",
+    date: 'December 5, 2024',
     impact: 'tiny',
     year: '2024',
     sources: [
       {
-        title: "Introducing ChatGPT Pro",
-        url: "https://openai.com/index/introducing-chatgpt-pro/",
-      }
-    ]
+        title: 'Introducing ChatGPT Pro',
+        url: 'https://openai.com/index/introducing-chatgpt-pro/',
+      },
+    ],
   },
   {
-    title: "Sora Release",
-    short_description: "A highly anticipated video-generation tool finally arrived. It lets you generate realistic videos up to 1080p resolution, up to 20 sec long and in different aspect ratios.",
-    full_description: "",
+    title: 'Sora Release',
+    short_description:
+      'A highly anticipated video-generation tool finally arrived. It lets you generate realistic videos up to 1080p resolution, up to 20 sec long and in different aspect ratios.',
+    full_description: '',
     type: ['product'],
-    date: "December 9, 2024",
-    impact: "medium",
+    date: 'December 9, 2024',
+    impact: 'medium',
     year: '2024',
     sources: [
       {
-        title: "Sora is Here",
-        url: "https://openai.com/index/sora-is-here/",
-      }
-    ]
+        title: 'Sora is Here',
+        url: 'https://openai.com/index/sora-is-here/',
+      },
+    ],
   },
   {
     title: 'Video & Screen Share in Advanced Voice Mode + Santa Voice',
@@ -809,19 +812,21 @@ export const timelineCards: TimelineCardData[] = [
     ],
   },
   {
-    title: "GPT-4.1 Release",
-    short_description: "A new series of GPT models focusing on coding, instruction following, and long context. Plus, OpenAI's first-ever nano model.",
-    full_description: "Today, we’re launching three new models in the API: GPT‑4.1, GPT‑4.1 mini, and GPT‑4.1 nano. These models outperform GPT‑4o and GPT‑4o mini across the board, with major gains in coding and instruction following. They also have larger context windows—supporting up to 1 million tokens of context—and are able to better use that context with improved long-context comprehension. They feature a refreshed knowledge cutoff of June 2024.",
-    date: "APril 14, 2025",
-    impact: "small",
+    title: 'GPT-4.1 Release',
+    short_description:
+      "A new series of GPT models focusing on coding, instruction following, and long context. Plus, OpenAI's first-ever nano model.",
+    full_description:
+      'Today, we’re launching three new models in the API: GPT‑4.1, GPT‑4.1 mini, and GPT‑4.1 nano. These models outperform GPT‑4o and GPT‑4o mini across the board, with major gains in coding and instruction following. They also have larger context windows—supporting up to 1 million tokens of context—and are able to better use that context with improved long-context comprehension. They feature a refreshed knowledge cutoff of June 2024.',
+    date: 'APril 14, 2025',
+    impact: 'small',
     type: ['model'],
     year: '2025',
     sources: [
       {
-        title: "Introducing GPT-4.1 in the API",
-        url: "https://openai.com/index/gpt-4-1/",
-      }
-    ]
+        title: 'Introducing GPT-4.1 in the API',
+        url: 'https://openai.com/index/gpt-4-1/',
+      },
+    ],
   },
   {
     title: 'o3 & o4-mini Release',
@@ -1005,5 +1010,58 @@ export const timelineCards: TimelineCardData[] = [
         url: 'https://openai.com/index/introducing-codex/',
       },
     ],
-  }
+  },
+];
+
+export const faqElements = [
+  {
+    title: 'What is ChatGPT?',
+    content:
+      "ChatGPT is chatbot developed by OpenAI that can understand, collaborate and help you be more productive. Whether you're a business analytic, artist, programmer or cooker, you will definitely find a use case for your job or daily live.",
+  },
+  {
+    title: 'How does ChatGPT work?',
+    content:
+      'ChatGPT uses different LLMs (Large Language Models) that analyze, think and respond pretty much like humans.  It predicts the next sequences of words to generate coherent and contextually relevant answers even to complex queries from STEM, Math & Programming fields.',
+  },
+  {
+    title: 'Is ChatGPT free to use?',
+    content:
+      'OpenAI offers quite generous free tier with certain limits on specific models but you can send up to 80 messages every 4hours using the default model. To learn more about ChatGPT Limitations, CLICK HERE',
+  },
+  {
+    title: 'What can I ask ChatGPT?',
+    content:
+      'You can ask ChatGPT about general knowledge, coding help, writing assistance, brainstorming ideas, language translation, and more. It responds best to clear, specific prompts.',
+  },
+  {
+    title: 'Is my data private?',
+    content:
+      'OpenAI takes data privacy seriously. Conversations are encrypted in transit, and you can opt out of data usage for model training in settings if offered by your plan. Learn more [here](https://help.openai.com/en/articles/8554402-gpts-data-privacy-faqs)',
+  },
+  {
+    title: 'How accurate is ChatGPT?',
+    content:
+      'ChatGPT"s accuracy often depends on the model you choose. Reasoning models (e.g. o1, o4-mini) think more before respond to deeply understand the problem, come up with a solution and provide answer, which enhances quality and accuracy but takes more time. ChatGPT still responds with hallucinations, which are facts or information that don"t exist or were made up by it. Always verify critical information from reliable sources before acting on it.',
+  },
+  {
+    title: 'Can ChatGPT write code?',
+    content:
+      'Yes. ChatGPT can generate, explain, and debug code snippets in many popular programming languages. It’s a helpful assistant for software development tasks.',
+  },
+  {
+    title: 'What languages does ChatGPT support?',
+    content:
+      'ChatGPT supports over 95 language officially with English being the most used. ChatGPT can engage with 4.5 billion native speakers in 58 languages by automatically recognizing the language of communication. This eliminates the need for manual setup, allowing for effortless multilingual interactions across its vast language range.',
+  },
+  {
+    title: 'Can I integrate ChatGPT into my application?',
+    content:
+      'Yes. OpenAI provides a powerful API that lets you integrate its models into your applications with a vibrant community of over 500K developers.',
+  },
+  {
+    title: 'What are ChatGPT’s limitations?',
+    content:
+      'ChatGPT’s limitations is a broad topic, however, generally speaking there are 2 main types of ChatGPT’s limitations: "bias", "knowledge cutoff". "hallucinations".',
+  },
 ];
