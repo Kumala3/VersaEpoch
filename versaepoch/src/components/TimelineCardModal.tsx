@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/TimelineCardsIcons';
 import { CloseIcon } from '@/components/ui/CloseIcon';
 import { GlobalIcon } from '@/components/ui/UIIcons';
-import { TimelineCardData, NonEmptyCardTypeArray } from "@/data/chatgptData";
+import { TimelineCardData, NonEmptyCardTypeArray } from '@/data/chatgptData';
 import { SourceElem } from './SourceElem';
 
 interface TimelineCardModalProps {
@@ -21,9 +21,12 @@ interface TimelineCardModalProps {
 }
 
 function generatePageURL(chatbot: string, card: TimelineCardData) {
-  const slug = card.title.toLowerCase().replaceAll(" ", "-");
+  const slug = card.title
+    .toLowerCase()
+    .replace(/[.\s,;:!?'"()[\]{}\/\\]+/g, '-') // first replace
+    .replace(/-+/g, '-'); // multiple dashes become one
   console.log(`Slug created: ${slug}`);
-  return `${chatbot}/${slug}-${card.id}`;
+  return `/${chatbot}/${slug}-${card.id}`;
 }
 
 export function TimelineCardModal({
@@ -32,26 +35,26 @@ export function TimelineCardModal({
   onClose,
 }: TimelineCardModalProps) {
   const CardIcon = (type: NonEmptyCardTypeArray, className: string) => {
-      switch (cardData.type[0]) {
-        case 'model':
-          return <ModelIcon className={className} />;
-        case 'announcement':
-          return <AnnouncementIcon className={className} />;
-        case 'update':
-          return <UpdateIcon className={className} />;
-        case 'milestone':
-          return <MilestoneIcon className={className} />;
-        case 'feature':
-          return <FeatureIcon className={className} />;
-        case 'product':
-          return <FeatureIcon className={className} />;
-        case 'company':
-          return <CompanyIcon className={className} />;
-        case 'research':
-          return <ResearchIcon className={className} />;
-        default:
-          return <GlobalIcon className={className} />;
-      }
+    switch (cardData.type[0]) {
+      case 'model':
+        return <ModelIcon className={className} />;
+      case 'announcement':
+        return <AnnouncementIcon className={className} />;
+      case 'update':
+        return <UpdateIcon className={className} />;
+      case 'milestone':
+        return <MilestoneIcon className={className} />;
+      case 'feature':
+        return <FeatureIcon className={className} />;
+      case 'product':
+        return <FeatureIcon className={className} />;
+      case 'company':
+        return <CompanyIcon className={className} />;
+      case 'research':
+        return <ResearchIcon className={className} />;
+      default:
+        return <GlobalIcon className={className} />;
+    }
   };
 
   return (
