@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/TimelineCardsIcons';
 import { CloseIcon } from '@/components/ui/CloseIcon';
 import { GlobalIcon } from '@/components/ui/UIIcons';
-import { TimelineCardData, NonEmptyCardTypeArray } from "@/data/chatgptTimeline";
+import { TimelineCardData, NonEmptyCardTypeArray } from "@/data/chatgptTimelineData";
 import { SourceElem } from './SourceElem';
 
 interface TimelineCardModalProps {

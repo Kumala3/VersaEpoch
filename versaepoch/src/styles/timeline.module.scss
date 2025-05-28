@@ -65,6 +65,13 @@
   gap: 2rem;
   width: fit-content;
   height: fit-content;
+  background-color: white;
+  border-color: black;
+  border-width: 2px;
+  padding: var(--padding-md);
+  justify-content: space-around;
+  align-items: center;
+  border-radius: var(--border-radius-sm);
 }
 
 .cardWrapper {

@@ -1,6 +1,6 @@
 import styles from '@/styles/chatgptPageTimeline.module.scss';
 import { Timeline } from '@/components/Timeline';
-import { timelineCards } from '@/data/chatgptTimeline';
+import { timelineCards } from '@/data/chatgptTimelineData';
 
 export default function ChatGPTPageTimeline() {
   return (
