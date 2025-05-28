@@ -11,39 +11,50 @@ import {
 } from '@/components/ui/TimelineCardsIcons';
 import { CloseIcon } from '@/components/ui/CloseIcon';
 import { GlobalIcon } from '@/components/ui/UIIcons';
-import { TimelineCardData, NonEmptyCardTypeArray } from "@/data/chatgptTimelineData";
+import { TimelineCardData, NonEmptyCardTypeArray } from '@/data/chatgptData';
 import { SourceElem } from './SourceElem';
 
 interface TimelineCardModalProps {
+  chatbot: string;
   cardData: TimelineCardData;
   onClose: () => void;
 }
 
+function generatePageURL(chatbot: string, card: TimelineCardData) {
+  const slug = card.title
+    .toLowerCase()
+    .replace(/[.\s,;:!?'"()[\]{}\/\\]+/g, '-') // first replace
+    .replace(/-+/g, '-'); // multiple dashes become one
+  console.log(`Slug created: ${slug}`);
+  return `/${chatbot}/${slug}-${card.id}`;
+}
+
 export function TimelineCardModal({
+  chatbot,
   cardData,
   onClose,
 }: TimelineCardModalProps) {
   const CardIcon = (type: NonEmptyCardTypeArray, className: string) => {
-      switch (cardData.type[0]) {
-        case 'model':
-          return <ModelIcon className={className} />;
-        case 'announcement':
-          return <AnnouncementIcon className={className} />;
-        case 'update':
-          return <UpdateIcon className={className} />;
-        case 'milestone':
-          return <MilestoneIcon className={className} />;
-        case 'feature':
-          return <FeatureIcon className={className} />;
-        case 'product':
-          return <FeatureIcon className={className} />;
-        case 'company':
-          return <CompanyIcon className={className} />;
-        case 'research':
-          return <ResearchIcon className={className} />;
-        default:
-          return <GlobalIcon className={className} />;
-      }
+    switch (cardData.type[0]) {
+      case 'model':
+        return <ModelIcon className={className} />;
+      case 'announcement':
+        return <AnnouncementIcon className={className} />;
+      case 'update':
+        return <UpdateIcon className={className} />;
+      case 'milestone':
+        return <MilestoneIcon className={className} />;
+      case 'feature':
+        return <FeatureIcon className={className} />;
+      case 'product':
+        return <FeatureIcon className={className} />;
+      case 'company':
+        return <CompanyIcon className={className} />;
+      case 'research':
+        return <ResearchIcon className={className} />;
+      default:
+        return <GlobalIcon className={className} />;
+    }
   };
 
   return (
@@ -94,7 +105,7 @@ export function TimelineCardModal({
 
         {/* TODO: Think about what ID/name use to fetch data about specific model/feature/tool/update */}
         <Link
-          href={`/chatgpt/${cardData.type}/`}
+          href={generatePageURL(chatbot, cardData)}
           className={styles.viewFullButton}>
           View Full Page
         </Link>

@@ -1,9 +1,10 @@
 import styles from '@/styles/chatgptPageTimeline.module.scss';
 import { Timeline } from '@/components/Timeline';
-import { timelineCards, faqElements } from '@/data/chatgptTimelineData';
+import { timelineCards, faqElements } from '@/data/chatgptData';
 import { ChatbotFAQList } from '@/components/ui/ChatbotFAQList';
 
 export default function ChatGPTPageTimeline() {
+
   return (
     <div className={styles.container}>
       <h2 className={styles.headline}>ChatGPT Evolution Timeline</h2>
@@ -28,9 +29,8 @@ export default function ChatGPTPageTimeline() {
         <br></br>If you have any other questions, check out the ChatGPT FAQ
         below the timeline.
       </p>
-
       {/* TODO: Replace with fetching data when backend is implemented */}
-      <Timeline lastUpdatedOn={"May 28, 2025"} timelineCards={timelineCards} />
+      <Timeline chatbot='chatgpt' lastUpdatedOn={"May 28, 2025"} timelineCards={timelineCards} />
 
       <ChatbotFAQList elements={faqElements} />
     </div>

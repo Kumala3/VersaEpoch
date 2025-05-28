@@ -18,9 +18,8 @@ export function NavDropdown({ title, link, elements }: NavDropdownProps) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   return (
-    <Link
+    <div
       className={styles.container}
-      href={`${link}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
       {title}
@@ -38,6 +37,6 @@ export function NavDropdown({ title, link, elements }: NavDropdownProps) {
           ))}
         </div>
       )}
-    </Link>
+    </div>
   );
 }
