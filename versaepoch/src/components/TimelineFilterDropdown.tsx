@@ -1,11 +1,13 @@
 'use client';
-import { useState } from 'react';
-import styles from '@/styles/timelineFilter.module.scss';
+import styles from '@/styles/timelineFilterDropdown.module.scss';
 import { FilterIcon } from '@/components/ui/UIIcons';
 import { CloseIcon } from './ui/CloseIcon';
 import { TimelineFilterDropdownColumn } from '@/components/TimelineFilterDropdownColumn';
 
 interface TimelineFilterDropdownProps {
+  opened: boolean,
+  onOpen: () => void;
+  onClose: () => void;
   filterTypeState: {
     milestone: boolean;
     update: boolean;
@@ -23,22 +25,15 @@ interface TimelineFilterDropdownProps {
 }
 
 export function TimelineFilterDropdown({
+  opened,
+  onOpen,
+  onClose,
   filterTypeState,
   filterYearState,
   onFilterTypeChange,
   onFilterYearChange,
   onFiltersReset,
 }: TimelineFilterDropdownProps) {
-  const [isOpened, setIsOpened] = useState<boolean>(false);
-
-  const openDropdown = () => {
-    setIsOpened(true);
-  };
-
-  const closeDropdown = () => {
-    setIsOpened(false);
-  };
-
   const filterTypeOptions = [
     {
       title: 'Milestone',
@@ -109,19 +104,19 @@ export function TimelineFilterDropdown({
 
   return (
     <div className={styles.container}>
-      {!isOpened ? (
-        <div onClick={openDropdown} className={styles.closedContainer}>
+      {!opened ? (
+        <div onClick={onOpen} className={styles.closedContainer}>
           <p className={styles.closedContainer__text}>Filter</p>
           <FilterIcon className={styles.closedContainer__icon} />
         </div>
       ) : (
-        <div onClick={closeDropdown} className={styles.closedContainer}>
+        <div onClick={onClose} className={styles.closedContainer}>
           <p className={styles.closedContainer__text}>Filter</p>
           <CloseIcon className={styles.closedContainer__icon} />
         </div>
       )}
 
-      {isOpened && (
+      {opened && (
         <div className={styles.dropdownContainer}>
           <div className={styles.dropdownContainer__grid}>
             <TimelineFilterDropdownColumn
@@ -141,7 +136,7 @@ export function TimelineFilterDropdown({
               Reset
             </button>
             <button
-              onClick={closeDropdown}
+              onClick={onClose}
               className={styles.dropdownContainer__bottomButtons__close}>
               Cancel
             </button>

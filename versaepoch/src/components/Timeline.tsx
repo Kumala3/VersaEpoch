@@ -3,9 +3,10 @@ import { useRef, useEffect, useState } from 'react';
 import styles from '@/styles/timeline.module.scss';
 import { TimelineCard } from '@/components/TimelineCard';
 import { TimelineCardModal } from '@/components/TimelineCardModal';
-import { TimelineCardData, timelineCards } from '@/data/chatgptTimeline';
+import { TimelineCardData } from '@/data/chatgptTimelineData';
 import { TimelineNavigationPanel } from '@/components/TimelineNavigationPanel';
-import { TimelineFilterDropdown } from './TimelineFilterDropdown';
+import { TimelineFilterDropdown } from '@/components/TimelineFilterDropdown';
+import { TimelineSortDropdown } from '@/components/TimelineSortDropdown';
 
 interface TimelineProps {
   timelineCards: TimelineCardData[];
@@ -33,10 +34,12 @@ export function Timeline({ timelineCards }: TimelineProps) {
   const [filterTypeState, setFilterTypeState] = useState(
     filterTypeInitialState
   );
-
   const [filterYearState, setFilterYearState] = useState(
     filterYearInitialState
   );
+  const [selectedSortOrder, setSelectedSortOrder] = useState<
+    'newest' | 'oldest'
+  >('oldest');
 
   const [selectedCard, setSelectedCard] = useState<TimelineCardData | null>(
     null
@@ -44,12 +47,20 @@ export function Timeline({ timelineCards }: TimelineProps) {
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [filteredCards, setFilteredCards] =
     useState<TimelineCardData[]>(timelineCards);
-
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
+
+  /* Filter, Sort Dropdown states */
+  const [isFilterDropdownOpen, setIsFilterDropdownOpen] =
+    useState<boolean>(false);
+  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState<boolean>(false);
 
   useEffect(() => {
     cardRefs.current = cardRefs.current.slice(0, timelineCards.length);
-  }, [timelineCards.length]);
+
+    if (filteredCards.length > 0) {
+      handleSortCards();
+    }
+  }, [selectedSortOrder, timelineCards.length]);
 
   const applyFilters = () => {
     // Get an array of all selected type names
@@ -57,14 +68,10 @@ export function Timeline({ timelineCards }: TimelineProps) {
       (key) => filterTypeState[key]
     );
 
-    console.log(`Selected filter types: ${selectedTypes}`);
-
     // Get selected Years
     const selectedYears = Object.keys(filterYearState).filter(
       (key) => filterYearState[key]
     );
-
-    console.log(`Selected filter years: ${selectedYears}`);
 
     // If no filters selected, show all cards
     if (selectedTypes.length === 0 && selectedYears.length === 0) {
@@ -99,6 +106,16 @@ export function Timeline({ timelineCards }: TimelineProps) {
     setFilteredCards(filteredCards);
   };
 
+  const openFilterDropdown = () => {
+    setIsFilterDropdownOpen(true);
+    // Only one Dropdown Opened at a time
+    setIsSortDropdownOpen(false);
+  };
+
+  const closeFilterDropdown = () => {
+    setIsFilterDropdownOpen(false);
+  };
+
   const handleFilterTypeChange = (typeName: string, checked: boolean) => {
     // Update the filter state with new checkbox value
     setFilterTypeState((prev) => ({
@@ -123,6 +140,39 @@ export function Timeline({ timelineCards }: TimelineProps) {
     setFilterTypeState(filterTypeInitialState);
     setFilterYearState(filterYearInitialState);
     setFilteredCards(timelineCards);
+  };
+
+  {
+    /* TODO: Add sorting LOGIC: newest-oldest, oldest-newest */
+  }
+
+  const handleSortOrderChange = (order: 'newest' | 'oldest') => {
+    setSelectedSortOrder(order);
+  };
+
+  const handleSortCards = () => {
+    const sortedCards = [...filteredCards].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+
+      if (selectedSortOrder === 'newest') {
+        return dateB.getTime() - dateA.getTime(); // Newest -> Oldest
+      } else {
+        return dateA.getTime() - dateB.getTime(); // Oldest -> Newest
+      }
+    });
+
+    setFilteredCards(sortedCards);
+  };
+
+  const openSortDropdown = () => {
+    setIsSortDropdownOpen(true);
+    // Close Filter Dropdown when sort is opened
+    setIsFilterDropdownOpen(false);
+  };
+
+  const closeSortDropdown = () => {
+    setIsSortDropdownOpen(false);
   };
 
   /* Handle Timeline Scroll for dynamic filling */
@@ -206,13 +256,22 @@ export function Timeline({ timelineCards }: TimelineProps) {
   return (
     <div className={styles.container}>
       <div className={styles.functionsContainer}>
-        {/* Sort function here */}
         <TimelineFilterDropdown
+          opened={isFilterDropdownOpen}
+          onOpen={openFilterDropdown}
+          onClose={closeFilterDropdown}
           filterTypeState={filterTypeState}
           filterYearState={filterYearState}
           onFilterTypeChange={handleFilterTypeChange}
           onFilterYearChange={handleFilterYearChange}
           onFiltersReset={resetAllFilters}
+        />
+        <TimelineSortDropdown
+          opened={isSortDropdownOpen}
+          selectedSort={selectedSortOrder}
+          onOpen={openSortDropdown}
+          onClose={closeSortDropdown}
+          onSortChange={handleSortOrderChange}
         />
       </div>
 

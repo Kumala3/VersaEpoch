@@ -42,12 +42,24 @@ function FilterIcon({ width = 48, height = 48, className }: IconProps) {
   );
 }
 
-function SortIcon({ width = 48, height = 48, className }: IconProps) {
+function ArrowDownIcon({ width = 48, height = 48, className }: IconProps) {
   return (
     <Image
       width={width}
       height={height}
-      src={'/down-arrow.svg'}
+      src={'/chevron-down.svg'}
+      alt="Sort Icon"
+      className={className}
+    />
+  );
+}
+
+function ArrowUpIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/chevron-up.svg'}
       alt="Sort Icon"
       className={className}
     />
@@ -97,5 +109,6 @@ export {
   GoToEndIcon,
   GoToBeginningIcon,
   FilterIcon,
-  SortIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
 };

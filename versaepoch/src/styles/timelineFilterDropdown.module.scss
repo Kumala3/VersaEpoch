@@ -1,11 +1,6 @@
 .container {
   display: flex;
   position: relative;
-  background-color: white;
-  border: 2px solid;
-  border-color: black;
-  border-radius: var(--border-radius-sm);
-  padding: var(--padding-md);
 }
 
 .closedContainer {
@@ -44,8 +39,8 @@
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: calc(100% + 5px);
-  right: 0 + 80px;
+  top: calc(100% + 10px);
+  right: 0 + 60px;
   background-color: white;
   z-index: 5;
   gap: 1rem;
@@ -55,6 +50,19 @@
   height: fit-content;
   padding: var(--padding-md);
   border-radius: var(--border-radius-sm);
+  animation: slideDown 400ms ease;
+  transform-origin: top center;
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0.2;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
   &__grid {
     display: grid;

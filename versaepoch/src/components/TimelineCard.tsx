@@ -10,7 +10,7 @@ import {
   ResearchIcon,
   ProductIcon
 } from '@/components/ui/TimelineCardsIcons';
-import { TimelineCardData, NonEmptyCardTypeArray } from '@/data/chatgptTimeline';
+import { TimelineCardData, NonEmptyCardTypeArray } from '@/data/chatgptTimelineData';
 import { GlobalIcon } from '@/components/ui/UIIcons';
 
 interface TimelineCardProps {
