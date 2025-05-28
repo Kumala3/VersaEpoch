@@ -11,15 +11,23 @@ import {
 } from '@/components/ui/TimelineCardsIcons';
 import { CloseIcon } from '@/components/ui/CloseIcon';
 import { GlobalIcon } from '@/components/ui/UIIcons';
-import { TimelineCardData, NonEmptyCardTypeArray } from "@/data/chatgptTimelineData";
+import { TimelineCardData, NonEmptyCardTypeArray } from "@/data/chatgptData";
 import { SourceElem } from './SourceElem';
 
 interface TimelineCardModalProps {
+  chatbot: string;
   cardData: TimelineCardData;
   onClose: () => void;
 }
 
+function generatePageURL(chatbot: string, card: TimelineCardData) {
+  const slug = card.title.toLowerCase().replaceAll(" ", "-");
+  console.log(`Slug created: ${slug}`);
+  return `${chatbot}/${slug}-${card.id}`;
+}
+
 export function TimelineCardModal({
+  chatbot,
   cardData,
   onClose,
 }: TimelineCardModalProps) {
@@ -94,7 +102,7 @@ export function TimelineCardModal({
 
         {/* TODO: Think about what ID/name use to fetch data about specific model/feature/tool/update */}
         <Link
-          href={`/chatgpt/${cardData.type}/`}
+          href={generatePageURL(chatbot, cardData)}
           className={styles.viewFullButton}>
           View Full Page
         </Link>

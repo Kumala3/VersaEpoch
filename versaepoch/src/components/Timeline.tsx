@@ -3,17 +3,18 @@ import { useRef, useEffect, useState } from 'react';
 import styles from '@/styles/timeline.module.scss';
 import { TimelineCard } from '@/components/TimelineCard';
 import { TimelineCardModal } from '@/components/TimelineCardModal';
-import { TimelineCardData } from '@/data/chatgptTimelineData';
+import { TimelineCardData } from '@/data/chatgptData';
 import { TimelineNavigationPanel } from '@/components/TimelineNavigationPanel';
 import { TimelineFilterDropdown } from '@/components/TimelineFilterDropdown';
 import { TimelineSortDropdown } from '@/components/TimelineSortDropdown';
 
 interface TimelineProps {
+  chatbot: string;
   lastUpdatedOn: string;
   timelineCards: TimelineCardData[];
 }
 
-export function Timeline({ lastUpdatedOn, timelineCards }: TimelineProps) {
+export function Timeline({ chatbot, lastUpdatedOn, timelineCards }: TimelineProps) {
   const filterTypeInitialState = {
     milestone: false,
     update: false,
@@ -321,7 +322,7 @@ export function Timeline({ lastUpdatedOn, timelineCards }: TimelineProps) {
 
       {/* CardModal */}
       {selectedCard && (
-        <TimelineCardModal cardData={selectedCard} onClose={closeCardModal} />
+        <TimelineCardModal chatbot={chatbot} cardData={selectedCard} onClose={closeCardModal} />
       )}
       {filteredCards.length !== 0 && (
         <TimelineNavigationPanel
