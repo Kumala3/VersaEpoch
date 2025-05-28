@@ -66,6 +66,30 @@ function ArrowUpIcon({ width = 48, height = 48, className }: IconProps) {
   );
 }
 
+function ExpandIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      src={'/expand-icon.svg'}
+      width={width}
+      height={height}
+      alt="Expand Icon"
+      className={className}
+    />
+  );
+}
+
+function CollapseIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      src={'/collapse-icon.svg'}
+      width={width}
+      height={height}
+      alt="Expand Icon"
+      className={className}
+    />
+  );
+}
+
 function GoToBeginningIcon({ width = 48, height = 48, className }: IconProps) {
   return (
     <Image
@@ -111,4 +135,6 @@ export {
   FilterIcon,
   ArrowDownIcon,
   ArrowUpIcon,
+  ExpandIcon,
+  CollapseIcon,
 };
