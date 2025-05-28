@@ -30,7 +30,7 @@ export default function ChatGPTPageTimeline() {
       </p>
 
       {/* TODO: Replace with fetching data when backend is implemented */}
-      <Timeline timelineCards={timelineCards} />
+      <Timeline lastUpdatedOn={"May 28, 2025"} timelineCards={timelineCards} />
 
       <ChatbotFAQList elements={faqElements} />
     </div>
