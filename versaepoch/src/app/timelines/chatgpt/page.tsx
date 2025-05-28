@@ -1,6 +1,7 @@
 import styles from '@/styles/chatgptPageTimeline.module.scss';
 import { Timeline } from '@/components/Timeline';
-import { timelineCards } from '@/data/chatgptTimelineData';
+import { timelineCards, faqElements } from '@/data/chatgptTimelineData';
+import { ChatbotFAQList } from '@/components/ui/ChatbotFAQList';
 
 export default function ChatGPTPageTimeline() {
   return (
@@ -20,15 +21,18 @@ export default function ChatGPTPageTimeline() {
         timeline of ChatGPT evolution on the market covering{' '}
         <span className={styles.highlightedText2}>product updates</span>,{' '}
         <span className={styles.highlightedText2}>model releases</span>,
-        <span className={styles.highlightedText2}>features</span> & {' '}
+        <span className={styles.highlightedText2}>features</span> &{' '}
         <span className={styles.highlightedText2}>milestones</span> collected
         from OpenAI&apos;s official release notes, Wikipedia and top-independent
         sources.
         <br></br>If you have any other questions, check out the ChatGPT FAQ
         below the timeline.
       </p>
+
       {/* TODO: Replace with fetching data when backend is implemented */}
       <Timeline timelineCards={timelineCards} />
+
+      <ChatbotFAQList elements={faqElements} />
     </div>
   );
 }
