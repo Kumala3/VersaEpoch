@@ -2,7 +2,6 @@
   "name": "versaepoch",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -10,7 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.49.8",
+    "@supabase/ssr": "latest",
+    "@supabase/supabase-js": "latest",
     "lineicons": "^1.3.2",
     "motion": "^12.15.0",
     "nanoid": "^5.1.5",
