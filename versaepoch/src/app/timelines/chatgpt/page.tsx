@@ -1,9 +1,22 @@
 import styles from '@/styles/chatgptPageTimeline.module.scss';
+import { createClient } from '@/utils/supabase/server';
 import { Timeline } from '@/components/Timeline';
-import { timelineCards, faqElements } from '@/data/chatgptData';
+import { faqElements } from '@/data/chatgptData';
 import { ChatbotFAQList } from '@/components/ui/ChatbotFAQList';
 
-export default function ChatGPTPageTimeline() {
+export default async function ChatgptPageTimeline() {
+  const supabase = await createClient();
+
+  const { data: timelineCards, error } = await supabase
+    .from('timeline_cards')
+    .select('*')
+    .eq('chatbot', 'chatgpt');
+
+  console.log(`timeline cards: ${JSON.stringify(timelineCards, null, 2)}`);
+
+  if (error) {
+    console.log(`Error fetching timeline cards: ${JSON.stringify(error)}`);
+  }
 
   return (
     <div className={styles.container}>
@@ -29,8 +42,12 @@ export default function ChatGPTPageTimeline() {
         <br></br>If you have any other questions, check out the ChatGPT FAQ
         below the timeline.
       </p>
-      {/* TODO: Replace with fetching data when backend is implemented */}
-      <Timeline chatbot='chatgpt' lastUpdatedOn={"May 28, 2025"} timelineCards={timelineCards} />
+
+      <Timeline
+        chatbot="chatgpt"
+        lastUpdatedOn={'May 28, 2025'}
+        timelineCards={timelineCards || null}
+      />
 
       <ChatbotFAQList elements={faqElements} />
     </div>

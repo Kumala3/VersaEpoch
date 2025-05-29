@@ -11,10 +11,14 @@ import { TimelineSortDropdown } from '@/components/TimelineSortDropdown';
 interface TimelineProps {
   chatbot: string;
   lastUpdatedOn: string;
-  timelineCards: TimelineCardData[];
+  timelineCards: TimelineCardData[] | null;
 }
 
-export function Timeline({ chatbot, lastUpdatedOn, timelineCards }: TimelineProps) {
+export function Timeline({
+  chatbot,
+  lastUpdatedOn,
+  timelineCards,
+}: TimelineProps) {
   const filterTypeInitialState = {
     milestone: false,
     update: false,
@@ -47,8 +51,9 @@ export function Timeline({ chatbot, lastUpdatedOn, timelineCards }: TimelineProp
     null
   );
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
-  const [filteredCards, setFilteredCards] =
-    useState<TimelineCardData[]>(timelineCards);
+  const [filteredCards, setFilteredCards] = useState<TimelineCardData[] | null>(
+    timelineCards
+  );
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
   /* Filter, Sort Dropdown states */
@@ -57,9 +62,9 @@ export function Timeline({ chatbot, lastUpdatedOn, timelineCards }: TimelineProp
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    cardRefs.current = cardRefs.current.slice(0, timelineCards.length);
+    cardRefs.current = cardRefs.current.slice(0, timelineCards?.length);
 
-    if (filteredCards.length > 0) {
+    if (filteredCards?.length > 0) {
       handleSortCards();
     }
   }, [selectedSortOrder, timelineCards.length]);
@@ -81,7 +86,7 @@ export function Timeline({ chatbot, lastUpdatedOn, timelineCards }: TimelineProp
       return;
     }
 
-    const filteredCards = timelineCards.filter((card) => {
+    const filteredCards = timelineCards?.filter((card) => {
       let matchesType = true;
       let matchesYear = true;
 
@@ -244,7 +249,7 @@ export function Timeline({ chatbot, lastUpdatedOn, timelineCards }: TimelineProp
   };
 
   const goToLast = () => {
-    goToCard(timelineCards.length - 1);
+    goToCard(timelineCards?.length - 1);
   };
 
   const openCardModal = (cardData: TimelineCardData) => {
@@ -257,82 +262,98 @@ export function Timeline({ chatbot, lastUpdatedOn, timelineCards }: TimelineProp
 
   return (
     <div className={styles.container}>
-      <div className={styles.topContainer}>
-        {/* Last Update On Callout */}
-        <div className={styles.topContainer__lastUpdatedOnContainer}>
-          <p className={styles.topContainer__lastUpdatedOnContainer__text}>
-            Last Updated On: {lastUpdatedOn}
-          </p>
-        </div>
+      {timelineCards ? (
+        <>
+          <div className={styles.topContainer}>
+            {/* Last Update On Callout */}
+            <div className={styles.topContainer__lastUpdatedOnContainer}>
+              <p className={styles.topContainer__lastUpdatedOnContainer__text}>
+                Last Updated On: {lastUpdatedOn}
+              </p>
+            </div>
 
-        <div className={styles.topContainer__functionsContainer}>
-          <TimelineFilterDropdown
-            opened={isFilterDropdownOpen}
-            onOpen={openFilterDropdown}
-            onClose={closeFilterDropdown}
-            filterTypeState={filterTypeState}
-            filterYearState={filterYearState}
-            onFilterTypeChange={handleFilterTypeChange}
-            onFilterYearChange={handleFilterYearChange}
-            onFiltersReset={resetAllFilters}
-          />
-          <TimelineSortDropdown
-            opened={isSortDropdownOpen}
-            selectedSort={selectedSortOrder}
-            onOpen={openSortDropdown}
-            onClose={closeSortDropdown}
-            onSortChange={handleSortOrderChange}
-          />
-        </div>
-      </div>
-
-      <ol className={styles.timelineWrapper}>
-        {filteredCards.length !== 0 ? (
-          <>
-            {filteredCards.map((card, index) => (
-              <li
-                key={index}
-                ref={(el) => (cardRefs.current[index] = el)}
-                className={`${styles.cardWrapper}`}>
-                <TimelineCard
-                  data={card}
-                  className={`${styles.timelineCard} ${
-                    index === currentCardIndex ? styles.timelineCardActive : ''
-                  }`}
-                  onClick={() => openCardModal(card)}
-                />
-              </li>
-            ))}
-            <li className={`${styles.cardWrapper} ${styles.timelineTail}`}></li>
-          </>
-        ) : (
-          <div className={styles.noCardsContainer}>
-            <h4 className={styles.noCardsContainer__headline}>
-              Oops, Try Different Filters or Reset Below:
-            </h4>
-            {/* Reset Button */}
-            <button
-              onClick={resetAllFilters}
-              className={styles.noCardsContainer__resetButton}>
-              Reset
-            </button>
+            <div className={styles.topContainer__functionsContainer}>
+              <TimelineFilterDropdown
+                opened={isFilterDropdownOpen}
+                onOpen={openFilterDropdown}
+                onClose={closeFilterDropdown}
+                filterTypeState={filterTypeState}
+                filterYearState={filterYearState}
+                onFilterTypeChange={handleFilterTypeChange}
+                onFilterYearChange={handleFilterYearChange}
+                onFiltersReset={resetAllFilters}
+              />
+              <TimelineSortDropdown
+                opened={isSortDropdownOpen}
+                selectedSort={selectedSortOrder}
+                onOpen={openSortDropdown}
+                onClose={closeSortDropdown}
+                onSortChange={handleSortOrderChange}
+              />
+            </div>
           </div>
-        )}
-      </ol>
 
-      {/* CardModal */}
-      {selectedCard && (
-        <TimelineCardModal chatbot={chatbot} cardData={selectedCard} onClose={closeCardModal} />
-      )}
-      {filteredCards.length !== 0 && (
-        <TimelineNavigationPanel
-          onNext={goToNext}
-          onPrev={goToPrev}
-          onFirst={goToFirst}
-          onLast={goToLast}
-          currentIndex={currentCardIndex}
-          totalCards={filteredCards.length}
-        />
+          <ol className={styles.timelineWrapper}>
+            {filteredCards?.length !== 0 ? (
+              <>
+                {filteredCards?.map((card, index) => (
+                  <li
+                    key={index}
+                    ref={(el) => (cardRefs.current[index] = el)}
+                    className={`${styles.cardWrapper}`}>
+                    <TimelineCard
+                      data={card}
+                      className={`${styles.timelineCard} ${
+                        index === currentCardIndex
+                          ? styles.timelineCardActive
+                          : ''
+                      }`}
+                      onClick={() => openCardModal(card)}
+                    />
+                  </li>
+                ))}
+                <li
+                  className={`${styles.cardWrapper} ${styles.timelineTail}`}></li>
+              </>
+            ) : (
+              <div className={styles.noCardsContainer}>
+                <h4 className={styles.noCardsContainer__headline}>
+                  Oops, Try Different Filters or Reset Below:
+                </h4>
+                {/* Reset Button */}
+                <button
+                  onClick={resetAllFilters}
+                  className={styles.noCardsContainer__resetButton}>
+                  Reset
+                </button>
+              </div>
+            )}
+          </ol>
+
+          {/* CardModal */}
+          {selectedCard && (
+            <TimelineCardModal
+              chatbot={chatbot}
+              cardData={selectedCard}
+              onClose={closeCardModal}
+            />
+          )}
+          {filteredCards?.length !== 0 && (
+            <TimelineNavigationPanel
+              onNext={goToNext}
+              onPrev={goToPrev}
+              onFirst={goToFirst}
+              onLast={goToLast}
+              currentIndex={currentCardIndex}
+              totalCards={filteredCards?.length}
+            />
+          )}
+        </>
+      ) : (
+        <div className={styles.nothingToDisplay}>
+          No Data to display...
+          {/* IMPORTANT: Replace with a nice racoon visual with a confused expression like something went wrong ekhh... */}
+        </div>
       )}
     </div>
   );
