@@ -996,6 +996,7 @@ let output = 'export const timelineCards: TimelineCardData[] = [\n';
 updatedCards.forEach((card, index) => {
   output += ` {\n`;
   output += `id: "${card.id}",\n`;
+  output += `chatbot: 'chatgpt',\n`
   output += `title: "${card.title}",\n`;
   output += `short_description: "${card.short_description}",\n`;
   output += `full_description: "${card.full_description}", \n`;
