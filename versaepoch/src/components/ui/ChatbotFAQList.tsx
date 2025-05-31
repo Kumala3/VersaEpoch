@@ -1,11 +1,9 @@
-import {
-  ChatbotAccordion,
-  ChatbotAccordionProps,
-} from '@/components/ui/ChatbotAccordion';
+import { ChatbotAccordion } from '@/components/ui/ChatbotAccordion';
 import styles from '@/styles/ui/chatbotFAQList.module.scss';
+import { FAQChatbot } from '@/data/chatgptData';
 
 interface ChatbotFAQListProps {
-  elements: ChatbotAccordionProps[];
+  elements: FAQChatbot[] | [];
 }
 
 export function ChatbotFAQList({ elements }: ChatbotFAQListProps) {
@@ -18,13 +16,17 @@ export function ChatbotFAQList({ elements }: ChatbotFAQListProps) {
         </h6>
       </div>
 
-      <div className={styles.faqList}>
-        {elements?.map((item) => (
-          <div key={item.title}>
-            <ChatbotAccordion title={item.title} content={item.content} />
-          </div>
-        ))}
-      </div>
+      {elements.length > 0 ? (
+        <div className={styles.faqList}>
+          {elements?.map((item) => (
+            <div key={item.title}>
+              <ChatbotAccordion title={item.title} answer={item.answer} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div>No elements to display...</div>
+      )}
     </div>
   );
 }

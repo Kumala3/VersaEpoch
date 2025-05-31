@@ -1,42 +1,39 @@
-'use client';
-
+import { createClient } from '@/utils/supabase/client';
 import Image from 'next/image';
 import styles from '@/styles/timelineCardPage.module.scss';
 import { useParams } from 'next/navigation';
-import { timelineCards } from '@/data/chatgptData';
 
-export default function TimelineCardPage() {
-  const params = useParams();
-  const { slug } = params;
+export default async function TimelineCardPage() {
+  const supabase = createClient();
+  // const params = useParams();
+  // const { slug } = params;
 
   // Extract ID from the end of slug
-  const lastDashIndex = (slug as string).lastIndexOf('-');
-  const cardId = (slug as string).substring(lastDashIndex + 1); // +1 erases '-'
+  // const lastDashIndex = (slug as string).lastIndexOf('-');
+  // const cardId = (slug as string).substring(lastDashIndex + 1); // +1 erases '-'
 
-  const card = timelineCards.find((card) => card.id === cardId);
+  const { data, error } = await supabase.from("").select("*");
 
-  {/* TODO: Supabase implementation!!! */}
-
-  if (!card) {
-    return <h2>Card not Found :(</h2>;
+  if (error) {
+    console.log(`There was an error fetching the card Data: ${data}`);
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.topContainer}>
-        {/* <Image
-          src={bannerImage}
+        <Image
+          src={data.bannerImage}
           alt="BannerImage"
           width={100}
           height={100}
           className={styles.bannerImage}
-        />*/}
-        <h2 className={styles.topContainer__heading}>{card.title}</h2>
+        />
+        <h2 className={styles.topContainer__heading}>{data.title}</h2>
       </div>
       <p className={styles.propertiesContainer}>
-        <p>{card.date}</p>
+        <p>{data.date}</p>
         <div>
-          {card.type.map((item) => (
+          {data.type.map((item) => (
             <p key={item}>{item}</p>
           ))}
         </div>

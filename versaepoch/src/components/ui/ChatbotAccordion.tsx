@@ -3,13 +3,9 @@ import { useState } from 'react';
 import styles from '@/styles/ui/chatbotAccordion.module.scss';
 import { ExpandIcon, CollapseIcon } from '@/components/ui/UIIcons';
 import { motion, AnimatePresence } from 'motion/react';
+import { FAQChatbot } from '@/data/chatgptData';
 
-export interface ChatbotAccordionProps {
-  title: string;
-  content: string;
-}
-
-export function ChatbotAccordion({ title, content }: ChatbotAccordionProps) {
+export function ChatbotAccordion({ title, answer }: FAQChatbot) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleAccordion = () => {
@@ -64,7 +60,7 @@ export function ChatbotAccordion({ title, content }: ChatbotAccordionProps) {
             exit="exit"
             variants={contentVariants}
             >
-            {content}
+            {answer}
           </motion.section>
         )}
       </AnimatePresence>

@@ -11,21 +11,20 @@ import {
 } from '@/components/ui/TimelineCardsIcons';
 import { CloseIcon } from '@/components/ui/CloseIcon';
 import { GlobalIcon } from '@/components/ui/UIIcons';
-import { TimelineCardData, NonEmptyCardTypeArray } from '@/data/chatgptData';
+import { TimelineCard, NonEmptyCardTypeArray } from '@/data/chatgptData';
 import { SourceElem } from './SourceElem';
 
 interface TimelineCardModalProps {
   chatbot: string;
-  cardData: TimelineCardData;
+  cardData: TimelineCard;
   onClose: () => void;
 }
 
-function generatePageURL(chatbot: string, card: TimelineCardData) {
+function generatePageURL(chatbot: string, card: TimelineCard) {
   const slug = card.title
     .toLowerCase()
     .replace(/[.\s,;:!?'"()[\]{}\/\\]+/g, '-') // first replace
     .replace(/-+/g, '-'); // multiple dashes become one
-  console.log(`Slug created: ${slug}`);
   return `/${chatbot}/${slug}-${card.id}`;
 }
 
@@ -60,7 +59,7 @@ export function TimelineCardModal({
   return (
     <div className={styles.modalBackdrop}>
       <div className={styles.modalContainer}>
-        {/* TODO: Add top image pulled from OpenAI (ask deep research if I can do that) */}
+        {/* TODO: Add banner image */}
         <div className={styles.modalContainer__mainContent}>
           <div className={styles.modalContainer__topBar}>
             <button
@@ -85,10 +84,6 @@ export function TimelineCardModal({
             <div className={styles.date}>
               <strong>Date:</strong> {cardData.date}
             </div>
-            <div className={styles.impact}>
-              {/* Add capitalize utility function */}
-              <strong>Impact: </strong> {cardData.impact}
-            </div>
             <h6 className={styles.metadata__headline}>Description:</h6>
             <p className={styles.fullDescription}>
               {cardData.full_description}
@@ -103,7 +98,6 @@ export function TimelineCardModal({
           </div>
         </div>
 
-        {/* TODO: Think about what ID/name use to fetch data about specific model/feature/tool/update */}
         <Link
           href={generatePageURL(chatbot, cardData)}
           className={styles.viewFullButton}>
