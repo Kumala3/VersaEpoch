@@ -3,33 +3,39 @@ import { createClient } from '@/utils/supabase/server';
 import { Timeline } from '@/components/Timeline';
 import { ChatbotFAQList } from '@/components/ui/ChatbotFAQList';
 
-export default async function ClaudeTimeline() {
+export default async function GeminiTimelinePage() {
   const supabase = await createClient();
 
-  const { data: timelineCards, error: timelineDataError } = await supabase
+  const { data: timelineCards, error: timelineCardsError } = await supabase
     .from('timeline_cards')
     .select('*')
-    .eq('chatbot', 'claude');
+    .eq('chatbot', 'gemini');
 
   const { data: faqData, error: faqDataError } = await supabase
     .from('faq_chatbots')
     .select('*')
-    .eq('chatbot', 'claude');
+    .eq('chatbot', 'gemini');
 
-  if (timelineDataError) {
-    console.log(`Error fetching timelineCards data: ${timelineDataError}`);
+  if (timelineCardsError) {
+    console.log(
+      `There was an error fetching timelineCards data: ${timelineCardsError}`
+    );
   } else if (faqDataError) {
-    console.log(`Error fetching faqData: ${faqDataError}`);
+    console.log(
+      `There was an error fetching faq elements data: ${JSON.stringify(
+        faqDataError,
+        null,
+        4
+      )}`
+    );
   }
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.headline}>Claude Evolution Timeline</h2>
+      <h2 className={styles.headline}>Gemini Evolution Timeline</h2>
       <p className={styles.introductionText}>
-        Claude, Anthropic’s AI chatbot, is one of the aggressive rival to
-        ChatGPT thriving in developing best models for coding. What started as a
-        general AI Assistant soon evolved into the best coding models in the
-        world.
+        Gemini (formerly Bard) is Google’s AI chatbot, with one of the largest
+        context windows with up 2M token and 400 million monthly active users.
         <br></br>Below, you’ll find{' '}
         <span className={styles.highlightedText}>THE MOST Comprehensive</span>{' '}
         timeline of ChatGPT evolution on the market covering{' '}
@@ -44,8 +50,8 @@ export default async function ClaudeTimeline() {
       </p>
 
       <Timeline
+        chatbot="gemini"
         lastUpdatedOn="May 31, 2025"
-        chatbot="claude"
         timelineCards={timelineCards || []}
       />
 
