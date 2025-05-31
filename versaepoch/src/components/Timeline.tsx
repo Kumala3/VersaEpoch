@@ -11,7 +11,7 @@ import { TimelineSortDropdown } from '@/components/TimelineSortDropdown';
 interface TimelineProps {
   chatbot: string;
   lastUpdatedOn: string;
-  timelineCards: TimelineCardData[] | null;
+  timelineCards: TimelineCardData[] | [];
 }
 
 export function Timeline({
