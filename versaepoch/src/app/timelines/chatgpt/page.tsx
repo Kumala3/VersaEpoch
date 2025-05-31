@@ -1,5 +1,5 @@
-import styles from '@/styles/chatgptPageTimeline.module.scss';
-import { createClient } from '@/utils/supabase/client';
+import styles from '@/styles/chatbotPageTimeline.module.scss';
+import { createClient } from '@/utils/supabase/server';
 import { Timeline } from '@/components/Timeline';
 import { ChatbotFAQList } from '@/components/ui/ChatbotFAQList';
 
