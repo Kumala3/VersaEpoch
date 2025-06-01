@@ -10,6 +10,7 @@
   --neutral-dark: #32614f;
   --gray-color: rgb(149, 149, 149);
   --subHeadline-color: rgb(50,50,50);
+  --skeleton-bg: #e5e5e5;
 
   /* Font Sizes */
   --font-size-base: 16px;
@@ -36,6 +37,9 @@
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
   --border-radius-lg: 12px;
+  --border-radius-skeleton-sm: 4px;
+  --border-radius-skeleton-md: 8px;
+  --border-radius-skeleton-lg: 12px;
 
   /* Padding */
   --padding-sm: 0.5rem;
