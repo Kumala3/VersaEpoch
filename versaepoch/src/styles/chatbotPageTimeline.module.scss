@@ -1,46 +1,140 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: fit-content;
-    gap: 2rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  gap: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .headline {
-    color: var(--primary-color);
-    align-self: center;
-    font-size: var(--font-size-h2);
-    font-weight: var(--font-weight-bold);
+  color: var(--primary-color);
+  align-self: center;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
 }
 
 .introductionText {
-    display: inline;
-    border-left-width: 4px;
-    border-color: rgb(0, 158, 186);
-    padding-left: 1rem;
-    line-height: 2rem;
-    width: 100%;
-    align-self: center;
-    max-width: 1000px;
-    font-size: var(--font-size-body-1);
-    font-weight: var(--font-weight-med);
+  display: inline;
+  border-left-width: 4px;
+  border-color: rgb(0, 158, 186);
+  padding-left: 1rem;
+  line-height: 2rem;
+  width: 100%;
+  align-self: center;
+  max-width: 1000px;
+  font-size: var(--font-size-body-1);
+  font-weight: var(--font-weight-med);
 }
 
 .highlightedText {
-    color: #00a486;
-    font-weight: var(--font-weight-bold);
+  color: #00a486;
+  font-weight: var(--font-weight-bold);
 }
 
 .highlightedText2 {
-    text-decoration: underline;
-    text-decoration-color: #00a486;
-    text-decoration-thickness: 2px;
-    text-decoration-style: dotted;
+  text-decoration: underline;
+  text-decoration-color: #00a486;
+  text-decoration-thickness: 2px;
+  text-decoration-style: dotted;
 }
 
 .introductionContainer {
-    font-size: var(--font-size-body-1);
-    font-weight: var(--font-weight-reg);
+  font-size: var(--font-size-body-1);
+  font-weight: var(--font-weight-reg);
+}
+
+/* SKELETON PAGE */
+.loadingContainer {
+  padding: 2rem;
+}
+
+.skeletonTitle {
+  width: 80%;
+  height: 2rem;
+  background-color: var(--skeleton-bg);
+  border-radius: var(--border-radius-skeleton-sm);
+  margin-bottom: 1rem;
+}
+
+.skeletonIntroductionText {
+  width: 50%;
+  height: 5rem;
+  background-color: var(--skeleton-bg);
+  border-radius: var(--border-radius-skeleton);
+}
+
+.skeletonTimeline {
+  width: 100%;
+  background-color: wheat;
+  border-radius: var(--border-radius-skeleton-md);
+  height: 500px;
+  padding: 2rem;
+}
+
+.skeletonTopContainer {
+  width: 80%;
+  height: 3rem;
+  background-color: var(--skeleton-bg);
+  border-radius: var(--border-radius-skeleton-sm);
+}
+
+.skeletonFunctionsContainer {
+  width: 20rem;
+  height: 2rem;
+  background-color: var(--skeleton-bg);
+  border-radius: var(--border-radius-skeleton-sm);
+}
+
+.skeletonFunction {
+  width: 8rem;
+  height: 1.5rem;
+  background-color: var(--skeleton-bg);
+  border-radius: var(--border-radius-skeleton-sm);
+}
+
+.skeletonLastUpdatedOn {
+  width: 10rem;
+  height: 2rem;
+  background-color: var(--skeleton-bg);
+  border-radius: var(--border-radius-skeleton-sm);
+}
+
+.skeletonHorizontalTimeline {
+  display: flex;
+  flex-direction: row;
+  gap: 5rem;
+  width: 100%;
+  height: 400px;
+  background-color: var(--skeleton-bg);
+  border-radius: var(--border-radius-skeleton-sm);
+}
+
+.skeletonTimelineCard {
+  width: 10rem;
+  height: 5rem;
+  background-color: var(--skeleton-bg);
+  border-radius: var(--border-radius-skeleton-sm);
+}
+
+.skeletonFAQTitle {
+  width: 80%;
+  height: 2rem;
+  background-color: var(--skeleton-bg);
+  border-radius: var(--border-radius-skeleton-sm);
+}
+
+.skeletonFAQList {
+  width: 70%;
+  height: fit-content;
+  background-color: var(--skeleton-bg);
+  border-radius: var(--border-radius-skeleton-sm);
+}
+
+.skeletonFAQItem {
+  width: 70%;
+  height: 2rem;
+  background-color: var(--skeleton-bg);
+  border-radius: var(--border-radius-skeleton-sm);
 }
