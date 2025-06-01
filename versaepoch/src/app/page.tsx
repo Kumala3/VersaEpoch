@@ -14,7 +14,6 @@ export default function HomePage() {
   const router = useRouter();
 
   const openChatbotExploreModal = () => {
-    console.log('chatbotExploreModal opened!');
     setIsChatbotExploreModalOpened(true);
   };
 

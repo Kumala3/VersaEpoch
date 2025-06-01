@@ -10,11 +10,10 @@ interface NavDropdownElement {
 
 interface NavDropdownProps {
   title: string;
-  link: string;
   elements: NavDropdownElement[];
 }
 
-export function NavDropdown({ title, link, elements }: NavDropdownProps) {
+export function NavDropdown({ title, elements }: NavDropdownProps) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   return (

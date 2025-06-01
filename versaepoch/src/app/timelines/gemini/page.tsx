@@ -17,16 +17,18 @@ export default async function GeminiTimelinePage() {
     .eq('chatbot', 'gemini');
 
   if (timelineCardsError) {
-    console.log(
-      `There was an error fetching timelineCards data: ${timelineCardsError}`
+    return (
+      <h1>
+        Something unexpected happened. Please contact us by opening an issue on
+        GitHub
+      </h1>
     );
   } else if (faqDataError) {
-    console.log(
-      `There was an error fetching faq elements data: ${JSON.stringify(
-        faqDataError,
-        null,
-        4
-      )}`
+    return(
+      <h1>
+        Something unexpected happened. Please contact us by opening an issue on
+        GitHub
+      </h1>
     );
   }
 

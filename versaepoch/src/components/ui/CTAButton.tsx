@@ -7,8 +7,6 @@ interface CTAButtonProps {
 }
 
 export function CTAButton({ title, onClick, className = "" }: CTAButtonProps) {
-  console.log(`Classname received: ${className}`);
-  
   return (
     <button onClick={onClick} className={`${styles.container} ${className}`}>
       {title}
