@@ -17,11 +17,13 @@ export default async function ChatgptPageTimeline() {
     .eq('chatbot', 'chatgpt');
 
   if (timelineCardsError) {
-    console.log(
-      `Error fetching timeline cards: ${JSON.stringify(timelineCardsError)}`
-    );
+    return (
+      <h1>Something unexpected happened. Please contact us by opening an issue on GitHub</h1>
+    )
   } else if (faqDataError) {
-    console.log(`Error while fetching FAQ data: ${faqDataError}`);
+    return (
+      <h1>Something unexpected happened. Please contact us by opening an issue on GitHub</h1>
+    )
   }
 
   return (

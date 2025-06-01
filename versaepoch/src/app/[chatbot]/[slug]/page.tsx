@@ -9,10 +9,11 @@ import { capitalizeWord } from '@/utils/capitalizeWord';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     chatbot: string;
     slug: string;
-  };
+  }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 function formatDate(dateString: string) {
@@ -25,7 +26,7 @@ function formatDate(dateString: string) {
 }
 
 export default async function TimelineCardPage({ params }: PageProps) {
-  const { chatbot, slug } = params;
+  const { slug } = await params;
 
   {
     /* IMPORTANT: Add chatbot bg based on chatbot, adding depth */
@@ -42,8 +43,6 @@ export default async function TimelineCardPage({ params }: PageProps) {
     .select('*')
     .eq('id', cardId)
     .single();
-
-  console.log(`Card Data: ${JSON.stringify(card.sources)}`);
 
   const typeIcon = (type: string) => {
     switch (type) {

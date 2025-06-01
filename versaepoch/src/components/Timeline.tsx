@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import styles from '@/styles/timeline.module.scss';
 import { TimelineCard } from '@/components/TimelineCard';
 import { TimelineCardModal } from '@/components/TimelineCardModal';
@@ -61,23 +61,15 @@ export function Timeline({
     useState<boolean>(false);
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    cardRefs.current = cardRefs.current.slice(0, timelineCards?.length);
-
-    if (filteredCards?.length > 0) {
-      handleSortCards();
-    }
-  }, [selectedSortOrder, timelineCards.length]);
-
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     // Get an array of all selected type names
     const selectedTypes = Object.keys(filterTypeState).filter(
-      (key) => filterTypeState[key]
+      (key) => filterTypeState[key as keyof typeof filterTypeState]
     );
 
     // Get selected Years
     const selectedYears = Object.keys(filterYearState).filter(
-      (key) => filterYearState[key]
+      (key) => filterYearState[key as keyof typeof filterYearState]
     );
 
     // If no filters selected, show all cards
@@ -111,7 +103,7 @@ export function Timeline({
     });
 
     setFilteredCards(filteredCards);
-  };
+  }, [filterTypeState, filterYearState, timelineCards]);
 
   const openFilterDropdown = () => {
     setIsFilterDropdownOpen(true);
@@ -141,7 +133,7 @@ export function Timeline({
 
   useEffect(() => {
     applyFilters();
-  }, [filterTypeState, filterYearState]);
+  }, [filterTypeState, filterYearState, applyFilters]);
 
   const resetAllFilters = () => {
     setFilterTypeState(filterTypeInitialState);
@@ -157,7 +149,11 @@ export function Timeline({
     setSelectedSortOrder(order);
   };
 
-  const handleSortCards = () => {
+  const handleSortCards = useCallback(() => {
+    if (!filteredCards) {
+      return;
+    }
+
     const sortedCards = [...filteredCards].sort((a, b) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
@@ -170,7 +166,7 @@ export function Timeline({
     });
 
     setFilteredCards(sortedCards);
-  };
+  }, [filteredCards, selectedSortOrder]);
 
   const openSortDropdown = () => {
     setIsSortDropdownOpen(true);
@@ -182,6 +178,20 @@ export function Timeline({
     setIsSortDropdownOpen(false);
   };
 
+  useEffect(() => {
+    cardRefs.current = cardRefs.current.slice(0, timelineCards?.length);
+
+    if (filteredCards && filteredCards?.length > 0) {
+      handleSortCards();
+    }
+  }, [
+    selectedSortOrder,
+    timelineCards?.length,
+    filteredCards,
+    filteredCards?.length,
+    handleSortCards,
+  ]);
+
   /* Handle Timeline Scroll for dynamic filling */
   useEffect(() => {
     const timelineRef = document.querySelector(`.${styles.timelineWrapper}`);
@@ -190,7 +200,7 @@ export function Timeline({
       if (timelineRef) {
         const scrollPosition = timelineRef.scrollLeft;
 
-        cardRefs.current.forEach((card, index) => {
+        cardRefs.current.forEach((card) => {
           if (!card) return;
 
           const cardPosition = card.offsetLeft;
@@ -214,7 +224,7 @@ export function Timeline({
       }
     };
 
-    timelineRef.addEventListener('scroll', handleScroll);
+    timelineRef?.addEventListener('scroll', handleScroll);
 
     // Rin this when component unmounts
     return () => timelineRef?.removeEventListener('scroll', handleScroll);
@@ -299,7 +309,7 @@ export function Timeline({
                 {filteredCards?.map((card, index) => (
                   <li
                     key={index}
-                    ref={(el) => (cardRefs.current[index] = el)}
+                    ref={(el) => { cardRefs.current[index] = el; }}
                     className={`${styles.cardWrapper}`}>
                     <TimelineCard
                       data={card}
@@ -338,7 +348,7 @@ export function Timeline({
               onClose={closeCardModal}
             />
           )}
-          {filteredCards?.length !== 0 && (
+          {filteredCards && filteredCards?.length !== 0 && (
             <TimelineNavigationPanel
               onNext={goToNext}
               onPrev={goToPrev}

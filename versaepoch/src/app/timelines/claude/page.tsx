@@ -17,9 +17,19 @@ export default async function ClaudeTimeline() {
     .eq('chatbot', 'claude');
 
   if (timelineDataError) {
-    console.log(`Error fetching timelineCards data: ${timelineDataError}`);
+    return (
+      <h1>
+        Something unexpected happened. Please contact us by opening an issue on
+        GitHub
+      </h1>
+    );
   } else if (faqDataError) {
-    console.log(`Error fetching faqData: ${faqDataError}`);
+    return (
+      <h1>
+        Something unexpected happened. Please contact us by opening an issue on
+        GitHub
+      </h1>
+    );
   }
 
   return (

@@ -35,7 +35,6 @@ export function Header() {
       <nav className={styles.navMenuContainer}>
         <NavDropdown
           title="Timelines"
-          link="/timelines"
           elements={[
             { title: 'ChatGPT', href: '/timelines/chatgpt' },
             { title: 'Claude', href: '/timelines/claude' },

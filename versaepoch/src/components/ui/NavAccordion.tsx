@@ -18,7 +18,6 @@ export function NavAccordion({ title, elements }: NavAccordionProps) {
   const [isOpened, setIsOpened] = useState<boolean>(false);
 
   const openAccordion = () => {
-    console.log("Accordion Opened!");
     setIsOpened(true);
   };
   const closeAccordion = () => {
