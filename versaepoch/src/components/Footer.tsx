@@ -36,7 +36,7 @@ export function Footer() {
         </div>
       </div>
       <div className={styles.copyright}>
-        Built with passion by Kostiantyn Sytnyk || All Rights Reserved 2025 ©
+        © All Rights Reserved 2025
       </div>
     </div>
   );

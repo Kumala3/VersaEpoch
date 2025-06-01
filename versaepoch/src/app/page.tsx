@@ -91,31 +91,31 @@ export default function HomePage() {
         </h2>
         <div
           className={styles.timelineOverviewContainer__mainFeaturesContainer}>
-          <div className={styles.timelineOverviewContainer__grid}>
+          <div>
             <FeatureShowcaseCard
               title="Comprehensive Data"
-              demoImageMain="/comprehensiveDataShowcase.png"
+              demoImageMain="/timeline_showcase.png"
               mainDescription="View all models, milestones, updates, features, tools covered in one timeline!"
             />
+          </div>
+
+          <div className={styles.timelineOverviewContainer__grid}>
             <FeatureShowcaseCard
               title="Advanced Filtering"
-              demoImageMain="/filterFeatureShowcase.png"
+              demoImageMain="/filter_feature_showcase.png"
               mainDescription="Filter the timeline to display only specific data type such as milestone, model or feature."
               bgColor="greenyellow"
             />
             <FeatureShowcaseCard
               title="Advanced Sorting"
-              demoImageMain="/comprehensiveDataShowcase.png"
+              demoImageMain="/sort_feature_showcase.png"
               mainDescription="Sort the timeline cards by date to see exactly what you need in a few clicks!"
               bgColor="greenyellow"
             />
-            <FeatureShowcaseCard
-              title="Interactivity"
-              demoImageMain="/comprehensiveDataShowcase.png"
-              mainDescription="View more details such as date, full description, sources, impact and more by opening the card or viewing the full page."
-            />
           </div>
+        </div>
 
+        <div>
           {/* TODO: Callout Component with text: "Don't just read, try yourself!" */}
           <div className={styles.timelineOverviewContainer__ctaContainer}>
             <CTAButton
@@ -139,7 +139,7 @@ export default function HomePage() {
           <Image
             width={200}
             height={200}
-            src={"/placeholderImage.png"}
+            src={'/under_development.png'}
             // src={'/llmsDirectoryFeaturedImage.png'} /* Replace when the feature is ready */
             alt="LLMs Directory Featured Image"
             className={styles.llmsDirectoryContainer__featuredImage}
@@ -156,6 +156,7 @@ export default function HomePage() {
       </div>
 
       {/* GenAI UseCases Section */}
+      {/*
       <div className={styles.genAIUseCasesDirectoryContainer}>
         <h3 className={styles.genAIUseCasesDirectoryContainer__headline}>
           GenAI UseCases Directory
@@ -169,7 +170,7 @@ export default function HomePage() {
             width={200}
             height={200}
             src={'/placeholderImage.png'}
-            // src={'/genAIUseCasesDirectoryFeaturedImage.png'} /* Replace when feature is ready */
+            // src={'/genAIUseCasesDirectoryFeaturedImage.png'}
             alt="GenAI UseCases Directory Featured Image"
             className={styles.genAIUseCasesDirectoryContainer__featuredImage}
           />
@@ -182,6 +183,7 @@ export default function HomePage() {
           />
         </div>
       </div>
+      */}
 
       <div className={styles.promptsDirectoryContainer}>
         <h3 className={styles.promptsDirectoryContainer__headline}>
@@ -194,7 +196,7 @@ export default function HomePage() {
           <Image
             width={200}
             height={200}
-            src={'/placeholderImage.png'}
+            src={'/under_development.png'}
             // src={'/promptsDirectoryFeaturedImage.png'} /* Replace when feature is ready */
             alt="Prompts Directory Featured Image"
             className={styles.promptsDirectoryContainer__featuredImage}

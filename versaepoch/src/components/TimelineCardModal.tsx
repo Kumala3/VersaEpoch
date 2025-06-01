@@ -11,16 +11,16 @@ import {
 } from '@/components/ui/TimelineCardsIcons';
 import { CloseIcon } from '@/components/ui/CloseIcon';
 import { GlobalIcon } from '@/components/ui/UIIcons';
-import { TimelineCard, NonEmptyCardTypeArray } from '@/data/chatgptData';
+import { TimelineCardData, NonEmptyCardTypeArray } from '@/data/chatgptData';
 import { SourceElem } from './SourceElem';
 
 interface TimelineCardModalProps {
   chatbot: string;
-  cardData: TimelineCard;
+  cardData: TimelineCardData;
   onClose: () => void;
 }
 
-function generatePageURL(chatbot: string, card: TimelineCard) {
+function generatePageURL(chatbot: string, card: TimelineCardData) {
   const slug = card.title
     .toLowerCase()
     .replace(/[.\s,;:!?'"()[\]{}\/\\]+/g, '-') // first replace
@@ -100,6 +100,7 @@ export function TimelineCardModal({
 
         <Link
           href={generatePageURL(chatbot, cardData)}
+          prefetch={true}
           className={styles.viewFullButton}>
           View Full Page
         </Link>
