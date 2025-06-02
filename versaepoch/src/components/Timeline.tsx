@@ -147,26 +147,23 @@ export function Timeline({
 
   const handleSortOrderChange = (order: 'newest' | 'oldest') => {
     setSelectedSortOrder(order);
-  };
 
-  const handleSortCards = useCallback(() => {
-    if (!filteredCards) {
-      return;
+    /* Fire sorting immediately after value change */
+    if (filteredCards && filteredCards?.length > 0) {
+      const sortedCards = [...filteredCards].sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+
+        if (order === 'newest') {
+          return dateB.getTime() - dateA.getTime();
+        } else {
+          return dateA.getTime() - dateB.getTime(); // Oldest -> Newest
+        }
+      });
+
+      setFilteredCards(sortedCards);
     }
-
-    const sortedCards = [...filteredCards].sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-
-      if (selectedSortOrder === 'newest') {
-        return dateB.getTime() - dateA.getTime(); // Newest -> Oldest
-      } else {
-        return dateA.getTime() - dateB.getTime(); // Oldest -> Newest
-      }
-    });
-
-    setFilteredCards(sortedCards);
-  }, [filteredCards, selectedSortOrder]);
+  };
 
   const openSortDropdown = () => {
     setIsSortDropdownOpen(true);
@@ -180,17 +177,7 @@ export function Timeline({
 
   useEffect(() => {
     cardRefs.current = cardRefs.current.slice(0, timelineCards?.length);
-
-    if (filteredCards && filteredCards?.length > 0) {
-      handleSortCards();
-    }
-  }, [
-    selectedSortOrder,
-    timelineCards?.length,
-    filteredCards,
-    filteredCards?.length,
-    handleSortCards,
-  ]);
+  }, [timelineCards?.length]);
 
   /* Handle Timeline Scroll for dynamic filling */
   useEffect(() => {
@@ -309,7 +296,9 @@ export function Timeline({
                 {filteredCards?.map((card, index) => (
                   <li
                     key={index}
-                    ref={(el) => { cardRefs.current[index] = el; }}
+                    ref={(el) => {
+                      cardRefs.current[index] = el;
+                    }}
                     className={`${styles.cardWrapper}`}>
                     <TimelineCard
                       data={card}

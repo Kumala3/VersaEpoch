@@ -18,7 +18,7 @@ export function TimelineFilterDropdownElement({
         type="checkbox"
         id={title}
         name={title}
-        onClick={onChange}
+        onChange={onChange}
         checked={isChecked}
       />
       <label htmlFor={title} className={styles.elementContainer__label}>
