@@ -1,0 +1,119 @@
+.companyBadge {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+
+  &__icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.companyBadge {
+  color: white;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: beige;
+
+  &__openai {
+    background-color: #089949;
+  }
+
+  &__anthropic {
+    background-color: #f19113;
+  }
+
+  &__gemini {
+    background-color: #8400c6;
+  }
+
+  &__meta {
+    background-color: #107cdb;
+  }
+
+  &__deepseek {
+    background-color: #1905ae;
+  }
+
+  &__xAI {
+    background-color: #232323;
+  }
+
+  &__mistral {
+    background-color: #7f5300;
+  }
+}
+
+.modelContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 2px;
+
+  &__icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.documentationLink {
+  border-radius: var(--border-radius-sm);
+  font-weight: var(--font-weight-med);
+  padding: 4px 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+}
+
+.modalitiesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: fit-content;
+  word-wrap: normal;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.modalityDefault {
+  display: flex;
+  flex-direction: row;
+  min-width: 80px;
+  width: fit-content;
+  flex-shrink: 0;
+  gap: 4px;
+  align-items: center;
+  color: white;
+  background-color: gray;
+  padding: 8px 4px;
+  border-radius: var(--border-radius-sm);
+
+  &__audio {
+    background-color: #05447a;
+  }
+
+  &__image {
+    background-color: #058080;
+  }
+
+  &__text {
+    background-color: #088e03;
+  }
+
+  &__video {
+    background-color: #684274;
+  }
+
+  &__icon {
+    color: white;
+    width: 25px;
+    height: 25px;
+  }
+}

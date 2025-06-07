@@ -4,6 +4,7 @@ interface IconProps {
   width?: number;
   height?: number;
   className?: string;
+  color?: string;
 }
 
 function NextIcon({ width = 48, height = 48, className }: IconProps) {
@@ -131,7 +132,7 @@ function ChatgptIcon({ width = 48, height = 48, className }: IconProps) {
     <Image
       width={width}
       height={height}
-      src={'/openai-icon.svg'}
+      src={'/chatgpt-icon.svg'}
       alt="OpenAI Icon"
       className={className}
     />
@@ -143,7 +144,7 @@ function ClaudeIcon({ width = 48, height = 48, className }: IconProps) {
     <Image
       width={width}
       height={height}
-      src={'/anthropic-icon.svg'}
+      src={'/claude-icon.svg'}
       alt="OpenAI Icon"
       className={className}
     />
@@ -179,7 +180,7 @@ function XaiIcon({ width = 48, height = 48, className }: IconProps) {
     <Image
       width={width}
       height={height}
-      src={'/xai-icon.svg'}
+      src={'/grok-icon.svg'}
       alt="OpenAI Icon"
       className={className}
     />
@@ -210,6 +211,56 @@ function MetaIcon({ width = 48, height = 48, className }: IconProps) {
   );
 }
 
+function ModalityTextIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/modality-text-icon.svg'}
+      alt="OpenAI Icon"
+      className={className}
+    />
+  );
+}
+
+function ModalityAudioIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/modality-audio-icon.svg'}
+      alt="OpenAI Icon"
+      className={className}
+    />
+  );
+}
+
+function ModalityVideoIcon({ width = 48, height = 48, className, color = "white" }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/modality-video-icon.svg'}
+      alt="OpenAI Icon"
+      quality={100}
+      className={className}
+      style={{stroke: "#000"}}
+    />
+  );
+}
+
+function ModalityImageIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/modality-image-icon.svg'}
+      alt="OpenAI Icon"
+      className={className}
+    />
+  );
+}
+
 export {
   GlobalIcon,
   NextIcon,
@@ -228,4 +279,8 @@ export {
   DeepseekIcon,
   XaiIcon,
   GeminiIcon,
+  ModalityTextIcon,
+  ModalityImageIcon,
+  ModalityVideoIcon,
+  ModalityAudioIcon,
 };
