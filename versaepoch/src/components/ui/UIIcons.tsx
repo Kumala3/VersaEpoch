@@ -227,7 +227,7 @@ function ModalityTextIcon({
       stroke={color}
       stroke-width="2"
       stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinejoin="round"
       className={className}>
       <path d="M15 12h6" />
       <path d="M15 6h6" />
@@ -255,7 +255,7 @@ function ModalityAudioIcon({
       stroke={color}
       stroke-width="2"
       stroke-linecap="round"
-      stroke-linejoin="round">
+      strokeLinejoin="round">
       <path d="M2 10v3" />
       <path d="M6 6v11" />
       <path d="M10 3v18" />
@@ -283,7 +283,7 @@ function ModalityVideoIcon({
       className={className}
       stroke-width="2"
       stroke-linecap="round"
-      stroke-linejoin="round">
+      strokeLinejoin="round">
       <path d="M10 7.75a.75.75 0 0 1 1.142-.638l3.664 2.249a.75.75 0 0 1 0 1.278l-3.664 2.25a.75.75 0 0 1-1.142-.64z" />
       <path d="M7 21h10" />
       <rect width="20" height="14" x="2" y="3" rx="2" />
@@ -308,7 +308,7 @@ function ModalityImageIcon({
       stroke={color}
       stroke-width="2"
       stroke-linecap="round"
-      stroke-linejoin="round">
+      strokeLinejoin="round">
       <path d="M18 22H4a2 2 0 0 1-2-2V6" />
       <path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18" />
       <circle cx="12" cy="8" r="2" />
