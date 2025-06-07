@@ -85,10 +85,10 @@
 .modalityDefault {
   display: flex;
   flex-direction: row;
-  min-width: 80px;
+  min-width: 90px;
   width: fit-content;
   flex-shrink: 0;
-  gap: 4px;
+  gap: .5rem;
   align-items: center;
   color: white;
   background-color: gray;
