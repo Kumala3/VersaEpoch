@@ -19,6 +19,7 @@
 
   &__heading {
     color: var(--primary-color);
+    padding-bottom: .5rem;
   }
 
   &__description {
@@ -28,5 +29,11 @@
     border-radius: var(--border-radius-sm);
     padding: var(--padding-sm);
     height: fit-content;
+  }
+
+  &__highlightedText {
+    text-decoration: underline wavy rgb(0, 0, 0);
+      text-decoration-thickness: 3px;
+      text-underline-offset: 6px;
   }
 }

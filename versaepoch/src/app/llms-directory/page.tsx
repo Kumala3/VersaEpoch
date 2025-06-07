@@ -25,7 +25,8 @@ export default async function LLMsDirectoryPage() {
       {/* Replace with actual DB component */}
       <section className={styles.heroSection}>
         <h1 className={styles.heroSection__heading}>
-          Discover most Interesting LLMs
+          <span className={styles.heroSection__highlightedText}>Discover</span>{' '}
+          most Interesting LLMs
         </h1>
         <p className={styles.heroSection__description}>
           LLMs Directory allows you to dive into exploration of LLMs (Large
