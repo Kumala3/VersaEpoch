@@ -17,6 +17,7 @@ export default async function ChatgptPageTimeline() {
     .eq('chatbot', 'chatgpt');
 
   if (timelineCardsError) {
+    {/* IMPORTANT: Replace with Racoon working hard to fix the error and get the service back to you */}
     return (
       <h1>Something unexpected happened. Please contact us by opening an issue on GitHub</h1>
     )
