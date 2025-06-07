@@ -25,7 +25,7 @@ export function Header() {
         <Image
           width={200}
           height={200}
-          src={'/header-logo.svg'}
+          src={'/horizontal_logo.png'}
           alt="Header Logo"
           className={styles.logo}
         />
