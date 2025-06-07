@@ -1,8 +1,79 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  gap: 2rem;
+}
+
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+
+  &__heading {
+    color: var(--primary-color);
+  }
+
+  &__description {
     display: flex;
-    flex-direction: column;
-    width: 100%;
+    width: 50%;
+    background-color: beige;
+    border-radius: var(--border-radius-sm);
+    padding: var(--padding-sm);
     height: fit-content;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+  }
+}
+
+.companyBadge {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+
+  &__icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.companyBadge {
+  color: white;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: beige;
+
+  &__openai {
+    background-color: #089949;
+  }
+
+  &__anthropic {
+    background-color: #f19113;
+  }
+
+  &__gemini {
+    background-color: #8400c6;
+  }
+
+  &__meta {
+    background-color: #107cdb;
+  }
+
+  &__deepseek {
+    background-color: #1905ae;
+  }
+
+  &__xAI {
+    background-color: #232323;
+  }
+
+  &__mistral {
+    background-color: #7f5300;
+  }
 }

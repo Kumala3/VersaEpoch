@@ -1,55 +1,53 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: fit-content;
-    overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
 }
 
 .container::-webkit-scrollbar {
-    height: 100px;
+  height: 10px;
 }
 
 .container::-webkit-scrollbar-track {
-    background-color: aqua;
-    border-radius: var(--border-radius-ms);
-    margin: 0 10px;
+  background: transparent;
+  border-radius: var(--border-radius-ms);
+  margin: 0 10px;
 }
-
-.container::-webkit-scrollbar-thumb { 
-    background-color: aqua;
-    border-radius: var(--border-radius-ms);
-    margin: 0 10px;    
-}
-
-.container 
 
 .tableHeader {
-    border-style: solid;
-    padding-bottom: 20px;
+  border-style: solid;
 }
 
 .tableHead {
-    width: 200px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    border-radius: var(--border-radius-sm);
-    padding: var(--padding-sm);
-    border-color: var(--primary-color);}
+  width: fit-content;
+  border-right-width: 2px;
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+  border-radius: var(--border-radius-sm);
+  padding: var(--padding-sm);
+  border-color: var(--primary-color);
+  font-size: var(--font-size-body-2);
+  font-weight: var(--font-weight-semi-bold);
+}
 
 .tableBody {
-    width: fit-content;
+  width: fit-content;
 }
 
 .tableRow {
-    width: fit-content;
+  width: fit-content;
 }
 
 .tableCell {
-    border-bottom-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-color:rgb(72, 72, 72);
-    padding: var(--padding-sm);
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+  border-top-width: 2px;
+  border-color: rgb(72, 72, 72);
+  padding: var(--padding-sm);
+  word-wrap: break-word;
+  word-break: break-word;
+  vertical-align: top;
+  white-space: normal;
+  height: fit-content;
 }

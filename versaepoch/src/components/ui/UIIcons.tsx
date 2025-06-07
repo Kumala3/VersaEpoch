@@ -126,6 +126,90 @@ function GlobalIcon({ width = 48, height = 48, className }: IconProps) {
   );
 }
 
+function ChatgptIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/openai-icon.svg'}
+      alt="OpenAI Icon"
+      className={className}
+    />
+  );
+}
+
+function ClaudeIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/anthropic-icon.svg'}
+      alt="OpenAI Icon"
+      className={className}
+    />
+  );
+}
+
+function GeminiIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/gemini-icon.svg'}
+      alt="OpenAI Icon"
+      className={className}
+    />
+  );
+}
+
+function DeepseekIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/deepseek-icon.svg'}
+      alt="OpenAI Icon"
+      className={className}
+    />
+  );
+}
+
+function XaiIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/xai-icon.svg'}
+      alt="OpenAI Icon"
+      className={className}
+    />
+  );
+}
+
+function MistralIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/mistral-icon.svg'}
+      alt="OpenAI Icon"
+      className={className}
+    />
+  );
+}
+
+function MetaIcon({ width = 48, height = 48, className }: IconProps) {
+  return (
+    <Image
+      width={width}
+      height={height}
+      src={'/meta-icon.svg'}
+      alt="OpenAI Icon"
+      className={className}
+    />
+  );
+}
+
 export {
   GlobalIcon,
   NextIcon,
@@ -137,4 +221,11 @@ export {
   ArrowUpIcon,
   ExpandIcon,
   CollapseIcon,
+  ChatgptIcon,
+  ClaudeIcon,
+  MistralIcon,
+  MetaIcon,
+  DeepseekIcon,
+  XaiIcon,
+  GeminiIcon,
 };
