@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import styles from "@/styles/llmsDirectoryColumns.module.scss";
+import styles from '@/styles/llmsDirectoryColumns.module.scss';
 import Link from 'next/link';
 import { ColumnDef } from '@tanstack/react-table';
 import {
@@ -15,6 +15,16 @@ import {
   ModalityImageIcon,
   ModalityVideoIcon,
   ModalityAudioIcon,
+  BestForCodingIcon,
+  BestForWritingIcon,
+  BestForBrainstormingIcon,
+  BestForResearchAnalysisIcon,
+  BestForProductivityIcon,
+  BestForOrganizingIcon,
+  BestForCookingIcon,
+  BestForGeneralKnowledgeIcon,
+  BestForLifestyleIcon,
+  BestForImageGenerationIcon,
 } from '@/components/ui/UIIcons';
 import { capitalizeWord } from '@/utils/capitalizeWord';
 
@@ -222,5 +232,75 @@ export const columns: ColumnDef<LLMModel>[] = [
     accessorKey: 'best_for',
     header: 'Best For',
     minSize: 250,
+    cell: ({ getValue }) => {
+      const bestFors = getValue() as string[];
+
+      const bestForStyle = (bestFor: string) => {
+        switch (bestFor) {
+          case 'Coding':
+            return styles.bestForDefault__coding;
+          case 'Writing':
+            return styles.bestForDefault__writing;
+          case 'Research & Analysis':
+            return styles.bestForDefault__researchAnalysis;
+          case 'Brainstorming':
+            return styles.bestForDefault__brainstorming;
+          case 'Productivity':
+            return styles.bestForDefault__productivity;
+          case 'Lifestyle':
+            return styles.bestForDefault__lifestyle;
+          case 'Cooking':
+            return styles.bestForDefault__cooking;
+          case 'General Knowledge':
+            return styles.bestForDefault__generalKnowledge;
+          case 'Organizing':
+            return styles.bestForDefault__organizing;
+          case "Image Generation":
+            return styles.bestForDefault__imageGeneration;
+          default:
+            return styles.bestForDefault;
+        }
+      };
+
+      const bestForIcon = (bestFor: string, className: string) => {
+        switch (bestFor) {
+          case 'Coding':
+            return <BestForCodingIcon className={className} />;
+          case 'Writing':
+            return <BestForWritingIcon className={className} />;
+          case 'Research & Analysis':
+            return <BestForResearchAnalysisIcon className={className} />;
+          case 'Brainstorming':
+            return <BestForBrainstormingIcon className={className} />;
+          case 'Productivity':
+            return <BestForProductivityIcon className={className} />;
+          case 'Lifestyle':
+            return <BestForLifestyleIcon className={className} />;
+          case 'Cooking':
+            return <BestForCookingIcon className={className} />;
+          case 'General Knowledge':
+            return <BestForGeneralKnowledgeIcon className={className} />;
+          case "Image Generation":
+            return <BestForImageGenerationIcon className={className} />
+          case 'Organizing':
+            return <BestForOrganizingIcon className={className} />;
+          default:
+            return;
+        }
+      };
+
+      return (
+        <div className={styles.bestForContainer}>
+          {bestFors?.map((bestFor) => (
+            <div
+              key={bestFor}
+              className={`${bestForStyle(bestFor)} ${styles.bestForDefault}`}>
+              {bestForIcon(bestFor, styles.bestForDefault__icon)}
+              <span>{capitalizeWord(bestFor)}</span>
+            </div>
+          ))}
+        </div>
+      );
+    },
   },
 ];
