@@ -11,6 +11,7 @@ import {
 } from '@tanstack/react-table';
 import { DataTable } from '@/components/ui/DataTable';
 import { columns, LLMModel } from '@/components/LlmsDirectoryColumns';
+import { TableControlPanel } from '@/components/ui/TableControlPanel';
 
 interface LLMsDataTableProps {
   data: LLMModel[];
@@ -38,5 +39,10 @@ export function LLMsDataTable({ data }: LLMsDataTableProps) {
     enableColumnPinning: true,
   });
 
-  return <DataTable table={table} />;
+  return (
+    <>
+      <TableControlPanel table={table} />
+      <DataTable table={table} />
+    </>
+  );
 }
