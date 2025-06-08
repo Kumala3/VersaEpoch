@@ -1,6 +1,6 @@
 .container {
   position: relative;
-  display: inline-block;
+  display: flex;
   width: 100%;
 }
 
@@ -20,6 +20,11 @@
   &.pinned {
     background-color: var(--primary-color);
     color: white;
+  }
+
+  &__icon {
+    width: 30px;
+    height: 30px;
   }
 }
 

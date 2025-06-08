@@ -85,7 +85,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Model" />;
     },
-    minSize: 200,
+    minSize: 230,
     cell: ({ getValue, row }) => {
       const modelName = getValue() as string;
       const company = row.getValue('company') as string;
@@ -131,7 +131,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Context Window" />;
     },
-    minSize: 180,
+    minSize: 230,
     cell: ({ getValue }) => {
       const contextWindow = getValue() as number;
 
@@ -145,7 +145,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Max Output" />;
     },
-    minSize: 180,
+    minSize: 200,
     cell: ({ getValue }) => {
       const maxOutput = getValue() as number;
 
@@ -159,21 +159,21 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Knowledge Cutoff" />;
     },
-    minSize: 200,
+    minSize: 230,
   },
   {
     accessorKey: 'release_date',
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Release Date" />;
     },
-    minSize: 180,
+    minSize: 200,
   },
   {
     accessorKey: 'documentation',
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Documentation" />;
     },
-    size: 250,
+    size: 300,
     cell: ({ getValue }) => {
       const url = getValue() as string;
 
@@ -197,7 +197,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Modalities" />;
     },
-    size: 250,
+    minSize: 250,
     cell: ({ getValue }) => {
       const modalities = getValue() as string[];
 
