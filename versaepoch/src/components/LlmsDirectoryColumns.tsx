@@ -46,8 +46,8 @@ export interface LLMModel {
 export const columns: ColumnDef<LLMModel>[] = [
   {
     accessorKey: 'company',
-    header: ({column}) => (
-      <TableHeaderDropdown column={column} title={"Company"} />
+    header: ({ column }) => (
+      <TableHeaderDropdown column={column} title={'Company'} />
     ),
     cell: ({ getValue }) => {
       const company = getValue() as string;
@@ -82,7 +82,9 @@ export const columns: ColumnDef<LLMModel>[] = [
   },
   {
     accessorKey: 'model_name',
-    header: 'Model',
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Model" />;
+    },
     minSize: 200,
     cell: ({ getValue, row }) => {
       const modelName = getValue() as string;
@@ -119,12 +121,16 @@ export const columns: ColumnDef<LLMModel>[] = [
   },
   {
     accessorKey: 'description',
-    header: 'Description',
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Description" />;
+    },
     size: 450,
   },
   {
     accessorKey: 'context_window',
-    header: 'Context Window',
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Context Window" />;
+    },
     minSize: 180,
     cell: ({ getValue }) => {
       const contextWindow = getValue() as number;
@@ -136,7 +142,9 @@ export const columns: ColumnDef<LLMModel>[] = [
   },
   {
     accessorKey: 'max_output',
-    header: 'Max Output',
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Max Output" />;
+    },
     minSize: 180,
     cell: ({ getValue }) => {
       const maxOutput = getValue() as number;
@@ -148,17 +156,23 @@ export const columns: ColumnDef<LLMModel>[] = [
   },
   {
     accessorKey: 'knowledge_cutoff',
-    header: 'Knowledge Cutoff',
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Knowledge Cutoff" />;
+    },
     minSize: 200,
   },
   {
     accessorKey: 'release_date',
-    header: 'Release Date',
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Release Date" />;
+    },
     minSize: 180,
   },
   {
     accessorKey: 'documentation',
-    header: 'Documentation',
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Documentation" />;
+    },
     size: 250,
     cell: ({ getValue }) => {
       const url = getValue() as string;
@@ -180,7 +194,9 @@ export const columns: ColumnDef<LLMModel>[] = [
   },
   {
     accessorKey: 'modalities',
-    header: 'Modalities',
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Modalities" />;
+    },
     size: 250,
     cell: ({ getValue }) => {
       const modalities = getValue() as string[];
@@ -233,7 +249,9 @@ export const columns: ColumnDef<LLMModel>[] = [
   },
   {
     accessorKey: 'best_for',
-    header: 'Best For',
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Best For" />;
+    },
     minSize: 250,
     cell: ({ getValue }) => {
       const bestFors = getValue() as string[];
@@ -258,7 +276,7 @@ export const columns: ColumnDef<LLMModel>[] = [
             return styles.bestForDefault__generalKnowledge;
           case 'Organizing':
             return styles.bestForDefault__organizing;
-          case "Image Generation":
+          case 'Image Generation':
             return styles.bestForDefault__imageGeneration;
           default:
             return styles.bestForDefault;
@@ -283,8 +301,8 @@ export const columns: ColumnDef<LLMModel>[] = [
             return <BestForCookingIcon className={className} />;
           case 'General Knowledge':
             return <BestForGeneralKnowledgeIcon className={className} />;
-          case "Image Generation":
-            return <BestForImageGenerationIcon className={className} />
+          case 'Image Generation':
+            return <BestForImageGenerationIcon className={className} />;
           case 'Organizing':
             return <BestForOrganizingIcon className={className} />;
           default:
