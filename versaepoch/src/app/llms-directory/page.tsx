@@ -8,7 +8,9 @@ export default async function LLMsDirectoryPage() {
 
   const { data: tableData, error } = await supabase
     .from('llms_directory')
-    .select('*');
+    .select('*')
+    .order('company', { ascending: false })
+    .order('model_name', { ascending: false });
 
   if (error) {
     console.log(`Error while fetching directory table data: ${error.message}`);
