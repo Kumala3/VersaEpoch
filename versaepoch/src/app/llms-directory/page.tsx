@@ -35,6 +35,7 @@ export default async function LLMsDirectoryPage() {
           just see what is available out there and experiment!
         </p>
       </section>
+      {/* Explanation Section */}
       <LLMsDataTable data={tableData} />
     </div>
   );

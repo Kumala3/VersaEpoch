@@ -5,36 +5,43 @@ import { useState } from 'react';
 import styles from '@/styles/ui/tableSortPanel.module.scss';
 import { PlusIcon, CrossIcon } from '@/components/ui/UIIcons';
 import { capitalizeWord } from '@/utils/capitalizeWord';
+import { TableSelectDropdown } from '@/components/ui/TableSelectSortDropdown';
 
 interface TableSortPanelProps<TData> {
   table: Table<TData>;
-  onAddSort: (columnId: string, direction: 'asc' | 'desc') => void;
-  onRemoveSort: (columnId: string) => void;
-  onClearAll: () => void;
   sortsCount: number;
 }
 
 export function TableSortPanel<TData>({
   table,
-  onAddSort,
-  onRemoveSort,
-  onClearAll,
   sortsCount,
 }: TableSortPanelProps<TData>) {
-  const [showAddSort, setShowAddSort] = useState<boolean>(false);
+  const [showSelectDropdown, setShowSelectDropdown] = useState<boolean>(false);
   const sortingState = table.getState().sorting;
   const columns = table.getAllColumns().filter((col) => col.getCanSort());
 
-  console.log(`sortingState: ${JSON.stringify(sortingState)}`);
+  const availableColumns = columns
+    .filter((col) => !sortingState.find((sort) => sort.id === col.id))
+    .map((col) => ({
+      id: col.id,
+      label: capitalizeWord(col.id),
+    }));
 
-  const getColumnDisplayName = (columnId: string) => {
+  const handleAddSort = (columnId: string) => {
     const column = table.getColumn(columnId);
-    return column?.columnDef.header;
+    if (column && column.getCanSort()) {
+      // false - ascending
+      column.toggleSorting(false);
+    }
+    setShowSelectDropdown(false); // close after selection
   };
 
-  const availableColumns = columns.filter(
-    (col) => !sortingState.find((sort) => sort.id === col.id)
-  );
+  const handleRemoveSort = (columnId: string) => {
+    const column = table.getColumn(columnId);
+    if (column) {
+      column.clearSorting();
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -49,10 +56,10 @@ export function TableSortPanel<TData>({
 
               <div className={styles.sortActions}>
                 {/* Replace with dropdown to select ASC/DESC order */}
-
+                
                 <button
-                  className={styles.removeButton}
-                  onClick={() => onRemoveSort(sort.id)}>
+                  className={styles.removeSortButton}
+                  onClick={() => handleRemoveSort(sort.id)}>
                   <CrossIcon className={styles.sortItem__icon} color="#000" />
                   {''}
                 </button>
@@ -64,49 +71,28 @@ export function TableSortPanel<TData>({
 
       {availableColumns.length > 0 && (
         <div className={styles.addSortSection}>
-          {!showAddSort ? (
-            <button
-              className={styles.addSortButton}
-              onClick={() => setShowAddSort(true)}>
-              <PlusIcon className={styles.addSortButton__icon} color="#000" />
-              Add sort
-            </button>
-          ) : (
-            {/* Dropdown should be placed here */}
-            <div className={styles.addSortF}>
-              <select
-                className={styles.columnSelect}
-                onChange={(e) => {
-                  if (e.target.value) {
-                    onAddSort(e.target.value, 'asc');
-                    setShowAddSort(false);
-                  }
-                }}
-                defaultValue="">
-                <option value="" disabled>
-                  Choose a column...
-                </option>
-                {availableColumns.map((column) => (
-                  <option key={column.id} value={column.id}>
-                    {getColumnDisplayName(column.id)}
-                  </option>
-                ))}
-              </select>
-              <button
-                className={styles.cancelButton}
-                onClick={() => setShowAddSort(false)}>
-                Cancel
-              </button>
+          <button
+            className={styles.addSortButton}
+            onClick={() => setShowSelectDropdown(true)}>
+            <PlusIcon className={styles.addSortButton__icon} color="#000" />
+            Add sort
+          </button>
+          {showSelectDropdown && (
+            <div className={styles.selectDropdownContainer}>
+              <TableSelectDropdown
+                elements={availableColumns}
+                onSelect={handleAddSort}
+              />
             </div>
           )}
         </div>
       )}
-      
-      {sortingState.length > 0 && (
+
+      {/* {sortingState.length > 0 && (
         <button className={styles.clearButton} onClick={onClearAll}>
           Clear all
         </button>
-      )}
+      )} */}
     </div>
   );
 }

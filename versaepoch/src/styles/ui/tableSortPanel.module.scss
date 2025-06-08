@@ -76,11 +76,8 @@
 }
 
 .removeSortButton {
-  background-color: white;
+  cursor: pointer;
 
-  &:hover {
-    background-color: #606060;
-  }
 }
 
 .addSortSection {
@@ -113,29 +110,10 @@
   }
 }
 
-.addSortForm {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
+.selectDropdownContainer {
+  position: absolute;
+  top: calc(0%);
+  left: 0;
+  z-index: 100;
+  
 }
-
-.columnSelect {
-  flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  background: white;
-  font-size: 14px;
-  color: #374151;
-
-  &:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 1px #3b82f6;
-  }
-}
-

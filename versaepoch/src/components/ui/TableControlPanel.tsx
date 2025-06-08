@@ -84,20 +84,6 @@ export function TableControlPanel<TData>({
     clearAllFilters();
   };
 
-  const addSort = (columnId: string, order: 'asc' | 'desc') => {
-    const column = table.getColumn(columnId); // Retrieve the right column
-    if (column) {
-      column.toggleSorting(order === 'desc');
-    }
-  };
-
-  const removeSort = (columnId: string) => {
-    const column = table.getColumn(columnId);
-    if (column) {
-      column.clearSorting();
-    }
-  };
-
   const addFilter = (columnId: string, value: string) => {
     const column = table.getColumn(columnId);
     if (column) {
@@ -136,9 +122,6 @@ export function TableControlPanel<TData>({
               <div className={styles.dropdownPanel} ref={sortDropdownRef}>
                 <TableSortPanel
                   table={table}
-                  onAddSort={addSort}
-                  onRemoveSort={removeSort}
-                  onClearAll={clearAllSorts}
                   sortsCount={activeSortsCount}
                 />
               </div>
