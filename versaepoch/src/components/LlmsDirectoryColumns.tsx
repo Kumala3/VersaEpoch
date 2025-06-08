@@ -29,7 +29,7 @@ import {
 } from '@/components/ui/UIIcons';
 import { capitalizeWord } from '@/utils/capitalizeWord';
 
-interface LLMModel {
+export interface LLMModel {
   id: string;
   company: string;
   modelName: string;

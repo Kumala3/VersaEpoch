@@ -1,7 +1,6 @@
 import styles from '@/styles/llmsDirectoryPage.module.scss';
 import { createClient } from '@/utils/supabase/client';
-import { DataTable } from '@/components/ui/DataTable';
-import { columns } from '@/components/LlmsDirectoryColumns';
+import { LLMsDataTable } from '@/components/LLMsDataTable';
 
 export default async function LLMsDirectoryPage() {
   const supabase = await createClient();
@@ -36,7 +35,7 @@ export default async function LLMsDirectoryPage() {
           just see what is available out there and experiment!
         </p>
       </section>
-      <DataTable columns={columns} data={tableData} />
+      <LLMsDataTable data={tableData} />
     </div>
   );
 }
