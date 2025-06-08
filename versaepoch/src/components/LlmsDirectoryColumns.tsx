@@ -2,6 +2,7 @@
 
 import styles from '@/styles/llmsDirectoryColumns.module.scss';
 import Link from 'next/link';
+import { TableHeaderDropdown } from '@/components/ui/TableHeaderDropdown';
 import { ColumnDef } from '@tanstack/react-table';
 import {
   ChatgptIcon,
@@ -45,7 +46,9 @@ interface LLMModel {
 export const columns: ColumnDef<LLMModel>[] = [
   {
     accessorKey: 'company',
-    header: 'Company',
+    header: ({column}) => (
+      <TableHeaderDropdown column={column} title={"Company"} />
+    ),
     cell: ({ getValue }) => {
       const company = getValue() as string;
 
