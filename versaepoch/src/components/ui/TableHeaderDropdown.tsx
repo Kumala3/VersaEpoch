@@ -2,7 +2,7 @@
 
 import styles from '@/styles/ui/tableHeaderDropdown.module.scss';
 import { Column } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowUpIcon, ArrowDownIcon } from '@/components/ui/UIIcons';
 
 interface TableHeaderDropdownProps<T> {
@@ -16,6 +16,26 @@ export function TableHeaderDropdown<T>({
 }: TableHeaderDropdownProps<T>) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isPinned, setIsPinned] = useState<boolean>(false);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(()=>{
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)){
+        setIsOpen(false);
+      }
+    }
+
+    if(isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside); // touch for mobile devices
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    }
+  }, [isOpen]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -33,7 +53,7 @@ export function TableHeaderDropdown<T>({
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={dropdownRef}>
       <button
         className={`${styles.headerButton} ${isPinned ? styles.pinned : ''}`}
         onClick={toggleDropdown}>
