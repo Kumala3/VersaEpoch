@@ -8,7 +8,7 @@ import { TableSortPanel } from '@/components/ui/TableSortPanel';
 import { SelectSortDropdown } from '@/components/ui/SelectSortDropdown';
 import { TableFilterPanel } from '@/components/ui/TableFilterPanel';
 import { SelectFilterDropdown } from '@/components/ui/SelectFilterDropdown';
-import { capitalizeString } from '@/utils/capitalizeWord';
+import { capitalizeString } from '@/utils/helperFunctions';
 
 interface TableControlPanelProps<TData> {
   table: Table<TData>;

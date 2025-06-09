@@ -1,10 +1,9 @@
 'use client';
 
 import { Table } from '@tanstack/react-table';
-import { useState } from 'react';
 import styles from '@/styles/ui/tableSortPanel.module.scss';
 import { PlusIcon, CrossIcon } from '@/components/ui/UIIcons';
-import { capitalizeString } from '@/utils/capitalizeWord';
+import { capitalizeString } from '@/utils/helperFunctions';
 
 interface TableSortPanelProps<TData> {
   table: Table<TData>;

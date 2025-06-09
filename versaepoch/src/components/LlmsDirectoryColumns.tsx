@@ -27,7 +27,7 @@ import {
   BestForLifestyleIcon,
   BestForImageGenerationIcon,
 } from '@/components/ui/UIIcons';
-import { capitalizeWord } from '@/utils/capitalizeWord';
+import { capitalizeWord } from '@/utils/helperFunctions';
 
 export interface LLMModel {
   id: string;

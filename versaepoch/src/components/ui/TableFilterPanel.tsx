@@ -2,7 +2,7 @@
 
 import { Table } from '@tanstack/react-table';
 import styles from '@/styles/ui/tableFilterPanel.module.scss';
-import { capitalizeString } from '@/utils/capitalizeWord';
+import { capitalizeString } from '@/utils/helperFunctions';
 import { PlusIcon, CrossIcon } from '@/components/ui/UIIcons';
 
 interface TableFilterPanelProps<TData> {
