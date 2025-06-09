@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from 'react';
 import styles from '@/styles/ui/selectSortDropdown.module.scss';
 
 interface TableSelectDropdownProps {
@@ -14,24 +14,21 @@ export function SelectSortDropdown({
   onSelect,
   onClose,
 }: TableSelectDropdownProps) {
-  const handleOptionClick = (columnId: string) => {
-    onSelect(columnId);
-  };
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-        const target = event?.target as Node;
+      const target = event?.target as Node;
 
-        if (dropdownRef.current && !dropdownRef?.current.contains(target)) {
-          onClose();
-        }
-    }
+      if (dropdownRef.current && !dropdownRef?.current.contains(target)) {
+        onClose();
+      }
+    };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
-    }
+    };
   }, [onClose]);
 
   return (
@@ -43,7 +40,7 @@ export function SelectSortDropdown({
           <button
             key={element.id}
             className={styles.option}
-            onClick={() => handleOptionClick(element.id)}>
+            onClick={() => onSelect(element.id)}>
             <span className={styles.option__label}>{element.title}</span>
           </button>
         ))}

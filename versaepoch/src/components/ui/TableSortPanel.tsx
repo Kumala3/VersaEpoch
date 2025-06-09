@@ -5,14 +5,13 @@ import { useState } from 'react';
 import styles from '@/styles/ui/tableSortPanel.module.scss';
 import { PlusIcon, CrossIcon } from '@/components/ui/UIIcons';
 import { capitalizeString } from '@/utils/capitalizeWord';
-import { SelectSortDropdown } from '@/components/ui/SelectSortDropdown';
 
 interface TableSortPanelProps<TData> {
   table: Table<TData>;
+  onOpenDropdown: () => void;
 }
 
-export function TableSortPanel<TData>({ table }: TableSortPanelProps<TData>) {
-  const [showSelectDropdown, setShowSelectDropdown] = useState<boolean>(false);
+export function TableSortPanel<TData>({ table, onOpenDropdown }: TableSortPanelProps<TData>) {
   const sortingState = table.getState().sorting;
   const columns = table.getAllColumns().filter((col) => col.getCanSort());
 
@@ -28,14 +27,6 @@ export function TableSortPanel<TData>({ table }: TableSortPanelProps<TData>) {
       id: col.id,
       title: getColumnDisplayName(col.id),
     }));
-
-  const handleAddSort = (columnId: string) => {
-    const currentSorting = table.getState().sorting;
-
-    const newSorting = [...currentSorting, { id: columnId, desc: false }];
-    table.setSorting(newSorting);
-    setShowSelectDropdown(false); // close after selection
-  };
 
   const handleToggleSort = (columnId: string) => {
     const currentSorting = table.getState().sorting;
@@ -98,21 +89,13 @@ export function TableSortPanel<TData>({ table }: TableSortPanelProps<TData>) {
         <div className={styles.addSortSection}>
           <button
             className={styles.addSortButton}
-            onClick={() => setShowSelectDropdown(true)}>
+            onClick={onOpenDropdown}>
             <PlusIcon className={styles.addSortButton__icon} color="#000" />
             Add sort
           </button>
-          {showSelectDropdown && (
-            <div className={styles.selectDropdownContainer}>
-              <SelectSortDropdown
-                elements={availableColumns}
-                onSelect={handleAddSort}
-                onClose={() => setShowSelectDropdown(false)}
-              />
-            </div>
-          )}
         </div>
       )}
+
       {sortingState.length > 0 && (
         <button
           onClick={handleClearAllSorts}
