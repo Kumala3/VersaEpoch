@@ -9,17 +9,17 @@ export type ColumnType =
 
 export type FilterOperator =
   // Text operators
-  | 'container'
+  | 'contains'
   | 'does_not_contain'
   | 'starts_with'
-  | 'ends_width'
+  | 'ends_with'
   | 'is_empty'
   | 'is_not_empty'
   | 'equals'
   | 'does_not_equal'
   // Number operators
   | 'greater_than'
-  | 'less than'
+  | 'less_than'
   | 'greater_than_or_equal'
   | 'less_than_or_equal'
   // Select operators
