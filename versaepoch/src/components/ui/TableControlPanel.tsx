@@ -122,7 +122,6 @@ export function TableControlPanel<TData>({
               <div className={styles.dropdownPanel} ref={sortDropdownRef}>
                 <TableSortPanel
                   table={table}
-                  sortsCount={activeSortsCount}
                 />
               </div>
             )}

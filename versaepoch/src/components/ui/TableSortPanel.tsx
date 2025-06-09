@@ -4,27 +4,31 @@ import { Table } from '@tanstack/react-table';
 import { useState } from 'react';
 import styles from '@/styles/ui/tableSortPanel.module.scss';
 import { PlusIcon, CrossIcon } from '@/components/ui/UIIcons';
-import { capitalizeWord } from '@/utils/capitalizeWord';
+import { capitalizeString } from '@/utils/capitalizeWord';
 import { TableSelectDropdown } from '@/components/ui/TableSelectSortDropdown';
 
 interface TableSortPanelProps<TData> {
   table: Table<TData>;
-  sortsCount: number;
 }
 
 export function TableSortPanel<TData>({
   table,
-  sortsCount,
 }: TableSortPanelProps<TData>) {
   const [showSelectDropdown, setShowSelectDropdown] = useState<boolean>(false);
   const sortingState = table.getState().sorting;
   const columns = table.getAllColumns().filter((col) => col.getCanSort());
 
+  const getDisplayColumnName = (columnId: string) => {
+    const columnName = capitalizeString(columnId, '_');
+    return columnName;
+  };
+
+  // Retrieves ONLY columns that are not sorted already to display in a select dropdown
   const availableColumns = columns
     .filter((col) => !sortingState.find((sort) => sort.id === col.id))
     .map((col) => ({
       id: col.id,
-      label: capitalizeWord(col.id),
+      title: getDisplayColumnName(col.id),
     }));
 
   const handleAddSort = (columnId: string) => {
@@ -34,6 +38,24 @@ export function TableSortPanel<TData>({
       column.toggleSorting(false);
     }
     setShowSelectDropdown(false); // close after selection
+  };
+
+  const handleToggleSort = (columnId: string) => {
+    const column = table.getColumn(columnId);
+
+    if (column?.getCanSort()) {
+      const currentSort = sortingState.find(sort => sort.id === column.id);
+
+      // If sort is applied applied
+      if (currentSort) {
+        // If currently ascending (desc: false), switch to descending (desc: true)
+        // If currently descending (desc: true), switch to ascending (desc: false)
+        column.toggleSorting(!currentSort.desc);
+      } else {
+        // by default, ascending order is applied
+        column.toggleSorting(false);
+      }
+    }
   };
 
   const handleRemoveSort = (columnId: string) => {
@@ -48,17 +70,22 @@ export function TableSortPanel<TData>({
       <h3 className={styles.panelTitle}>Sort</h3>
 
       {/* Active Sorts */}
-      {sortsCount > 0 && (
+      {sortingState.length > 0 && (
         <div className={styles.activeSortsContainer}>
           {sortingState.map((sort) => (
             <div key={sort.id} className={styles.sortItem}>
-              <p className={styles.sortColumnName}>{capitalizeWord(sort.id)}</p>
+              <p className={styles.sortColumnName}>
+                {getDisplayColumnName(sort.id)}
+              </p>
 
               <div className={styles.sortActions}>
-                {/* Replace with dropdown to select ASC/DESC order */}
-
                 <button
-                  className={styles.removeSortButton}
+                  onClick={() => handleToggleSort(sort.id)}
+                  className={styles.sortItem__toggleButton}>
+                  {sort.desc ? '↑' : '↓'}
+                </button>
+                <button
+                  className={styles.sortItem__removeButton}
                   onClick={() => handleRemoveSort(sort.id)}>
                   <CrossIcon className={styles.sortItem__icon} color="#000" />
                   {''}
@@ -87,12 +114,6 @@ export function TableSortPanel<TData>({
           )}
         </div>
       )}
-
-      {/* {sortingState.length > 0 && (
-        <button className={styles.clearButton} onClick={onClearAll}>
-          Clear all
-        </button>
-      )} */}
     </div>
   );
 }

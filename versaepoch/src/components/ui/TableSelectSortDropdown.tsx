@@ -1,7 +1,7 @@
 import styles from '@/styles/ui/tableSelectDropdown.module.scss';
 
 interface TableSelectDropdownProps {
-  elements: { id: string; label: string }[];
+  elements: { id: string; title: string }[];
   onSelect: (columnId: string) => void;
 }
 
@@ -23,7 +23,7 @@ export function TableSelectDropdown({
             key={element.id}
             className={styles.option}
             onClick={() => handleOptionClick(element.id)}>
-            <span className={styles.option__label}>{element.label}</span>
+            <span className={styles.option__label}>{element.title}</span>
           </button>
         ))}
       </div>
