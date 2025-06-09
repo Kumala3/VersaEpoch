@@ -2,19 +2,17 @@
   display: flex;
   flex-direction: column;
   min-height: 100px;
-  height: fic-content;
-  background: white;
+  height: fit-content;
+  background-color: white;
   border: 2px solid black;
   border-radius: var(--border-radius-sm);
   padding: var(--padding-sm);
+  z-index: 100;
 }
 
-.activeFiltersContainer {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+.panelTitle {
+  font-size: var(--font-size-body-1);
+  font-weight: var(--font-weight-semi-bold);
 }
 
 .filterItem {

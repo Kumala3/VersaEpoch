@@ -5,17 +5,35 @@ import { Table } from '@tanstack/react-table';
 import { useState, useRef, useEffect } from 'react';
 import { SortTableIcon, FilterTableIcon } from '@/components/ui/UIIcons';
 import { TableSortPanel } from '@/components/ui/TableSortPanel';
+import { SelectSortDropdown } from '@/components/ui/SelectSortDropdown';
 import { TableFilterPanel } from '@/components/ui/TableFilterPanel';
+import { SelectFilterDropdown } from '@/components/ui/SelectFilterDropdown';
+import { capitalizeString } from '@/utils/capitalizeWord';
 
 interface TableControlPanelProps<TData> {
   table: Table<TData>;
+}
+
+function getAvailableSortableColumns<TData>(table: Table<TData>) {
+  const sortingState = table.getState().sorting;
+  // Get all sortable columns
+  const columns = table.getAllColumns().filter((col) => col.getCanSort());
+
+  return columns
+    .filter((col) => !sortingState.find((sort) => col.id === sort.id))
+    .map((col) => ({
+      id: col.id,
+      title: capitalizeString(col.id, '_'),
+    }));
 }
 
 export function TableControlPanel<TData>({
   table,
 }: TableControlPanelProps<TData>) {
   const [showSortPanel, setShowSortPanel] = useState<boolean>(false);
+  const [showSortDropdown, setShowSortDropdown] = useState<boolean>(false);
   const [showFilterPanel, setShowFilterPanel] = useState<boolean>(false);
+  const [showFilterDropdown, setShowFilterDropdown] = useState<boolean>(false);
 
   const sortDropdownRef = useRef<HTMLDivElement>(null);
   const filterDropdownRef = useRef<HTMLDivElement>(null);
@@ -56,31 +74,73 @@ export function TableControlPanel<TData>({
     };
   }, [showSortPanel, showFilterPanel]);
 
-  const toggleSortPanel = () => {
-    setShowSortPanel(!showSortPanel);
+  const activeSortsCount = table.getState().sorting.length;
+  const activeFiltersCount = table.getState().columnFilters.length;
+
+  const handleClearAll = () => {
+    table.setSorting([]);
+    table.setColumnFilters([]);
+  };
+
+  const handleOpenFilterPanel = () => {
+    setShowFilterPanel(true);
+    setShowSortPanel(false);
+  };
+
+  const handleOpenFilterDropdown = () => {
+    setShowFilterDropdown(true);
+    setShowFilterPanel(false);
+  }
+
+  const handleCloseFilterDropdown = () => {
+    setShowFilterDropdown(false);
+    setShowFilterPanel(true);
+  }
+
+  const handleFilterSelect = (columnId) => {
+    // TODO: implement filter logic based on column type
+  }
+
+  const handleOpenSortPanel = () => {
+    setShowSortPanel(true);
     setShowFilterPanel(false);
   };
 
-  const toggleFilterPanel = () => {
-    setShowFilterPanel(!showFilterPanel);
+  const handleSortDropdownOpen = () => {
+    // Closes panel, opens dropdown
     setShowSortPanel(false);
+    setShowSortDropdown(true);
+  };
+
+  const handleSortDropdownClose = () => {
+    // Closes dropdown, opens panel
+    setShowSortPanel(true);
+    setShowSortDropdown(false);
+  };
+
+  const handleSortSelect = (columnId: string) => {
+    const currentSorting = table.getState().sorting;
+    const newSorting = [...currentSorting, { id: columnId, desc: false }];
+    table.setSorting(newSorting);
+
+    handleSortDropdownClose();
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.topBar}>
-        {/* <div className={styles.actionsContainer}>
+        <div className={styles.actionsContainer}>
           {(activeSortsCount > 0 || activeFiltersCount > 0) && (
-            <button className={styles.clearAllButton} onClick={clearAll}>
+            <button className={styles.clearAllButton} onClick={handleClearAll}>
               Clear all
             </button>
           )}
-        </div> */}
+        </div>
 
         {/* Functions Container */}
         <div className={styles.functionsContainer}>
           <div className={styles.dropdownWrapper}>
-            <button className={styles.functionButton} onClick={toggleSortPanel}>
+            <button className={styles.functionButton} onClick={handleOpenSortPanel}>
               <SortTableIcon className={styles.functionButton__icon} />
               Sort
             </button>
@@ -90,6 +150,17 @@ export function TableControlPanel<TData>({
               <div className={styles.dropdownPanel} ref={sortDropdownRef}>
                 <TableSortPanel
                   table={table}
+                  onOpenDropdown={handleSortDropdownOpen}
+                />
+              </div>
+            )}
+
+            {showSortDropdown && (
+              <div className={styles.selectDropdownContainer}>
+                <SelectSortDropdown
+                  elements={getAvailableSortableColumns(table)}
+                  onSelect={handleSortSelect}
+                  onClose={handleSortDropdownClose}
                 />
               </div>
             )}
@@ -98,7 +169,7 @@ export function TableControlPanel<TData>({
           <div className={styles.dropdownWrapper}>
             <button
               className={styles.functionButton}
-              onClick={toggleFilterPanel}>
+              onClick={handleOpenFilterPanel}>
               <FilterTableIcon className={styles.functionButton__icon} />
               Filter
             </button>
@@ -108,11 +179,19 @@ export function TableControlPanel<TData>({
               <div className={styles.dropdownPanel} ref={filterDropdownRef}>
                 <TableFilterPanel
                   table={table}
-                  onAddFilter={addFilter}
-                  onRemoveFilter={removeFilter}
-                  onClearAll={clearAllFilters}
+                  onOpenDropdown={handleOpenFilterDropdown}
                 />
               </div>
+            )}
+
+            {showFilterDropdown && (
+              <div className={styles.selectDropdownContainer} >
+              <SelectFilterDropdown
+                elements={getAvailableSortableColumns(table)}
+                onSelect={handleFilterSelect}
+                onClose={handleCloseFilterDropdown}
+              />
+            </div>
             )}
           </div>
         </div>
