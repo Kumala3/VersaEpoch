@@ -11,9 +11,7 @@ interface TableSortPanelProps<TData> {
   table: Table<TData>;
 }
 
-export function TableSortPanel<TData>({
-  table,
-}: TableSortPanelProps<TData>) {
+export function TableSortPanel<TData>({ table }: TableSortPanelProps<TData>) {
   const [showSelectDropdown, setShowSelectDropdown] = useState<boolean>(false);
   const sortingState = table.getState().sorting;
   const columns = table.getAllColumns().filter((col) => col.getCanSort());
@@ -32,37 +30,37 @@ export function TableSortPanel<TData>({
     }));
 
   const handleAddSort = (columnId: string) => {
-    const column = table.getColumn(columnId);
-    if (column?.getCanSort()) {
-      // false - ascending
-      column.toggleSorting(false);
-    }
+    const currentSorting = table.getState().sorting;
+
+    const newSorting = [...currentSorting, { id: columnId, desc: false }];
+    table.setSorting(newSorting);
     setShowSelectDropdown(false); // close after selection
   };
 
   const handleToggleSort = (columnId: string) => {
-    const column = table.getColumn(columnId);
+    const currentSorting = table.getState().sorting;
+    const sortIndex = currentSorting.findIndex((sort) => sort.id === columnId);
 
-    if (column?.getCanSort()) {
-      const currentSort = sortingState.find(sort => sort.id === column.id);
-
-      // If sort is applied applied
-      if (currentSort) {
-        // If currently ascending (desc: false), switch to descending (desc: true)
-        // If currently descending (desc: true), switch to ascending (desc: false)
-        column.toggleSorting(!currentSort.desc);
-      } else {
-        // by default, ascending order is applied
-        column.toggleSorting(false);
-      }
+    // Updates sorting of exactly clicked sort
+    if (sortIndex >= 0) {
+      const newSorting = [...currentSorting];
+      newSorting[sortIndex] = {
+        ...newSorting[sortIndex],
+        desc: !newSorting[sortIndex].desc, // Toggle order
+      };
+      table.setSorting(newSorting);
     }
   };
 
   const handleRemoveSort = (columnId: string) => {
-    const column = table.getColumn(columnId);
-    if (column) {
-      column.clearSorting();
-    }
+    const currentSorting = table.getState().sorting;
+    const newSorting = currentSorting.filter((sort) => sort.id != columnId);
+
+    table.setSorting(newSorting);
+  };
+
+  const handleClearAllSorts = () => {
+    table.setSorting([]);
   };
 
   return (
@@ -109,10 +107,18 @@ export function TableSortPanel<TData>({
               <TableSelectDropdown
                 elements={availableColumns}
                 onSelect={handleAddSort}
+                onClose={() => setShowSelectDropdown(false)}
               />
             </div>
           )}
         </div>
+      )}
+      {sortingState.length > 0 && (
+        <button
+          onClick={handleClearAllSorts}
+          className={styles.clearAllSortsButton}>
+          Clear All
+        </button>
       )}
     </div>
   );

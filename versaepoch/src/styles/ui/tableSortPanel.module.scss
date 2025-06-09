@@ -109,10 +109,6 @@
   gap: 4px;
 }
 
-.removeSortButton {
-  cursor: pointer;
-}
-
 .addSortSection {
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
@@ -148,4 +144,19 @@
   top: calc(0%);
   left: 0;
   z-index: 100;
+}
+
+.clearAllSortsButton {
+  display: flex;
+  background-color: white;
+  border: 2px solid black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: var(--border-radius-sm);
+  padding: var(--padding-sm);
+
+  &:hover {
+    transition: all 0.3s ease;
+    background-color: #c9c9c9;
+  }
 }

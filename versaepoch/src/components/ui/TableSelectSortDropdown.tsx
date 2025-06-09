@@ -1,20 +1,42 @@
+"use client";
+
+import { useEffect, useRef } from "react"
 import styles from '@/styles/ui/tableSelectDropdown.module.scss';
 
 interface TableSelectDropdownProps {
   elements: { id: string; title: string }[];
   onSelect: (columnId: string) => void;
+  onClose: () => void;
 }
 
 export function TableSelectDropdown({
   elements,
   onSelect,
+  onClose,
 }: TableSelectDropdownProps) {
   const handleOptionClick = (columnId: string) => {
     onSelect(columnId);
+    onClose();
   };
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+        const target = event?.target as Node;
+
+        if (dropdownRef.current && !dropdownRef?.current.contains(target)) {
+          onClose();
+        }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [onClose]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={dropdownRef}>
       <div className={styles.headerContainer}>Add Sort</div>
 
       <div className={styles.optionsList}>
