@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react"
-import styles from '@/styles/ui/tableSelectDropdown.module.scss';
+import styles from '@/styles/ui/selectSortDropdown.module.scss';
 
 interface TableSelectDropdownProps {
   elements: { id: string; title: string }[];
@@ -9,14 +9,13 @@ interface TableSelectDropdownProps {
   onClose: () => void;
 }
 
-export function TableSelectDropdown({
+export function SelectSortDropdown({
   elements,
   onSelect,
   onClose,
 }: TableSelectDropdownProps) {
   const handleOptionClick = (columnId: string) => {
     onSelect(columnId);
-    onClose();
   };
   const dropdownRef = useRef<HTMLDivElement>(null);
 

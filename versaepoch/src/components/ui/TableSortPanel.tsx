@@ -5,7 +5,7 @@ import { useState } from 'react';
 import styles from '@/styles/ui/tableSortPanel.module.scss';
 import { PlusIcon, CrossIcon } from '@/components/ui/UIIcons';
 import { capitalizeString } from '@/utils/capitalizeWord';
-import { TableSelectDropdown } from '@/components/ui/TableSelectSortDropdown';
+import { SelectSortDropdown } from '@/components/ui/SelectSortDropdown';
 
 interface TableSortPanelProps<TData> {
   table: Table<TData>;
@@ -16,7 +16,7 @@ export function TableSortPanel<TData>({ table }: TableSortPanelProps<TData>) {
   const sortingState = table.getState().sorting;
   const columns = table.getAllColumns().filter((col) => col.getCanSort());
 
-  const getDisplayColumnName = (columnId: string) => {
+  const getColumnDisplayName = (columnId: string) => {
     const columnName = capitalizeString(columnId, '_');
     return columnName;
   };
@@ -26,7 +26,7 @@ export function TableSortPanel<TData>({ table }: TableSortPanelProps<TData>) {
     .filter((col) => !sortingState.find((sort) => sort.id === col.id))
     .map((col) => ({
       id: col.id,
-      title: getDisplayColumnName(col.id),
+      title: getColumnDisplayName(col.id),
     }));
 
   const handleAddSort = (columnId: string) => {
@@ -73,7 +73,7 @@ export function TableSortPanel<TData>({ table }: TableSortPanelProps<TData>) {
           {sortingState.map((sort) => (
             <div key={sort.id} className={styles.sortItem}>
               <p className={styles.sortColumnName}>
-                {getDisplayColumnName(sort.id)}
+                {getColumnDisplayName(sort.id)}
               </p>
 
               <div className={styles.sortActions}>
@@ -104,7 +104,7 @@ export function TableSortPanel<TData>({ table }: TableSortPanelProps<TData>) {
           </button>
           {showSelectDropdown && (
             <div className={styles.selectDropdownContainer}>
-              <TableSelectDropdown
+              <SelectSortDropdown
                 elements={availableColumns}
                 onSelect={handleAddSort}
                 onClose={() => setShowSelectDropdown(false)}
