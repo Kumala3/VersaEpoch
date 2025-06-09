@@ -90,16 +90,17 @@ export function TableControlPanel<TData>({
   const handleOpenFilterDropdown = () => {
     setShowFilterDropdown(true);
     setShowFilterPanel(false);
-  }
+  };
 
   const handleCloseFilterDropdown = () => {
     setShowFilterDropdown(false);
     setShowFilterPanel(true);
-  }
+  };
 
-  const handleFilterSelect = (columnId) => {
+  const handleFilterSelect = (columnId: string) => {
     // TODO: implement filter logic based on column type
-  }
+    return `Prepare for awesomeness! ${columnId} is cooking!`;
+  };
 
   const handleOpenSortPanel = () => {
     setShowSortPanel(true);
@@ -140,7 +141,9 @@ export function TableControlPanel<TData>({
         {/* Functions Container */}
         <div className={styles.functionsContainer}>
           <div className={styles.dropdownWrapper}>
-            <button className={styles.functionButton} onClick={handleOpenSortPanel}>
+            <button
+              className={styles.functionButton}
+              onClick={handleOpenSortPanel}>
               <SortTableIcon className={styles.functionButton__icon} />
               Sort
             </button>
@@ -185,13 +188,13 @@ export function TableControlPanel<TData>({
             )}
 
             {showFilterDropdown && (
-              <div className={styles.selectDropdownContainer} >
-              <SelectFilterDropdown
-                elements={getAvailableSortableColumns(table)}
-                onSelect={handleFilterSelect}
-                onClose={handleCloseFilterDropdown}
-              />
-            </div>
+              <div className={styles.selectDropdownContainer}>
+                <SelectFilterDropdown
+                  elements={getAvailableSortableColumns(table)}
+                  onSelect={handleFilterSelect}
+                  onClose={handleCloseFilterDropdown}
+                />
+              </div>
             )}
           </div>
         </div>

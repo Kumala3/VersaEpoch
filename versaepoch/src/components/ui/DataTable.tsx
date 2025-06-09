@@ -16,6 +16,8 @@ interface DataTableProps<TData> {
 }
 
 export function DataTable<TData>({ table }: DataTableProps<TData>) {
+  const columns = table.getAllColumns();
+
   return (
     <div className={styles.container}>
       <Table>
