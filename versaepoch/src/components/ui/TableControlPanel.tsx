@@ -56,14 +56,9 @@ export function TableControlPanel<TData>({
     };
   }, [showSortPanel, showFilterPanel]);
 
-  const sortingState = table.getState().sorting;
-  const filterState = table.getState().columnFilters;
-
-  const activeSortsCount = sortingState.length;
-  const activeFiltersCount = filterState.length;
-
   const toggleSortPanel = () => {
     setShowSortPanel(!showSortPanel);
+    setShowFilterPanel(false);
   };
 
   const toggleFilterPanel = () => {
@@ -71,43 +66,16 @@ export function TableControlPanel<TData>({
     setShowSortPanel(false);
   };
 
-  const clearAllSorts = () => {
-    table.resetSorting();
-  };
-
-  const clearAllFilters = () => {
-    table.resetColumnFilters();
-  };
-
-  const clearAll = () => {
-    clearAllSorts();
-    clearAllFilters();
-  };
-
-  const addFilter = (columnId: string, value: string) => {
-    const column = table.getColumn(columnId);
-    if (column) {
-      column.setFilterValue(value);
-    }
-  };
-
-  const removeFilter = (columnId: string) => {
-    const column = table.getColumn(columnId);
-    if (column) {
-      column.setFilterValue('');
-    }
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.topBar}>
-        <div className={styles.actionsContainer}>
+        {/* <div className={styles.actionsContainer}>
           {(activeSortsCount > 0 || activeFiltersCount > 0) && (
             <button className={styles.clearAllButton} onClick={clearAll}>
               Clear all
             </button>
           )}
-        </div>
+        </div> */}
 
         {/* Functions Container */}
         <div className={styles.functionsContainer}>
