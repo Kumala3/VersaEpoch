@@ -29,7 +29,7 @@ export function TableSortPanel<TData>({
 
   const handleAddSort = (columnId: string) => {
     const column = table.getColumn(columnId);
-    if (column && column.getCanSort()) {
+    if (column?.getCanSort()) {
       // false - ascending
       column.toggleSorting(false);
     }
@@ -56,7 +56,7 @@ export function TableSortPanel<TData>({
 
               <div className={styles.sortActions}>
                 {/* Replace with dropdown to select ASC/DESC order */}
-                
+
                 <button
                   className={styles.removeSortButton}
                   onClick={() => handleRemoveSort(sort.id)}>

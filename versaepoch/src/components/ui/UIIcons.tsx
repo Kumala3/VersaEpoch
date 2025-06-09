@@ -85,7 +85,7 @@ function CollapseIcon({ width = 48, height = 48, className }: IconProps) {
       src={'/collapse-icon.svg'}
       width={width}
       height={height}
-      alt="Expand Icon"
+      alt="Collapse Icon"
       className={className}
     />
   );
@@ -154,9 +154,9 @@ function SortTableIcon({
       fill="none"
       className={className}
       stroke={color}
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round">
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
       <path d="m3 16 4 4 4-4" />
       <path d="M7 20V4" />
       <path d="m21 8-4-4-4 4" />
@@ -180,9 +180,9 @@ function FilterTableIcon({
       fill="none"
       className={className}
       stroke={color}
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round">
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
       <line x1="21" x2="14" y1="4" y2="4" />
       <line x1="10" x2="3" y1="4" y2="4" />
       <line x1="21" x2="12" y1="12" y2="12" />
