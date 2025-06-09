@@ -20,15 +20,15 @@ export function TimelineSortDropdown({
   return (
     <div className={styles.container}>
       {!opened ? (
-        <div onClick={onOpen} className={styles.closedContainer}>
+        <button onClick={onOpen} className={styles.closedContainer}>
           <p className={styles.closedContainer__text}>Sort</p>
           <ChevronDownIcon className={styles.closedContainer__icon} />
-        </div>
+        </button>
       ) : (
-        <div onClick={onClose} className={styles.closedContainer}>
+        <button onClick={onClose} className={styles.closedContainer}>
           <p className={styles.closedContainer__text}>Sort</p>
           <ChevronUpIcon className={styles.closedContainer__icon} />
-        </div>
+        </button>
       )}
 
       {opened && (

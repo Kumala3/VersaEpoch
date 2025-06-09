@@ -43,6 +43,32 @@ export interface LLMModel {
   bestFor: string[];
 }
 
+const BEST_FOR_STYLES: Record<string, string> = {  
+  'Coding': styles.bestForDefault__coding,  
+  'Writing': styles.bestForDefault__writing,  
+  'Research & Analysis': styles.bestForDefault__researchAnalysis,  
+  'Brainstorming': styles.bestForDefault__brainstorming,  
+  'Productivity': styles.bestForDefault__productivity,  
+  'Lifestyle': styles.bestForDefault__lifestyle,  
+  'Cooking': styles.bestForDefault__cooking,  
+  'General Knowledge': styles.bestForDefault__generalKnowledge,  
+  'Organizing': styles.bestForDefault__organizing,  
+  'Image Generation': styles.bestForDefault__imageGeneration,  
+};  
+
+const BEST_FOR_ICONS: Record<string, React.ComponentType<{className?: string}>> = {  
+  'Coding': BestForCodingIcon,  
+  'Writing': BestForWritingIcon,  
+  'Research & Analysis': BestForResearchAnalysisIcon,  
+  'Brainstorming': BestForBrainstormingIcon,  
+  'Productivity': BestForProductivityIcon,  
+  'Lifestyle': BestForLifestyleIcon,  
+  'Cooking': BestForCookingIcon,  
+  'General Knowledge': BestForGeneralKnowledgeIcon,  
+  'Organizing': BestForOrganizingIcon,  
+  'Image Generation': BestForImageGenerationIcon,  
+}; 
+
 export const columns: ColumnDef<LLMModel>[] = [
   {
     accessorKey: 'company',
@@ -257,57 +283,12 @@ export const columns: ColumnDef<LLMModel>[] = [
       const bestFors = getValue() as string[];
 
       const bestForStyle = (bestFor: string) => {
-        switch (bestFor) {
-          case 'Coding':
-            return styles.bestForDefault__coding;
-          case 'Writing':
-            return styles.bestForDefault__writing;
-          case 'Research & Analysis':
-            return styles.bestForDefault__researchAnalysis;
-          case 'Brainstorming':
-            return styles.bestForDefault__brainstorming;
-          case 'Productivity':
-            return styles.bestForDefault__productivity;
-          case 'Lifestyle':
-            return styles.bestForDefault__lifestyle;
-          case 'Cooking':
-            return styles.bestForDefault__cooking;
-          case 'General Knowledge':
-            return styles.bestForDefault__generalKnowledge;
-          case 'Organizing':
-            return styles.bestForDefault__organizing;
-          case 'Image Generation':
-            return styles.bestForDefault__imageGeneration;
-          default:
-            return styles.bestForDefault;
-        }
+        return BEST_FOR_STYLES[bestFor] || styles.bestForDefault;
       };
 
       const bestForIcon = (bestFor: string, className: string) => {
-        switch (bestFor) {
-          case 'Coding':
-            return <BestForCodingIcon className={className} />;
-          case 'Writing':
-            return <BestForWritingIcon className={className} />;
-          case 'Research & Analysis':
-            return <BestForResearchAnalysisIcon className={className} />;
-          case 'Brainstorming':
-            return <BestForBrainstormingIcon className={className} />;
-          case 'Productivity':
-            return <BestForProductivityIcon className={className} />;
-          case 'Lifestyle':
-            return <BestForLifestyleIcon className={className} />;
-          case 'Cooking':
-            return <BestForCookingIcon className={className} />;
-          case 'General Knowledge':
-            return <BestForGeneralKnowledgeIcon className={className} />;
-          case 'Image Generation':
-            return <BestForImageGenerationIcon className={className} />;
-          case 'Organizing':
-            return <BestForOrganizingIcon className={className} />;
-          default:
-            return;
-        }
+        const Icon = BEST_FOR_ICONS[bestFor];
+        return Icon ? <Icon className={className} /> : null;
       };
 
       return (
