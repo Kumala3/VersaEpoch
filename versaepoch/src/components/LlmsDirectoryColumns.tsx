@@ -4,6 +4,7 @@ import styles from '@/styles/llmsDirectoryColumns.module.scss';
 import Link from 'next/link';
 import { TableHeaderDropdown } from '@/components/ui/TableHeaderDropdown';
 import { ColumnDef } from '@tanstack/react-table';
+import { ColumnType } from '@/types/Table';
 import {
   ChatgptIcon,
   ClaudeIcon,
@@ -43,31 +44,34 @@ export interface LLMModel {
   bestFor: string[];
 }
 
-const BEST_FOR_STYLES: Record<string, string> = {  
-  'Coding': styles.bestForDefault__coding,  
-  'Writing': styles.bestForDefault__writing,  
-  'Research & Analysis': styles.bestForDefault__researchAnalysis,  
-  'Brainstorming': styles.bestForDefault__brainstorming,  
-  'Productivity': styles.bestForDefault__productivity,  
-  'Lifestyle': styles.bestForDefault__lifestyle,  
-  'Cooking': styles.bestForDefault__cooking,  
-  'General Knowledge': styles.bestForDefault__generalKnowledge,  
-  'Organizing': styles.bestForDefault__organizing,  
-  'Image Generation': styles.bestForDefault__imageGeneration,  
-};  
+const BEST_FOR_STYLES: Record<string, string> = {
+  Coding: styles.bestForDefault__coding,
+  Writing: styles.bestForDefault__writing,
+  'Research & Analysis': styles.bestForDefault__researchAnalysis,
+  Brainstorming: styles.bestForDefault__brainstorming,
+  Productivity: styles.bestForDefault__productivity,
+  Lifestyle: styles.bestForDefault__lifestyle,
+  Cooking: styles.bestForDefault__cooking,
+  'General Knowledge': styles.bestForDefault__generalKnowledge,
+  Organizing: styles.bestForDefault__organizing,
+  'Image Generation': styles.bestForDefault__imageGeneration,
+};
 
-const BEST_FOR_ICONS: Record<string, React.ComponentType<{className?: string}>> = {  
-  'Coding': BestForCodingIcon,  
-  'Writing': BestForWritingIcon,  
-  'Research & Analysis': BestForResearchAnalysisIcon,  
-  'Brainstorming': BestForBrainstormingIcon,  
-  'Productivity': BestForProductivityIcon,  
-  'Lifestyle': BestForLifestyleIcon,  
-  'Cooking': BestForCookingIcon,  
-  'General Knowledge': BestForGeneralKnowledgeIcon,  
-  'Organizing': BestForOrganizingIcon,  
-  'Image Generation': BestForImageGenerationIcon,  
-}; 
+const BEST_FOR_ICONS: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
+  Coding: BestForCodingIcon,
+  Writing: BestForWritingIcon,
+  'Research & Analysis': BestForResearchAnalysisIcon,
+  Brainstorming: BestForBrainstormingIcon,
+  Productivity: BestForProductivityIcon,
+  Lifestyle: BestForLifestyleIcon,
+  Cooking: BestForCookingIcon,
+  'General Knowledge': BestForGeneralKnowledgeIcon,
+  Organizing: BestForOrganizingIcon,
+  'Image Generation': BestForImageGenerationIcon,
+};
 
 export const columns: ColumnDef<LLMModel>[] = [
   {
@@ -75,6 +79,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => (
       <TableHeaderDropdown column={column} title={'Company'} />
     ),
+    meta: { type: 'text' as ColumnType },
     cell: ({ getValue }) => {
       const company = getValue() as string;
 
@@ -111,6 +116,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Model" />;
     },
+    meta: { type: 'text' as ColumnType },
     minSize: 230,
     cell: ({ getValue, row }) => {
       const modelName = getValue() as string;
@@ -150,6 +156,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Description" />;
     },
+    meta: { type: 'text' as ColumnType },
     size: 450,
   },
   {
@@ -157,6 +164,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Context Window" />;
     },
+    meta: { type: 'number' as ColumnType },
     minSize: 230,
     cell: ({ getValue }) => {
       const contextWindow = getValue() as number;
@@ -171,6 +179,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Max Output" />;
     },
+    meta: { type: 'number' as ColumnType },
     minSize: 200,
     cell: ({ getValue }) => {
       const maxOutput = getValue() as number;
@@ -185,6 +194,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Knowledge Cutoff" />;
     },
+    meta: { type: 'date' as ColumnType },
     minSize: 230,
   },
   {
@@ -192,6 +202,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Release Date" />;
     },
+    meta: { type: 'date' as ColumnType },
     minSize: 200,
   },
   {
@@ -199,6 +210,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Documentation" />;
     },
+    meta: { type: 'url' as ColumnType },
     size: 300,
     cell: ({ getValue }) => {
       const url = getValue() as string;
@@ -223,6 +235,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Modalities" />;
     },
+    meta: { type: 'multi-select' as ColumnType },
     minSize: 250,
     cell: ({ getValue }) => {
       const modalities = getValue() as string[];
@@ -278,6 +291,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Best For" />;
     },
+    meta: { type: 'multi-select' as ColumnType },
     minSize: 250,
     cell: ({ getValue }) => {
       const bestFors = getValue() as string[];
