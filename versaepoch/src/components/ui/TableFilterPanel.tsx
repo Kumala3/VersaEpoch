@@ -16,6 +16,7 @@ export function TableFilterPanel<TData>({
 }: TableFilterPanelProps<TData>) {
   const filterState = table.getState().columnFilters;
   const columns = table.getAllColumns().filter((col) => col.getCanFilter());
+  const isFilterEnabled = false;
 
   const getColumnDisplayName = (columnId: string) => {
     const columnName = capitalizeString(columnId, '_');
@@ -34,44 +35,55 @@ export function TableFilterPanel<TData>({
     <div className={styles.container}>
       <h3 className={styles.panelTitle}>Filter</h3>
 
-      {/* Active Filters */}
-      {filterState.length > 0 && (
-        <div className={styles.activeFiltersContainer}>
-          {filterState.map((filter) => (
-            <div key={filter.id} className={styles.filterItem}>
-              <div className={styles.filterDetails}>
-                <span className={styles.filterColumn}>
-                  {getColumnDisplayName(filter.id)}
-                </span>
-              </div>
+      {isFilterEnabled ? (
+        <>
+          {filterState.length > 0 && (
+            <div className={styles.activeFiltersContainer}>
+              {filterState.map((filter) => (
+                <div key={filter.id} className={styles.filterItem}>
+                  <div className={styles.filterDetails}>
+                    <span className={styles.filterColumn}>
+                      {getColumnDisplayName(filter.id)}
+                    </span>
+                  </div>
 
+                  <button
+                    className={styles.filterItem__removeButton}
+                    onClick={() => {}}>
+                    <CrossIcon
+                      className={styles.filterItem__removeButton__icon}
+                    />
+                    {''}
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {availableColumns.length > 0 && (
+            <div className={styles.addFilterSection}>
               <button
-                className={styles.filterItem__removeButton}
-                onClick={() => {}}>
-                {/* Remove  */}
-                <CrossIcon className={styles.filterItem__removeButton__icon} />
+                className={styles.addFilterButton}
+                onClick={onOpenDropdown}>
+                <PlusIcon
+                  className={styles.addFilterButton__icon}
+                  color="#000"
+                />
+                Add filter
               </button>
             </div>
-          ))}
-        </div>
-      )}
+          )}
 
-      {/* Add Filter Button */}
-      {availableColumns.length > 0 && (
-        <div className={styles.addFilterSection}>
-          <button className={styles.addFilterButton} onClick={onOpenDropdown}>
-            <PlusIcon className={styles.addFilterButton__icon} color="#000" />
-            Add filter
-          </button>
-        </div>
-      )}
-
-      {filterState.length > 0 && (
-        <button
-          className={styles.clearAllFiltersButton}
-          onClick={handleClearAllFilters}>
-          Clear all
-        </button>
+          {filterState.length > 0 && (
+            <button
+              className={styles.clearAllFiltersButton}
+              onClick={handleClearAllFilters}>
+              Clear all
+            </button>
+          )}
+        </>
+      ) : (
+        <p className={styles.comingSoonTitle}>Coming soon 🦝</p>
       )}
     </div>
   );
