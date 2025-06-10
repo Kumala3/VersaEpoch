@@ -33,8 +33,9 @@ export function TableFilterPanel<TData>({
   return (
     <div className={styles.container}>
       <h3 className={styles.panelTitle}>Filter</h3>
-
-      {/* Active Filters */}
+      
+      <div>Coming soon 🦝</div>
+      {/*
       {filterState.length > 0 && (
         <div className={styles.activeFiltersContainer}>
           {filterState.map((filter) => (
@@ -48,7 +49,6 @@ export function TableFilterPanel<TData>({
               <button
                 className={styles.filterItem__removeButton}
                 onClick={() => {}}>
-                {/* Remove  */}
                 <CrossIcon className={styles.filterItem__removeButton__icon} />
               </button>
             </div>
@@ -56,7 +56,6 @@ export function TableFilterPanel<TData>({
         </div>
       )}
 
-      {/* Add Filter Button */}
       {availableColumns.length > 0 && (
         <div className={styles.addFilterSection}>
           <button className={styles.addFilterButton} onClick={onOpenDropdown}>
@@ -73,6 +72,7 @@ export function TableFilterPanel<TData>({
           Clear all
         </button>
       )}
+      */}
     </div>
   );
 }
