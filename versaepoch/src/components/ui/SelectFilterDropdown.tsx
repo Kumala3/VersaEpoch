@@ -1,9 +1,10 @@
 import styles from '@/styles/ui/selectFilterDropdown.module.scss';
 import { useEffect, useRef } from 'react';
+import { FilterOperator } from '@/types/Table';
 
 interface SelectFilterDropdownProps {
-  elements: { id: string; title: string }[];
-  onSelect: (columnId: string) => void;
+  elements: {id: string, title: string}[];
+  onSelect: (columnId: string, operator: FilterOperator, value: string | number) => void;
   onClose: () => void;
 }
 
@@ -32,14 +33,18 @@ export function SelectFilterDropdown({
 
   return (
     <div className={styles.container} ref={dropdownRef}>
-      {elements.map((element) => (
-        <button
-          key={element.id}
-          className={styles.option}
-          onClick={() => onSelect(element.id)}>
-          {element.title}
-        </button>
-      ))}
+      <p className={styles.title}>Select a column to sort:</p>
+      <div className={styles.optionsContainer}>
+        {elements.map((element) => (
+          <button
+            key={element.id}
+            className={styles.option}
+            onClick={() => onSelect(element.id)}>
+            {element.title}
+          </button>
+        ))}
+      </div>
+      
     </div>
   );
 }
