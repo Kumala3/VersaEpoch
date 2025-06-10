@@ -1,12 +1,7 @@
 'use client';
 
 import styles from '@/styles/ui/dataTable.module.scss';
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+import { flexRender, Table as TanStackTable } from '@tanstack/react-table';
 import {
   Table,
   TableHeader,
@@ -16,20 +11,12 @@ import {
   TableHead,
 } from '@/components/ui/table';
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+interface DataTableProps<TData> {
+  table: TanStackTable<TData>;
 }
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+export function DataTable<TData>({ table }: DataTableProps<TData>) {
+  const columns = table.getAllColumns();
 
   return (
     <div className={styles.container}>
@@ -68,11 +55,14 @@ export function DataTable<TData, TValue>({
                 data-state={row.getIsSelected() && 'selected'}
                 className={styles.tableRow}>
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} className={styles.tableCell} style={{
-                    width: cell.column.getSize(),
-                    minWidth: cell.column.getSize(),
-                    maxWidth: cell.column.getSize(),
-                  }}>
+                  <TableCell
+                    key={cell.id}
+                    className={styles.tableCell}
+                    style={{
+                      width: cell.column.getSize(),
+                      minWidth: cell.column.getSize(),
+                      maxWidth: cell.column.getSize(),
+                    }}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}

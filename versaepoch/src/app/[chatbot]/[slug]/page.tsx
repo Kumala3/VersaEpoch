@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Source } from '@/data/chatgptData';
 import { GlobalIcon } from '@/components/ui/UIIcons';
 import { AnnouncementIcon } from '@/components/ui/TimelineCardsIcons';
-import { capitalizeWord } from '@/utils/capitalizeWord';
+import { capitalizeWord } from '@/utils/helperFunctions';
 import { notFound } from 'next/navigation';
 
 interface PageProps {

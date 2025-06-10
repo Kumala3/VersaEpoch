@@ -65,10 +65,14 @@
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
+  border: 1px solid black;
+  box-shadow: 0 0 6px 1px rgb(0,0,0,0.25);
+  transition: all 300ms ease;
 
   &:hover {
-    background-color: var(--primary-color);
-    color: white;
+    transition: all 300ms ease;
+    background-color: white;
+    color: black;
   }
 }
 
@@ -84,15 +88,14 @@
 
 .modalityDefault {
   display: flex;
-  flex-direction: row;
   min-width: 90px;
   width: fit-content;
   flex-shrink: 0;
   gap: .5rem;
-  align-items: center;
   color: white;
+  align-items: center;
   background-color: gray;
-  padding: 8px 4px;
+  padding: 8px;
   border-radius: var(--border-radius-sm);
 
   &__audio {
@@ -115,5 +118,72 @@
     color: white;
     width: 25px;
     height: 25px;
+  }
+}
+
+.bestForContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: fit-content;
+  gap: .5rem;
+}
+
+.bestForDefault {
+  display: flex;
+  min-width: 90px;
+  width: fit-content;
+  flex-shrink: 0;
+  gap: .5rem;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  padding: 8px;
+  border-radius: var(--border-radius-sm);
+
+  &__icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  &__coding {
+    background-color: #684274;
+  }
+
+  &__writing {
+    background-color: #088e03;
+  }
+
+  &__researchAnalysis {
+    background-color: #107cdb;
+  }
+
+  &__brainstorming {
+    background-color: #058080;
+  }
+
+  &__productivity {
+    background-color: #f19113;
+  }
+
+  &__lifestyle {
+    background-color: #f2223a;
+  }
+
+  &__cooking {
+    background-color: #ecbe4f;
+  }
+
+  &__generalKnowledge {
+    background-color: #2d802c;
+  }
+
+  &__organizing {
+    background-color: #1905ae;
+  }
+
+  &__imageGeneration {
+    background-color: #079e92;
   }
 }

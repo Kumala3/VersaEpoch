@@ -1,6 +1,6 @@
 'use client';
 import styles from '@/styles/timelineSortDropdown.module.scss';
-import { ArrowDownIcon, ArrowUpIcon } from '@/components/ui/UIIcons';
+import { ChevronDownIcon, ChevronUpIcon } from '@/components/ui/UIIcons';
 
 interface TimelineSortDropdownProps {
   opened: boolean;
@@ -20,15 +20,15 @@ export function TimelineSortDropdown({
   return (
     <div className={styles.container}>
       {!opened ? (
-        <div onClick={onOpen} className={styles.closedContainer}>
+        <button onClick={onOpen} className={styles.closedContainer}>
           <p className={styles.closedContainer__text}>Sort</p>
-          <ArrowDownIcon className={styles.closedContainer__icon} />
-        </div>
+          <ChevronDownIcon className={styles.closedContainer__icon} />
+        </button>
       ) : (
-        <div onClick={onClose} className={styles.closedContainer}>
+        <button onClick={onClose} className={styles.closedContainer}>
           <p className={styles.closedContainer__text}>Sort</p>
-          <ArrowUpIcon className={styles.closedContainer__icon} />
-        </div>
+          <ChevronUpIcon className={styles.closedContainer__icon} />
+        </button>
       )}
 
       {opened && (

@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  min-width: 250px;
+  width: fit-content;
+  height: fit-content;
+  background-color: white;
+  border-radius: var(--border-radius-sm);
+  padding: var(--padding-sm);
+  border: 2px solid black;
+}
+
+.headerContainer {
+  display: flex;
+  background-color: white;
+  padding: var(--padding-sm);
+  border: 2px solid black;
+  border-radius: var(--border-radius-sm);
+  font-weight: var(--font-weight-semi-bold);
+  font-size: var(--font-size-body-2);
+}
+
+.optionsList {
+  padding-top: 0.5rem;
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  position: relative;
+  background-color: white;
+  border-radius: var(--border-radius-sm);
+  width: 100%;
+}
+
+.option {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  padding: var(--padding-sm);
+  font-weight: var(--font-weight-med);
+  font-size: var(--font-size-body-2);
+  background-color: white;
+  transition: all 0.3s ease;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+
+  &:hover {
+    transition: all 0.3s ease;
+    background-color: rgb(205, 205, 205);
+  }
+
+  &__icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  &__label {
+    font-weight: var(--font-weight-med);
+    font-size: var(--font-size-body-2);
+  }
+}

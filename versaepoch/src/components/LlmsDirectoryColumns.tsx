@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import styles from "@/styles/llmsDirectoryColumns.module.scss";
+import styles from '@/styles/llmsDirectoryColumns.module.scss';
 import Link from 'next/link';
+import { TableHeaderDropdown } from '@/components/ui/TableHeaderDropdown';
 import { ColumnDef } from '@tanstack/react-table';
 import {
   ChatgptIcon,
@@ -15,10 +16,20 @@ import {
   ModalityImageIcon,
   ModalityVideoIcon,
   ModalityAudioIcon,
+  BestForCodingIcon,
+  BestForWritingIcon,
+  BestForBrainstormingIcon,
+  BestForResearchAnalysisIcon,
+  BestForProductivityIcon,
+  BestForOrganizingIcon,
+  BestForCookingIcon,
+  BestForGeneralKnowledgeIcon,
+  BestForLifestyleIcon,
+  BestForImageGenerationIcon,
 } from '@/components/ui/UIIcons';
-import { capitalizeWord } from '@/utils/capitalizeWord';
+import { capitalizeWord } from '@/utils/helperFunctions';
 
-interface LLMModel {
+export interface LLMModel {
   id: string;
   company: string;
   modelName: string;
@@ -32,10 +43,38 @@ interface LLMModel {
   bestFor: string[];
 }
 
+const BEST_FOR_STYLES: Record<string, string> = {  
+  'Coding': styles.bestForDefault__coding,  
+  'Writing': styles.bestForDefault__writing,  
+  'Research & Analysis': styles.bestForDefault__researchAnalysis,  
+  'Brainstorming': styles.bestForDefault__brainstorming,  
+  'Productivity': styles.bestForDefault__productivity,  
+  'Lifestyle': styles.bestForDefault__lifestyle,  
+  'Cooking': styles.bestForDefault__cooking,  
+  'General Knowledge': styles.bestForDefault__generalKnowledge,  
+  'Organizing': styles.bestForDefault__organizing,  
+  'Image Generation': styles.bestForDefault__imageGeneration,  
+};  
+
+const BEST_FOR_ICONS: Record<string, React.ComponentType<{className?: string}>> = {  
+  'Coding': BestForCodingIcon,  
+  'Writing': BestForWritingIcon,  
+  'Research & Analysis': BestForResearchAnalysisIcon,  
+  'Brainstorming': BestForBrainstormingIcon,  
+  'Productivity': BestForProductivityIcon,  
+  'Lifestyle': BestForLifestyleIcon,  
+  'Cooking': BestForCookingIcon,  
+  'General Knowledge': BestForGeneralKnowledgeIcon,  
+  'Organizing': BestForOrganizingIcon,  
+  'Image Generation': BestForImageGenerationIcon,  
+}; 
+
 export const columns: ColumnDef<LLMModel>[] = [
   {
     accessorKey: 'company',
-    header: 'Company',
+    header: ({ column }) => (
+      <TableHeaderDropdown column={column} title={'Company'} />
+    ),
     cell: ({ getValue }) => {
       const company = getValue() as string;
 
@@ -69,8 +108,10 @@ export const columns: ColumnDef<LLMModel>[] = [
   },
   {
     accessorKey: 'model_name',
-    header: 'Model',
-    minSize: 200,
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Model" />;
+    },
+    minSize: 230,
     cell: ({ getValue, row }) => {
       const modelName = getValue() as string;
       const company = row.getValue('company') as string;
@@ -106,13 +147,17 @@ export const columns: ColumnDef<LLMModel>[] = [
   },
   {
     accessorKey: 'description',
-    header: 'Description',
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Description" />;
+    },
     size: 450,
   },
   {
     accessorKey: 'context_window',
-    header: 'Context Window',
-    minSize: 180,
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Context Window" />;
+    },
+    minSize: 230,
     cell: ({ getValue }) => {
       const contextWindow = getValue() as number;
 
@@ -123,8 +168,10 @@ export const columns: ColumnDef<LLMModel>[] = [
   },
   {
     accessorKey: 'max_output',
-    header: 'Max Output',
-    minSize: 180,
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Max Output" />;
+    },
+    minSize: 200,
     cell: ({ getValue }) => {
       const maxOutput = getValue() as number;
 
@@ -135,18 +182,24 @@ export const columns: ColumnDef<LLMModel>[] = [
   },
   {
     accessorKey: 'knowledge_cutoff',
-    header: 'Knowledge Cutoff',
-    minSize: 200,
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Knowledge Cutoff" />;
+    },
+    minSize: 230,
   },
   {
     accessorKey: 'release_date',
-    header: 'Release Date',
-    minSize: 180,
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Release Date" />;
+    },
+    minSize: 200,
   },
   {
     accessorKey: 'documentation',
-    header: 'Documentation',
-    size: 250,
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Documentation" />;
+    },
+    size: 300,
     cell: ({ getValue }) => {
       const url = getValue() as string;
 
@@ -167,8 +220,10 @@ export const columns: ColumnDef<LLMModel>[] = [
   },
   {
     accessorKey: 'modalities',
-    header: 'Modalities',
-    size: 250,
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Modalities" />;
+    },
+    minSize: 250,
     cell: ({ getValue }) => {
       const modalities = getValue() as string[];
 
@@ -220,7 +275,34 @@ export const columns: ColumnDef<LLMModel>[] = [
   },
   {
     accessorKey: 'best_for',
-    header: 'Best For',
+    header: ({ column }) => {
+      return <TableHeaderDropdown column={column} title="Best For" />;
+    },
     minSize: 250,
+    cell: ({ getValue }) => {
+      const bestFors = getValue() as string[];
+
+      const bestForStyle = (bestFor: string) => {
+        return BEST_FOR_STYLES[bestFor] || styles.bestForDefault;
+      };
+
+      const bestForIcon = (bestFor: string, className: string) => {
+        const Icon = BEST_FOR_ICONS[bestFor];
+        return Icon ? <Icon className={className} /> : null;
+      };
+
+      return (
+        <div className={styles.bestForContainer}>
+          {bestFors?.map((bestFor) => (
+            <div
+              key={bestFor}
+              className={`${bestForStyle(bestFor)} ${styles.bestForDefault}`}>
+              {bestForIcon(bestFor, styles.bestForDefault__icon)}
+              <span>{capitalizeWord(bestFor)}</span>
+            </div>
+          ))}
+        </div>
+      );
+    },
   },
 ];

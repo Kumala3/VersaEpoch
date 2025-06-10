@@ -1,14 +1,15 @@
 import styles from '@/styles/llmsDirectoryPage.module.scss';
 import { createClient } from '@/utils/supabase/client';
-import { DataTable } from '@/components/ui/DataTable';
-import { columns } from '@/components/LlmsDirectoryColumns';
+import { LLMsDataTable } from '@/components/LLMsDataTable';
 
 export default async function LLMsDirectoryPage() {
   const supabase = await createClient();
 
   const { data: tableData, error } = await supabase
     .from('llms_directory')
-    .select('*');
+    .select('*')
+    .order('company', { ascending: false })
+    .order('model_name', { ascending: false });
 
   if (error) {
     console.log(`Error while fetching directory table data: ${error.message}`);
@@ -34,7 +35,8 @@ export default async function LLMsDirectoryPage() {
           just see what is available out there and experiment!
         </p>
       </section>
-      <DataTable columns={columns} data={tableData} />
+      {/* Explanation Section */}
+      <LLMsDataTable data={tableData} />
     </div>
   );
 }
