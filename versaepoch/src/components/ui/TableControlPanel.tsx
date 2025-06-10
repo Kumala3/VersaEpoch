@@ -9,6 +9,8 @@ import { SelectSortDropdown } from '@/components/ui/SelectSortDropdown';
 import { TableFilterPanel } from '@/components/ui/TableFilterPanel';
 import { SelectFilterDropdown } from '@/components/ui/SelectFilterDropdown';
 import { capitalizeString } from '@/utils/helperFunctions';
+import { FilterOperator } from '@/types/Table';
+import { SelectFilterRuleDropdown } from '@/components/ui/selectFilterRuleDropdown';
 
 interface TableControlPanelProps<TData> {
   table: Table<TData>;
@@ -27,6 +29,19 @@ function getAvailableSortableColumns<TData>(table: Table<TData>) {
     }));
 }
 
+function getAvailableFilterableColumns<TData>(table: Table<TData>) {
+  const filtersState = table.getState().columnFilters;
+
+  const columns = table.getAllColumns().filter((col) => col.getCanFilter());
+
+  return columns
+    .filter((col) => !filtersState.find((filter) => col.id === filter.id))
+    .map((col) => ({
+      id: col.id,
+      title: capitalizeString(col.id, '_'),
+    }));
+}
+
 export function TableControlPanel<TData>({
   table,
 }: TableControlPanelProps<TData>) {
@@ -34,6 +49,11 @@ export function TableControlPanel<TData>({
   const [showSortDropdown, setShowSortDropdown] = useState<boolean>(false);
   const [showFilterPanel, setShowFilterPanel] = useState<boolean>(false);
   const [showFilterDropdown, setShowFilterDropdown] = useState<boolean>(false);
+  const [showFilterRuleDropdown, setShowFilterRuleDropdown] =
+    useState<boolean>(false);
+  const [selectedColumnForFilter, setSelectedColumnForFilter] = useState<
+    string | null
+  >(null);
 
   const sortDropdownRef = useRef<HTMLDivElement>(null);
   const filterDropdownRef = useRef<HTMLDivElement>(null);
@@ -97,9 +117,72 @@ export function TableControlPanel<TData>({
     setShowFilterPanel(true);
   };
 
-  const handleFilterSelect = (columnId: string) => {
-    // TODO: implement filter logic based on column type
-    return `Prepare for awesomeness! ${columnId} is cooking!`;
+  const handleOpenFilterRuleDropdown = () => {
+    setShowFilterRuleDropdown(true);
+    setShowFilterDropdown(false);
+    setShowFilterPanel(false);
+  };
+
+  const handleSelectFilter = (columnId: string) => {
+    setSelectedColumnForFilter(columnId);
+    handleOpenFilterRuleDropdown();
+  };
+
+  const handleCloseFilterRuleDropdown = () => {
+    setShowFilterRuleDropdown(false);
+    setSelectedColumnForFilter(null);
+    setShowFilterPanel(true);
+  };
+
+  const handleAddFilter = (
+    columnId: string,
+    operator: FilterOperator,
+    value: string | number | null
+  ) => {
+    const currentFilters = table.getState().columnFilters;
+    const newFilters = [
+      ...currentFilters,
+      { id: columnId, value: { operator: operator, value: value } },
+    ];
+    table.setColumnFilters(newFilters);
+  };
+
+  const handleFilterRuleSelect = (
+    operator: FilterOperator,
+    value: string | number | null
+  ) => {
+    if (selectedColumnForFilter) {
+      handleAddFilter(selectedColumnForFilter, operator, value);
+      handleCloseFilterRuleDropdown();
+    }
+  };
+
+  const handleRemoveFilter = (columnId: string) => {
+    const currentFilters = table.getState().columnFilters;
+    // include all filters expect for the one provided -> remove from filters
+    const existingFilters = currentFilters.filter(
+      (filter) => filter.id !== columnId
+    );
+    table.setColumnFilters(existingFilters);
+  };
+
+  const handleUpdateFilter = (
+    columnId: string,
+    operator: FilterOperator,
+    value: string | Date | number
+  ) => {
+    const currentFilters = table.getState().columnFilters;
+    // Only update operator, value of the selected filter
+    const updatedFilters = currentFilters.map((filter) =>
+      filter.id === columnId
+        ? { ...filter, value: { operator, value } }
+        : filter
+    );
+    table.setColumnFilters(updatedFilters);
+  };
+
+  const handleClearAllFilters = () => {
+    table.resetColumnFilters();
   };
 
   const handleOpenSortPanel = () => {
@@ -182,7 +265,11 @@ export function TableControlPanel<TData>({
               <div className={styles.dropdownPanel} ref={filterDropdownRef}>
                 <TableFilterPanel
                   table={table}
+                  onClearAllFilters={handleClearAllFilters}
+                  onRemoveFilter={handleRemoveFilter}
+                  onUpdateFilter={handleUpdateFilter}
                   onOpenDropdown={handleOpenFilterDropdown}
+                  onClose={handleCloseFilterDropdown}
                 />
               </div>
             )}
@@ -190,9 +277,20 @@ export function TableControlPanel<TData>({
             {showFilterDropdown && (
               <div className={styles.selectDropdownContainer}>
                 <SelectFilterDropdown
-                  elements={getAvailableSortableColumns(table)}
-                  onSelect={handleFilterSelect}
+                  elements={getAvailableFilterableColumns(table)}
                   onClose={handleCloseFilterDropdown}
+                  onSelect={handleSelectFilter}
+                />
+              </div>
+            )}
+
+            {showFilterRuleDropdown && (
+              <div className={styles.selectFilterRuleDropdownContainer}>
+                <SelectFilterRuleDropdown
+                  table={table}
+                  selectedColumnId={selectedColumnForFilter}
+                  onClose={handleCloseFilterRuleDropdown}
+                  onSelect={handleFilterRuleSelect}
                 />
               </div>
             )}
