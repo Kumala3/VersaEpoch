@@ -35,6 +35,7 @@ export function LLMsDataTable({ data }: LLMsDataTableProps) {
     onColumnOrderChange: setColumnOrder,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    enableColumnFilters: true,
     enableSorting: true,
     enableColumnPinning: true,
   });
