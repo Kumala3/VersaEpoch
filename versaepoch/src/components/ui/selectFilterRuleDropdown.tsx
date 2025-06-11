@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import styles from '@/styles/ui/selectFilterRuleDropdown.module.scss';
 import { FilterOperator, FilterRule } from '@/types/Table';
@@ -10,6 +10,7 @@ import {
   getColumnTypeLabel,
   getAvailableFilterRules,
 } from '@/utils/tableFunctions';
+import { capitalizeString } from '@/utils/helperFunctions';
 
 interface SelectFilterRuleDropdownProps<TData> {
   selectedColumnId: string;
@@ -18,22 +19,43 @@ interface SelectFilterRuleDropdownProps<TData> {
   onSelect: (operator: FilterOperator, value: string | number | null) => void;
 }
 
-export function SelectFilterRuleDropdown({
+export function SelectFilterRuleDropdown<TData>({
   selectedColumnId,
   table,
   onClose,
   onSelect,
-}: SelectFilterRuleDropdownProps) {
-  const [inputValue, setInputValue] = useState<string>('');
+}: SelectFilterRuleDropdownProps<TData>) {
+  const [inputValue, setInputValue] = useState<string | number>('');
 
   const column = table.getColumn(selectedColumnId);
-  const columnType = getColumnType(column);
+  const columnName = column ? capitalizeString(column.id, '_') : '';
+  const columnType = column ? getColumnType(column) : 'text';
   const columnTypeLabel = getColumnTypeLabel(columnType);
   const availableFilterRules = getAvailableFilterRules(columnType);
 
   const [selectedRule, setSelectedRule] = useState<FilterRule | null>(
-    availableFilterRules[0]
+    availableFilterRules?.[0] || null
   );
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
+
+      if (dropdownRef.current && !dropdownRef.current.contains(target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  });
 
   const handleRuleSelect = (rule: FilterRule) => {
     setSelectedRule(rule);
@@ -42,24 +64,59 @@ export function SelectFilterRuleDropdown({
     }
   };
 
+  const getInputType = () => {
+    return columnType === 'number' ? 'number' : 'text';
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleApplyFilter = () => {
+    if (selectedRule) {
+      if (!selectedRule.hasValue) {
+        onSelect(selectedRule.operator, null);
+      } else {
+        const value =
+          columnType === 'number'
+            ? inputValue
+              ? Number(inputValue)
+              : null
+            : inputValue | null;
+        onSelect(selectedRule.operator, value);
+      }
+    }
+  };
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={dropdownRef}>
       <div className={styles.topContainer}>
-        <p className={styles.topContainer__title}>{columnTypeLabel}</p>
+        <p className={styles.topContainer__title}>{columnName}</p>
         <input
           title="Value Input"
-          type="text"
+          type={getInputType()}
           name="valueInput"
           className={styles.input}
-          placeholder="Type a value..."></input>
+          placeholder="Type a value..."
+          onChange={handleInputChange}
+          value={inputValue}></input>
       </div>
+      {selectedRule?.hasValue && (
+        <button className={styles.applyButton} onClick={handleApplyFilter}>
+          Apply
+        </button>
+      )}
 
       <p className={styles.subHeadline}>Filter Rules:</p>
       <div className={styles.optionsContainer}>
         {availableFilterRules?.map((filterRule) => (
           <button
             key={filterRule.label}
-            className={`${styles.option} ${selectedRule?.operator === filterRule.operator ? styles.option__selected : ''}`}
+            className={`${styles.option} ${
+              selectedRule?.operator === filterRule.operator
+                ? styles.option__selected
+                : ''
+            }`}
             onClick={() => handleRuleSelect(filterRule)}>
             {filterRule.label}
           </button>

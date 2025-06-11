@@ -43,6 +43,22 @@
   height: fit-content;
 }
 
+.applyButton {
+  display: flex;
+  background-color: white;
+  border-radius: var(--border-radius-sm);
+  border: 2px solid black;
+  padding: var(--padding-sm);
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transition: all 0.3s ease;
+    background-color: rgb(205, 205, 205);
+  }
+}
+
 .option {
   display: flex;
   flex-direction: row;
