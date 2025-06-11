@@ -9,8 +9,8 @@ import { SelectSortDropdown } from '@/components/ui/SelectSortDropdown';
 import { TableFilterPanel } from '@/components/ui/TableFilterPanel';
 import { SelectFilterDropdown } from '@/components/ui/SelectFilterDropdown';
 import { capitalizeString } from '@/utils/helperFunctions';
-import { FilterOperator } from '@/types/Table';
-import { SelectFilterRuleDropdown } from '@/components/ui/selectFilterRuleDropdown';
+import { ColumnType, FilterOperator } from '@/types/Table';
+import { SelectFilterRuleDropdown } from '@/components/ui/SelectFilterRuleDropdown';
 
 interface TableControlPanelProps<TData> {
   table: Table<TData>;
@@ -51,9 +51,8 @@ export function TableControlPanel<TData>({
   const [showFilterDropdown, setShowFilterDropdown] = useState<boolean>(false);
   const [showFilterRuleDropdown, setShowFilterRuleDropdown] =
     useState<boolean>(false);
-  const [selectedColumnForFilter, setSelectedColumnForFilter] = useState<
-    string | null
-  >(null);
+  const [selectedColumnForFilter, setSelectedColumnForFilter] =
+    useState<string | null>(null);
 
   const sortDropdownRef = useRef<HTMLDivElement>(null);
   const filterDropdownRef = useRef<HTMLDivElement>(null);
@@ -123,7 +122,16 @@ export function TableControlPanel<TData>({
     setShowFilterPanel(false);
   };
 
-  const handleSelectFilter = (columnId: string) => {
+  const handleSelectFilter = (columnId: string, operator: FilterOperator, value: string | number | null ) => {
+    const currentFilters = table.getState().columnFilters;
+    const newFilter = {
+      id: columnId,
+      value: value,
+      operator: operator,
+    }
+
+    table.setColumnFilters([...currentFilters, newFilter]);
+
     setSelectedColumnForFilter(columnId);
     handleOpenFilterRuleDropdown();
   };
@@ -137,22 +145,25 @@ export function TableControlPanel<TData>({
   const handleAddFilter = (
     columnId: string,
     operator: FilterOperator,
-    value: string | number | null
+    value: string | number | null,
+    type: ColumnType
   ) => {
+    console.log(`func handleAddFilter was called with next properties: ${columnId}, ${operator}, ${value}, ${type}`);
     const currentFilters = table.getState().columnFilters;
     const newFilters = [
       ...currentFilters,
-      { id: columnId, value: { operator: operator, value: value } },
+      { id: columnId, value: { operator: operator, value: value }, type: type },
     ];
     table.setColumnFilters(newFilters);
   };
 
   const handleFilterRuleSelect = (
     operator: FilterOperator,
-    value: string | number | null
+    value: string | number | null,
+    type: ColumnType,
   ) => {
     if (selectedColumnForFilter) {
-      handleAddFilter(selectedColumnForFilter, operator, value);
+      handleAddFilter(selectedColumnForFilter, operator, value, type);
       handleCloseFilterRuleDropdown();
     }
   };

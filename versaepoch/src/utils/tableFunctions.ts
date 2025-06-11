@@ -1,6 +1,7 @@
 import { Column } from '@tanstack/react-table';
 import { ColumnType } from '@/types/Table';
 import { FILTER_RULES_BY_TYPE } from '@/types/Table';
+import { capitalizeString } from '@/utils/helperFunctions';
 
 export function getColumnType<TData>(
   column: Column<TData, unknown>
@@ -27,6 +28,10 @@ export function getColumnTypeLabel(type: ColumnType): string {
   };
 
   return labels[type];
+}
+
+export function getColumnName(columnId: string) {
+  return capitalizeString(columnId, "_");
 }
 
 export function getAvailableFilterRules(columnType: ColumnType) {
