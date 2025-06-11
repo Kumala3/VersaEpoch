@@ -3,20 +3,20 @@
 import { useState, useEffect, useRef } from 'react';
 
 import styles from '@/styles/ui/selectFilterRuleDropdown.module.scss';
-import { FilterOperator, FilterRule } from '@/types/Table';
+import { ColumnType, FilterOperator, FilterRule } from '@/types/Table';
 import { Table } from '@tanstack/react-table';
-import {
-  getColumnType,
-  getColumnTypeLabel,
-  getAvailableFilterRules,
-} from '@/utils/tableFunctions';
+import { getColumnType, getAvailableFilterRules } from '@/utils/tableFunctions';
 import { capitalizeString } from '@/utils/helperFunctions';
 
 interface SelectFilterRuleDropdownProps<TData> {
-  selectedColumnId: string;
+  selectedColumnId: string | null;
   table: Table<TData>;
   onClose: () => void;
-  onSelect: (operator: FilterOperator, value: string | number | null) => void;
+  onSelect: (
+    operator: FilterOperator,
+    value: string | number | null,
+    type: ColumnType
+  ) => void;
 }
 
 export function SelectFilterRuleDropdown<TData>({
@@ -27,10 +27,9 @@ export function SelectFilterRuleDropdown<TData>({
 }: SelectFilterRuleDropdownProps<TData>) {
   const [inputValue, setInputValue] = useState<string | number>('');
 
-  const column = table.getColumn(selectedColumnId);
+  const column = selectedColumnId ? table.getColumn(selectedColumnId) : null;
   const columnName = column ? capitalizeString(column.id, '_') : '';
   const columnType = column ? getColumnType(column) : 'text';
-  const columnTypeLabel = getColumnTypeLabel(columnType);
   const availableFilterRules = getAvailableFilterRules(columnType);
 
   const [selectedRule, setSelectedRule] = useState<FilterRule | null>(
@@ -57,10 +56,10 @@ export function SelectFilterRuleDropdown<TData>({
     };
   });
 
-  const handleRuleSelect = (rule: FilterRule) => {
+  const handleRuleSelect = (rule: FilterRule, type: ColumnType) => {
     setSelectedRule(rule);
     if (!rule.hasValue) {
-      onSelect(rule.operator, null);
+      onSelect(rule.operator, null, type);
     }
   };
 
@@ -72,18 +71,18 @@ export function SelectFilterRuleDropdown<TData>({
     setInputValue(event.target.value);
   };
 
-  const handleApplyFilter = () => {
+  const handleApplyFilter = (type: ColumnType) => {
     if (selectedRule) {
       if (!selectedRule.hasValue) {
-        onSelect(selectedRule.operator, null);
+        onSelect(selectedRule.operator, null, type);
       } else {
         const value =
           columnType === 'number'
             ? inputValue
               ? Number(inputValue)
               : null
-            : inputValue | null;
-        onSelect(selectedRule.operator, value);
+            : inputValue;
+        onSelect(selectedRule.operator, value, type);
       }
     }
   };
@@ -92,14 +91,16 @@ export function SelectFilterRuleDropdown<TData>({
     <div className={styles.container} ref={dropdownRef}>
       <div className={styles.topContainer}>
         <p className={styles.topContainer__title}>{columnName}</p>
-        <input
-          title="Value Input"
-          type={getInputType()}
-          name="valueInput"
-          className={styles.input}
-          placeholder="Type a value..."
-          onChange={handleInputChange}
-          value={inputValue}></input>
+        {getInputType() !== null && (
+          <input
+            title="Value Input"
+            type={getInputType()}
+            name="valueInput"
+            className={styles.input}
+            placeholder="Type a value..."
+            onChange={handleInputChange}
+            value={inputValue}></input>
+        )}
       </div>
       {selectedRule?.hasValue && (
         <button className={styles.applyButton} onClick={handleApplyFilter}>
@@ -117,7 +118,7 @@ export function SelectFilterRuleDropdown<TData>({
                 ? styles.option__selected
                 : ''
             }`}
-            onClick={() => handleRuleSelect(filterRule)}>
+            onClick={() => handleRuleSelect(filterRule, columnType)}>
             {filterRule.label}
           </button>
         ))}
