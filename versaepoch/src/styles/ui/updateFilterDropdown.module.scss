@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    background-color: white;
+    padding: var(--padding-sm);
+    border: 2px solid black;
+    border-radius: var(--border-radius-sm);
+} 
+
+.filterOperator {
+    font-weight: var(--font-weight-med);
+    font-size: var(--font-size-body-2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: aliceblue;
+    }
+}
