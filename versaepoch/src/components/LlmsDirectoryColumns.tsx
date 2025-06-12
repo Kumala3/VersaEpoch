@@ -3,8 +3,8 @@
 import styles from '@/styles/llmsDirectoryColumns.module.scss';
 import Link from 'next/link';
 import { TableHeaderDropdown } from '@/components/ui/TableHeaderDropdown';
-import { ColumnDef } from '@tanstack/react-table';
-import { ColumnType } from '@/types/Table';
+import { ColumnDef, Row } from '@tanstack/react-table';
+import { ColumnType, FilterOperator } from '@/types/Table';
 import {
   ChatgptIcon,
   ClaudeIcon,
@@ -29,6 +29,36 @@ import {
   BestForImageGenerationIcon,
 } from '@/components/ui/UIIcons';
 import { capitalizeWord } from '@/utils/helperFunctions';
+
+function filterColumnNumber<TData>(
+  row: Row<TData>,
+  columnId: string,
+  filterValue: { operator: FilterOperator; value: number | null }
+) {
+  const cellValue = row.getValue(columnId);
+  const { operator, value } = filterValue;
+
+  switch (operator) {
+    case 'equals':
+      return Number(cellValue) === Number(value);
+    case 'does_not_equal':
+      return Number(cellValue) !== Number(value);
+    case 'greater_than':
+      return Number(cellValue) > Number(value);
+    case 'greater_than_or_equal':
+      return Number(cellValue) >= Number(value);
+    case 'less_than':
+      return Number(cellValue) < Number(value);
+    case 'less_than_or_equal':
+      return Number(cellValue) <= Number(value);
+    case 'is_empty':
+      return cellValue === null;
+    case 'is_not_empty':
+      return cellValue !== null;
+    default:
+      return true; // display all
+  }
+}
 
 export interface LLMModel {
   id: string;
@@ -165,6 +195,9 @@ export const columns: ColumnDef<LLMModel>[] = [
       return <TableHeaderDropdown column={column} title="Context Window" />;
     },
     meta: { type: 'number' as ColumnType },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnNumber(row, columnId, filterValue);
+    },
     minSize: 230,
     cell: ({ getValue }) => {
       const contextWindow = getValue() as number;
@@ -178,6 +211,9 @@ export const columns: ColumnDef<LLMModel>[] = [
     accessorKey: 'max_output',
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Max Output" />;
+    },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnNumber(row, columnId, filterValue);
     },
     meta: { type: 'number' as ColumnType },
     minSize: 200,
