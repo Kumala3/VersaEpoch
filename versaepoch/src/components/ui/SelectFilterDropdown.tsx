@@ -1,10 +1,9 @@
 import styles from '@/styles/ui/selectFilterDropdown.module.scss';
 import { useEffect, useRef } from 'react';
-import { FilterOperator } from '@/types/Table';
 
 interface SelectFilterDropdownProps {
   elements: {id: string, title: string}[];
-  onSelect: (columnId: string, operator: FilterOperator, value: string | number) => void;
+  onSelect: (columnId: string) => void;
   onClose: () => void;
 }
 

@@ -51,8 +51,9 @@ export function TableControlPanel<TData>({
   const [showFilterDropdown, setShowFilterDropdown] = useState<boolean>(false);
   const [showFilterRuleDropdown, setShowFilterRuleDropdown] =
     useState<boolean>(false);
-  const [selectedColumnForFilter, setSelectedColumnForFilter] =
-    useState<string | null>(null);
+  const [selectedColumnForFilter, setSelectedColumnForFilter] = useState<
+    string | null
+  >(null);
 
   const sortDropdownRef = useRef<HTMLDivElement>(null);
   const filterDropdownRef = useRef<HTMLDivElement>(null);
@@ -122,59 +123,38 @@ export function TableControlPanel<TData>({
     setShowFilterPanel(false);
   };
 
-  const handleSelectFilter = (columnId: string, operator: FilterOperator, value: string | number | null ) => {
-    const currentFilters = table.getState().columnFilters;
-    const newFilter = {
-      id: columnId,
-      value: value,
-      operator: operator,
-    }
-
-    table.setColumnFilters([...currentFilters, newFilter]);
-
-    setSelectedColumnForFilter(columnId);
-    handleOpenFilterRuleDropdown();
-  };
-
   const handleCloseFilterRuleDropdown = () => {
     setShowFilterRuleDropdown(false);
     setSelectedColumnForFilter(null);
     setShowFilterPanel(true);
   };
 
+  const handleSelectFilter = (columnId: string) => {
+    setSelectedColumnForFilter(columnId);
+    handleOpenFilterRuleDropdown();
+  };
+
   const handleAddFilter = (
     columnId: string,
     operator: FilterOperator,
-    value: string | number | null,
-    type: ColumnType
+    value: string | number | null
   ) => {
-    console.log(`func handleAddFilter was called with next properties: ${columnId}, ${operator}, ${value}, ${type}`);
     const currentFilters = table.getState().columnFilters;
     const newFilters = [
       ...currentFilters,
-      { id: columnId, value: { operator: operator, value: value }, type: type },
+      { id: columnId, value: { operator: operator, value: value } },
     ];
     table.setColumnFilters(newFilters);
   };
 
   const handleFilterRuleSelect = (
     operator: FilterOperator,
-    value: string | number | null,
-    type: ColumnType,
+    value: string | number | null
   ) => {
     if (selectedColumnForFilter) {
-      handleAddFilter(selectedColumnForFilter, operator, value, type);
+      handleAddFilter(selectedColumnForFilter, operator, value);
       handleCloseFilterRuleDropdown();
     }
-  };
-
-  const handleRemoveFilter = (columnId: string) => {
-    const currentFilters = table.getState().columnFilters;
-    // include all filters expect for the one provided -> remove from filters
-    const existingFilters = currentFilters.filter(
-      (filter) => filter.id !== columnId
-    );
-    table.setColumnFilters(existingFilters);
   };
 
   const handleUpdateFilter = (
@@ -190,6 +170,15 @@ export function TableControlPanel<TData>({
         : filter
     );
     table.setColumnFilters(updatedFilters);
+  };
+
+  const handleRemoveFilter = (columnId: string) => {
+    const currentFilters = table.getState().columnFilters;
+    // include all filters expect for the one provided -> remove from filters
+    const existingFilters = currentFilters.filter(
+      (filter) => filter.id !== columnId
+    );
+    table.setColumnFilters(existingFilters);
   };
 
   const handleClearAllFilters = () => {

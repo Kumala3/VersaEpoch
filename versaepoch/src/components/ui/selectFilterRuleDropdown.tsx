@@ -14,8 +14,7 @@ interface SelectFilterRuleDropdownProps<TData> {
   onClose: () => void;
   onSelect: (
     operator: FilterOperator,
-    value: string | number | null,
-    type: ColumnType
+    value: string | number | null
   ) => void;
 }
 
@@ -56,10 +55,10 @@ export function SelectFilterRuleDropdown<TData>({
     };
   });
 
-  const handleRuleSelect = (rule: FilterRule, type: ColumnType) => {
+  const handleRuleSelect = (rule: FilterRule) => {
     setSelectedRule(rule);
     if (!rule.hasValue) {
-      onSelect(rule.operator, null, type);
+      onSelect(rule.operator, null);
     }
   };
 
@@ -71,10 +70,10 @@ export function SelectFilterRuleDropdown<TData>({
     setInputValue(event.target.value);
   };
 
-  const handleApplyFilter = (type: ColumnType) => {
+  const handleApplyFilter = () => {
     if (selectedRule) {
       if (!selectedRule.hasValue) {
-        onSelect(selectedRule.operator, null, type);
+        onSelect(selectedRule.operator, null);
       } else {
         const value =
           columnType === 'number'
@@ -82,7 +81,7 @@ export function SelectFilterRuleDropdown<TData>({
               ? Number(inputValue)
               : null
             : inputValue;
-        onSelect(selectedRule.operator, value, type);
+        onSelect(selectedRule.operator, value);
       }
     }
   };
@@ -103,7 +102,9 @@ export function SelectFilterRuleDropdown<TData>({
         )}
       </div>
       {selectedRule?.hasValue && (
-        <button className={styles.applyButton} onClick={handleApplyFilter}>
+        <button
+          className={styles.applyButton}
+          onClick={handleApplyFilter}>
           Apply
         </button>
       )}
@@ -118,7 +119,7 @@ export function SelectFilterRuleDropdown<TData>({
                 ? styles.option__selected
                 : ''
             }`}
-            onClick={() => handleRuleSelect(filterRule, columnType)}>
+            onClick={() => handleRuleSelect(filterRule)}>
             {filterRule.label}
           </button>
         ))}
