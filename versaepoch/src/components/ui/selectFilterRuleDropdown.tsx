@@ -53,7 +53,7 @@ export function SelectFilterRuleDropdown<TData>({
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
     };
-  });
+  }, [onClose]);
 
   const handleRuleSelect = (rule: FilterRule) => {
     setSelectedRule(rule);
@@ -63,7 +63,20 @@ export function SelectFilterRuleDropdown<TData>({
   };
 
   const getInputType = () => {
-    return columnType === 'number' ? 'number' : 'text';
+    switch (columnType) {
+      case 'text':
+        return 'text';
+      case 'number':
+        return 'number';
+      case 'select':
+        return 'select';
+      case 'multi-select':
+        return 'multi-select';
+      case 'date':
+        return 'date';
+      default:
+        return 'text';
+    }
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

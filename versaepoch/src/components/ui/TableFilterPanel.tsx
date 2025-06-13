@@ -5,9 +5,11 @@ import { Table } from '@tanstack/react-table';
 import styles from '@/styles/ui/tableFilterPanel.module.scss';
 import { PlusIcon, CrossIcon } from '@/components/ui/UIIcons';
 import { FilterOperator } from '@/types/Table';
-import { getColumnName, getColumnType, getAvailableFilterRules } from '@/utils/tableFunctions';
+import {
+  getColumnName,
+} from '@/utils/tableFunctions';
 import { UpdateFilterDropdown } from '@/components/ui/UpdateFilterDropdown';
-import { ColumnType } from '@/types/Table';
+import { ChevronDownIcon, ChevronUpIcon } from '@/components/ui/UIIcons';
 
 interface TableFilterPanelProps<TData> {
   table: Table<TData>;
@@ -16,8 +18,7 @@ interface TableFilterPanelProps<TData> {
   onUpdateFilter: (
     columnId: string,
     operator: FilterOperator,
-    value: string | Date | number,
-    type: ColumnType,
+    value: string | Date | number | null
   ) => void;
   onClearAllFilters: () => void;
   onClose: () => void;
@@ -31,12 +32,15 @@ export function TableFilterPanel<TData>({
   onClearAllFilters,
   onClose,
 }: TableFilterPanelProps<TData>) {
+  const [showUpdateFilterDropdown, setShowUpdateFilterDropdown] =
+    useState<boolean>(false);
+
   const filterState = table.getState().columnFilters;
   const columns = table.getAllColumns().filter((col) => col.getCanFilter());
   const isFilterEnabled = false;
+  const [isAddButtonHovered, setIsAddButtonHovered] = useState<boolean>(false);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [showDropdownOperator, setShowDropdownOperator] =
-    useState<boolean>(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
@@ -54,29 +58,12 @@ export function TableFilterPanel<TData>({
     };
   }, [onClose]);
 
-  const handleOpenDropdownOperator = () => {
-    setShowDropdownOperator(true);
+  const handleToggleUpdateFilterDropdown = () => {
+    setShowUpdateFilterDropdown(!showUpdateFilterDropdown);
   };
 
-  const handleCloseDropdownOperator = () => {
-    setShowDropdownOperator(false);
-  };
-
-  const getFilterValue = (filter: {
-    id: string;
-    value: { operator: FilterOperator; value: string | number | null };
-  }) => {
-    if (filter.value.value === null) {
-      return '';
-    }
-    return filter.value.value;
-  };
-
-  const getFilterOperator = (filter: {
-    id: string;
-    value: { operator: FilterOperator; value: string | number | null };
-  }) => {
-    return filter.value.operator;
+  const handleCloseUpdateFilterDropdown = () => {
+    setShowUpdateFilterDropdown(false);
   };
 
   const availableColumns = columns.filter(
@@ -95,27 +82,42 @@ export function TableFilterPanel<TData>({
             <div className={styles.activeFiltersContainer}>
               {filterState.map((filter) => (
                 <div key={filter.id} className={styles.filterItem}>
-                  <div className={styles.filterDetails}>
-                    <span className={styles.filterItem__label}>
+                  <button
+                    className={styles.filterDropdownButton}
+                    onClick={handleToggleUpdateFilterDropdown}>
+                    <span className={styles.filterDropdownButton__columnName}>
                       {getColumnName(filter.id)}
                     </span>
-                    {/* Dropdown to select another operator and enter value */}
-                    <div className={styles.dropdownOperator}>
-                      <p>{filter.id}</p>
-                      {/* <UpdateFilterDropdown
-                        column={null}
-                        columnName={getColumnName(filter.id)}
-                        filterRule={filter.value.operator}
-                        value={filter.value.value}
-                        availableFilterRules={getAvailableFilterRules(getColumnType(filter.id))}
+                    {/* <span>{filter.value.operator}</span> */}
+                    <span className={styles.filterDropdownButton__filterValue}>
+                      {filter.value.value}
+                    </span>
+                    {/* Chevron Icon */}
+                    {!showUpdateFilterDropdown ? (
+                      <ChevronDownIcon
+                        className={styles.filterDropdownButton__icon}
+                      />
+                    ) : (
+                      <ChevronUpIcon
+                        className={styles.filterDropdownButton__icon}
+                      />
+                    )}
+                  </button>
+
+                  {showUpdateFilterDropdown && (
+                    <div className={styles.updateFilterDropdownContainer}>
+                      <UpdateFilterDropdown
+                        table={table}
+                        filter={filter}
                         onUpdateFilter={onUpdateFilter}
-                      /> */}
+                        onClose={handleCloseUpdateFilterDropdown}
+                      />
                     </div>
-                  </div>
-                  {/* TODO: Dropdown to select a filter operator
-                    pass onUpdateFilter function to the dropdown
-                  */}
+                  )}
+
+                  {/* Remove Filter Button */}
                   <button
+                    aria-label={`Remove ${getColumnName(filter.id)} filter`}
                     className={styles.filterItem__removeButton}
                     onClick={() => onRemoveFilter(filter.id)}>
                     <CrossIcon
@@ -129,27 +131,31 @@ export function TableFilterPanel<TData>({
             </div>
           )}
 
-          {availableColumns.length > 0 && (
-            <div className={styles.addFilterSection}>
-              <button
-                className={styles.addFilterButton}
-                onClick={onOpenDropdown}>
-                <PlusIcon
-                  className={styles.addFilterButton__icon}
-                  color="#000"
-                />
-                Add filter
-              </button>
-            </div>
-          )}
+          <div className={styles.actionsContainer}>
+            {availableColumns.length > 0 && (
+              <div className={styles.addFilterSection}>
+                <button
+                  onMouseLeave={() => setIsAddButtonHovered(true)}
+                  onMouseEnter={() => setIsAddButtonHovered(false)}
+                  className={styles.addFilterButton}
+                  onClick={onOpenDropdown}>
+                  <PlusIcon
+                    className={styles.addFilterButton__icon}
+                    color={!isAddButtonHovered ? '#fff' : "#000"}
+                  />
+                  Add filter
+                </button>
+              </div>
+            )}
 
-          {filterState.length > 0 && (
-            <button
-              className={styles.clearAllFiltersButton}
-              onClick={onClearAllFilters}>
-              Clear all
-            </button>
-          )}
+            {filterState.length > 0 && (
+              <button
+                className={styles.clearAllFiltersButton}
+                onClick={onClearAllFilters}>
+                Clear all
+              </button>
+            )}
+          </div>
         </>
       ) : (
         <p className={styles.comingSoonTitle}>Coming soon 🦝</p>
