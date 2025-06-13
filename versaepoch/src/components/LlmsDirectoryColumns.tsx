@@ -30,31 +30,139 @@ import {
 } from '@/components/ui/UIIcons';
 import { capitalizeWord } from '@/utils/helperFunctions';
 
+function filterColumnDate<TData>(
+  row: Row<TData>,
+  columnId: string,
+  filterValue: { operator: FilterOperator; value: Date | null }
+) {
+  const raw = row.getValue(columnId);
+  if (raw === undefined) return false;
+  const {operator, value} = filterValue;
+
+  switch (operator) {
+    case 'is_on':
+      return value;
+    default:
+      return true;
+  }
+}
+
+function filterColumnMultiSelect<TData>(
+  row: Row<TData>,
+  columnId: string,
+  filterValue: { operator: FilterOperator; value: string | null }
+) {
+  const raw = row.getValue(columnId);
+  if (raw === undefined) return false;
+  const cellValue = String(raw);
+  const { operator, value } = filterValue;
+
+  switch (operator) {
+    case 'contains':
+      return value
+        ? cellValue.toLowerCase().includes(value.toLowerCase())
+        : true;
+    case 'does_not_contain':
+      return value
+        ? !cellValue.toLowerCase().includes(value.toLowerCase())
+        : true;
+    case 'is_empty':
+      return String(cellValue) === null;
+    case 'is_not_empty':
+      return String(cellValue) !== null;
+    default:
+      return true; // displays all
+  }
+}
+
+function filterColumnSelect<TData>(
+  row: Row<TData>,
+  columnId: string,
+  filterValue: { operator: FilterOperator; value: string | null }
+) {
+  const raw = row.getValue(columnId);
+  if (raw === undefined) return false;
+  const cellValue = String(raw);
+  const { operator, value } = filterValue;
+
+  switch (operator) {
+    case 'is':
+      return cellValue === value;
+    case 'is_not':
+      return cellValue !== value;
+    case 'is_empty':
+      return String(cellValue) === null;
+    case 'is_not_empty':
+      return String(cellValue) !== null;
+    default:
+      return true;
+  }
+}
+
+function filterColumnText<TData>(
+  row: Row<TData>,
+  columnId: string,
+  filterValue: { operator: FilterOperator; value: string | null }
+) {
+  const raw = row.getValue(columnId);
+  if (raw === undefined) return false;
+  const cellValue = String(raw);
+  const { operator, value } = filterValue;
+
+  switch (operator) {
+    case 'equals':
+      return cellValue === value?.toLocaleLowerCase();
+    case 'does_not_equal':
+      return cellValue !== value?.toLocaleLowerCase();
+    case 'contains':
+      return value
+        ? cellValue.toLowerCase().includes(value.toLowerCase())
+        : true;
+    case 'does_not_contain':
+      return value
+        ? !cellValue.toLowerCase().includes(value.toLowerCase())
+        : true;
+    case 'starts_with':
+      return cellValue.startsWith(String(value));
+    case 'ends_with':
+      return cellValue.endsWith(String(value));
+    case 'is_empty':
+      return raw === null || raw === '';
+    case 'is_not_empty':
+      return !(raw === null || raw === '');
+    default:
+      return true;
+  }
+}
+
 function filterColumnNumber<TData>(
   row: Row<TData>,
   columnId: string,
   filterValue: { operator: FilterOperator; value: number | null }
 ) {
-  const cellValue = row.getValue(columnId);
+  const raw = row.getValue(columnId);
+  if (row === undefined) return false;
+  const cellValue = Number(raw);
+  if (Number.isNaN(cellValue)) return false;
   const { operator, value } = filterValue;
 
   switch (operator) {
     case 'equals':
-      return Number(cellValue) === Number(value);
+      return cellValue === Number(value);
     case 'does_not_equal':
-      return Number(cellValue) !== Number(value);
+      return cellValue !== Number(value);
     case 'greater_than':
-      return Number(cellValue) > Number(value);
+      return cellValue > Number(value);
     case 'greater_than_or_equal':
-      return Number(cellValue) >= Number(value);
+      return cellValue >= Number(value);
     case 'less_than':
       return Number(cellValue) < Number(value);
     case 'less_than_or_equal':
       return Number(cellValue) <= Number(value);
     case 'is_empty':
-      return cellValue === null;
+      return raw === null || raw === '';
     case 'is_not_empty':
-      return cellValue !== null;
+      return !(raw === null || raw === '');
     default:
       return true; // display all
   }
@@ -110,6 +218,9 @@ export const columns: ColumnDef<LLMModel>[] = [
       <TableHeaderDropdown column={column} title={'Company'} />
     ),
     meta: { type: 'text' as ColumnType },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnText(row, columnId, filterValue);
+    },
     cell: ({ getValue }) => {
       const company = getValue() as string;
 
@@ -145,6 +256,9 @@ export const columns: ColumnDef<LLMModel>[] = [
     accessorKey: 'model_name',
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Model" />;
+    },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnText(row, columnId, filterValue);
     },
     meta: { type: 'text' as ColumnType },
     minSize: 230,
@@ -185,6 +299,9 @@ export const columns: ColumnDef<LLMModel>[] = [
     accessorKey: 'description',
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Description" />;
+    },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnText(row, columnId, filterValue);
     },
     meta: { type: 'text' as ColumnType },
     size: 450,
@@ -271,6 +388,9 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Modalities" />;
     },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnMultiSelect(row, columnId, filterValue);
+    },
     meta: { type: 'multi-select' as ColumnType },
     minSize: 250,
     cell: ({ getValue }) => {
@@ -326,6 +446,9 @@ export const columns: ColumnDef<LLMModel>[] = [
     accessorKey: 'best_for',
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Best For" />;
+    },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnMultiSelect(row, columnId, filterValue);
     },
     meta: { type: 'multi-select' as ColumnType },
     minSize: 250,
