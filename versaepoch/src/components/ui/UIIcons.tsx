@@ -686,7 +686,12 @@ function BestForImageGenerationIcon({
   );
 }
 
-function PlusIcon({ width = 48, height = 48, className = '', color = '#fff' }: IconProps) {
+function PlusIcon({
+  width = 48,
+  height = 48,
+  className = '',
+  color = '#fff',
+}: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -722,10 +727,33 @@ function CrossIcon({
       stroke={color}
       strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round"
-      >
+      strokeLinejoin="round">
       <path d="M18 6 6 18" />
       <path d="m6 6 12 12" />
+    </svg>
+  );
+}
+
+function CircleCheckIcon({
+  width = 48,
+  height = 48,
+  color = '#000',
+  className = '',
+}: IconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill='none'
+      className={className}
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <path d="M21.801 10A10 10 0 1 1 17 3.335" />
+      <path d="m9 11 3 3L22 4" />
     </svg>
   );
 }
@@ -768,4 +796,5 @@ export {
   FilterTableIcon,
   PlusIcon,
   CrossIcon,
+  CircleCheckIcon,
 };

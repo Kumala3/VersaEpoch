@@ -1,11 +1,20 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from '@/styles/ui/updateFilterDropdown.module.scss';
 import { FilterRule, FilterOperator } from '@/types/Table';
-import { ColumnType } from '@/types/Table';
 import { Table } from '@tanstack/react-table';
-import { getColumnType, getColumnName } from '@/utils/tableFunctions';
+import {
+  getColumnType,
+  getColumnName,
+  getAvailableFilterRules,
+} from '@/utils/tableFunctions';
+import { capitalizeString } from '@/utils/helperFunctions';
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  CircleCheckIcon,
+} from '@/components/ui/UIIcons';
 
 interface UpdateFilterDropdownProps<TData> {
   table: Table<TData>;
@@ -13,33 +22,93 @@ interface UpdateFilterDropdownProps<TData> {
     id: string;
     value: { operator: FilterOperator; value: string | number | null };
   };
-  availableFilterRules: FilterRule[];
   onUpdateFilter: (
     columnId: string,
     operator: FilterOperator,
-    value: string | Date | number,
-    type: ColumnType
+    value: string | Date | number | null
   ) => void;
+  onClose: () => void;
 }
 
 export function UpdateFilterDropdown<TData>({
   table,
   filter,
-  availableFilterRules,
   onUpdateFilter,
+  onClose,
 }: UpdateFilterDropdownProps<TData>) {
-  const [showFilterRulesDropdown, setShowFilterRulesDropdown] =
-    useState<boolean>(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [
+    showAvailableFilterOperatorsDropdown,
+    setShowAvailableFilterOperatorsDropdown,
+  ] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string | number>('');
 
+  const filterOperator = filter.value.operator;
+  const filterValue = filter.value.value;
+
+  const [selectedOperator, setSelectedOperator] = useState<FilterOperator | ''>(
+    filterOperator
+  );
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const showAvailableFilterOperatorsDropdownRef = useRef<HTMLDivElement>(null);
+
+  const column = table.getColumn(filter.id);
+  const columnName = column ? getColumnName(column.id) : '';
+  const columnType = column ? getColumnType(column) : 'text';
+
+  const availableFilterRules = getAvailableFilterRules(columnType);
+
+  const handleToggleAvailableFilterOperatorsDropdown = () => {
+    setShowAvailableFilterOperatorsDropdown(
+      !showAvailableFilterOperatorsDropdown
+    );
+  };
+
+  const handleCloseAvailableFilterOperatorsDropdown = useCallback(() => {
+    setShowAvailableFilterOperatorsDropdown(false);
+  }, []);
+
+  const handleSelectFilterOperator = (operator: FilterOperator) => {
+    setSelectedOperator(operator);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const getInputType = (columnType: string) => {
+    switch (columnType) {
+      case 'text':
+        return 'text';
+      case 'number':
+        return 'number';
+      case 'select':
+        return 'select';
+      case 'multi-select':
+        return 'multi-select';
+      case 'date':
+        return 'date';
+      default:
+        return 'text';
+    }
+  };
+
+  const handleUpdateFilter = () => {
+    if (inputValue === null) {
+      onUpdateFilter(filter.id, selectedOperator, null);
+    }
+    onUpdateFilter(filter.id, selectedOperator, inputValue);
+  };
+
+  // update filter dropdown click outside -> close logic
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       const target = event.target as Node;
 
       if (dropdownRef.current && !dropdownRef.current.contains(target)) {
-        handleCloseFilterRulesDropdown();
+        onClose();
       }
     };
+
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('touchstart', handleClickOutside);
 
@@ -47,46 +116,85 @@ export function UpdateFilterDropdown<TData>({
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
     };
-  }, [showFilterRulesDropdown]);
+  }, [onClose]);
 
-  const column = table.getColumn(filter.id);
-  const columnName = column ? getColumnName(column.id) : '';
+  // show available filter rules dropdown click outside -> close logic
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
 
-  const filterOperator = filter.value.operator;
-  const filterValue = filter.value.value;
+      if (
+        showAvailableFilterOperatorsDropdownRef.current &&
+        !showAvailableFilterOperatorsDropdownRef.current.contains(target)
+      ) {
+        handleCloseAvailableFilterOperatorsDropdown();
+      }
+    };
 
-  const handleOpenFilterRulesDropdown = () => {
-    setShowFilterRulesDropdown(true);
-  };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
 
-  const handleCloseFilterRulesDropdown = () => {
-    setShowFilterRulesDropdown(false);
-  };
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [handleCloseAvailableFilterOperatorsDropdown]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.currentFilter}>
+    <div className={styles.container} ref={dropdownRef}>
+      <div className={styles.topContainer}>
         <span className={styles.columnName}>{columnName}</span>
         <button
           className={styles.filterOperator}
-          onClick={handleOpenFilterRulesDropdown}>
-          {filterOperator}
+          onClick={handleToggleAvailableFilterOperatorsDropdown}>
+          {capitalizeString(selectedOperator, '_')}
+          {!showAvailableFilterOperatorsDropdown ? (
+            <ChevronDownIcon className={styles.filterOperator__icon} />
+          ) : (
+            <ChevronUpIcon className={styles.filterOperator__icon} />
+          )}
         </button>
       </div>
 
-      {showFilterRulesDropdown && (
-        <div className={styles.filterRulesContainer} ref={dropdownRef}>
-          {availableFilterRules.map((filterRule) => (
-            <div
+      {/* Operators Dropdown */}
+      {showAvailableFilterOperatorsDropdown && (
+        <div
+          className={styles.availableFilterOperatorsContainer}
+          ref={showAvailableFilterOperatorsDropdownRef}>
+          {availableFilterRules?.map((filterRule: FilterRule) => (
+            <button
               key={filterRule.label}
-              className={`${styles.filterOption} ${
-                filterOperator === filterRule.operator
-              }`}>
-              {filterRule.label}
-            </div>
+              className={`${styles.filterOperatorOption}`}
+              onClick={() => handleSelectFilterOperator(filterRule.operator)}>
+              {capitalizeString(filterRule.operator, '_')}
+              {selectedOperator === filterRule.operator ? (
+                <span>
+                  <CircleCheckIcon
+                    className={styles.filterOperatorOption__icon}
+                    color="#159e84"
+                  />
+                </span>
+              ) : (
+                ''
+              )}
+            </button>
           ))}
         </div>
       )}
+
+      {/* Input HTML Tag to enter or select new value/s */}
+      <input
+        title="Value Input"
+        type={getInputType(columnType)}
+        name="valueInput"
+        className={styles.input}
+        placeholder="Type a value"
+        value={inputValue}
+        onChange={handleInputChange}></input>
+
+      <button className={styles.applyButton} onClick={handleUpdateFilter}>
+        Apply
+      </button>
     </div>
   );
 }
