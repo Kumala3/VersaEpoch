@@ -59,11 +59,55 @@
   white-space: normal;
   height: fit-content;
   transition: all 300ms ease;
+
+  &:hover {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: var(--font-weight-semi-bold);
+  }
 }
 
-.tableCell:hover {
-  transition: all 300ms ease;
-  background-color: var(--primary-color);
-  color: white;
+.nothingToDisplayCell {
+  border: none;
+  padding: 0;
+  text-align: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  padding-left: 10rem;
+}
+
+.nothingToDisplayContainer {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  height: fit-content;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nothingToDisplay {
+  display: flex;
+  height: fit-content;
+  width: fit-content;
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-color-dark);
+}
+.resetAllFiltersButton {
+  display: flex;
+  background-color: white;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color-dark);
+  padding: var(--padding-md);
+  font-size: var(--font-size-body-1);
   font-weight: var(--font-weight-semi-bold);
+  border-radius: var(--border-radius-sm);
+  width: fit-content;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius-lg);
+    color: white;
+  }
 }
