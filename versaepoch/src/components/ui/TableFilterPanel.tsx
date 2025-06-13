@@ -135,13 +135,11 @@ export function TableFilterPanel<TData>({
             {availableColumns.length > 0 && (
               <div className={styles.addFilterSection}>
                 <button
-                  onMouseLeave={() => setIsAddButtonHovered(true)}
-                  onMouseEnter={() => setIsAddButtonHovered(false)}
                   className={styles.addFilterButton}
                   onClick={onOpenDropdown}>
                   <PlusIcon
                     className={styles.addFilterButton__icon}
-                    color={!isAddButtonHovered ? '#fff' : "#000"}
+                    color='#000'
                   />
                   Add filter
                 </button>

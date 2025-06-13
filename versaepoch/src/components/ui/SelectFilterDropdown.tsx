@@ -32,7 +32,7 @@ export function SelectFilterDropdown({
 
   return (
     <div className={styles.container} ref={dropdownRef}>
-      <p className={styles.title}>Select a column to sort:</p>
+      <span className={styles.title}>Select a column to filter:</span>
       <div className={styles.optionsContainer}>
         {elements.map((element) => (
           <button

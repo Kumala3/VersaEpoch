@@ -17,6 +17,7 @@
   --subHeadline-color: rgb(50,50,50);
   --skeleton-bg: #e5e5e5;
   --primary-color-hover: #159e84;
+  --panel-button-hover-color: #e7e7e7;
 
   /* Font Sizes */
   --font-size-base: 16px;
@@ -83,6 +84,10 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Shadows */
+  --dropdown-panel: 0 0 8px 2px rgba(3, 200, 206, 0.9);
+  --button-inset: inset 0 0 4px 0.2px rgba(3, 200, 206, 1);
 }
 
 /* @theme inline {
