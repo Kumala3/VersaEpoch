@@ -1,8 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  min-width: 200px;
-  min-width: 250px;
+  min-width: 300px;
   width: fit-content;
   height: fit-content;
   background-color: white;
@@ -14,13 +13,15 @@
 .topContainer {
   display: flex;
   flex-direction: row;
-  width: fit-content;
+  width: 100%;
   gap: 1rem;
   align-items: center;
   height: fit-content;
   padding-bottom: 1rem;
 
   &__title {
+    display: flex;
+    width: fit-content;
     font-size: var(--font-size-body-2);
     font-weight: var(--font-weight-bold);
   }
@@ -38,9 +39,13 @@
   border-radius: var(--border-radius-sm);
   align-items: center;
   padding: 4px;
-  gap: 0.2rem;
+  gap: 0;
   cursor: pointer;
   transition: all 0.3s ease;
+
+  &__label {
+    text-align: left;
+  }
 
   &:hover {
     background-color: rgb(212, 212, 211);
@@ -87,14 +92,14 @@
   display: flex;
   background-color: white;
   border-radius: var(--border-radius-sm);
-  border: 2px solid black;
+  box-shadow: var(--button-inset);
   padding: var(--padding-sm);
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    transition: all 0.3s ease;
-    background-color: rgb(205, 205, 205);
+    background-color: var(--primary-color-hover);
+    color: white;
   }
 }
 
@@ -111,6 +116,7 @@
   transition: all 0.3s ease;
   border-radius: var(--border-radius-sm);
   cursor: pointer;
+  justify-content: space-between;
 
   &__selected {
     background-color: aqua;
@@ -124,10 +130,5 @@
   &__icon {
     width: 20px;
     height: 20px;
-  }
-
-  &__label {
-    font-weight: var(--font-weight-med);
-    font-size: var(--font-size-body-2);
   }
 }
