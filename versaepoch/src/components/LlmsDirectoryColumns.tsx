@@ -37,11 +37,50 @@ function filterColumnDate<TData>(
 ) {
   const raw = row.getValue(columnId);
   if (raw === undefined) return false;
-  const {operator, value} = filterValue;
+
+  const { operator, value } = filterValue;
+
+  // handle empty checks first
+  if (operator == 'is_empty') {
+    return raw === null || raw === undefined || raw === '';
+  }
+
+  if (operator == 'is_not_empty') {
+    return !(raw === null || raw === undefined || raw === '');
+  }
+
+  // For date comparisons, we need a valid filter value
+  if (!value) return true;
+
+  const parseDate = (input: unknown): Date | null => {
+    try {
+      const date = new Date(input as string | number | Date);
+      return isNaN(date.getTime()) ? null : date;
+    } catch {
+      return null;
+    }
+  }
+
+  const normalizeDate = (date: Date): Date => {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  }
+
+  const cellDate = parseDate(raw);
+  const filterDate = parseDate(value);
+
+  if (!cellDate || !filterDate) return false;
+
+  // Normalize dates
+  const cellDateNormalized = normalizeDate(cellDate);
+  const filterDateNormalized = normalizeDate(filterDate);
 
   switch (operator) {
     case 'is_on':
-      return value;
+      return cellDateNormalized.getTime() == filterDateNormalized.getTime();
+    case 'is_after':
+      return cellDateNormalized.getTime() > filterDateNormalized.getTime();
+    case 'is_before':
+      return cellDateNormalized.getTime() < filterDateNormalized.getTime();
     default:
       return true;
   }
@@ -67,9 +106,13 @@ function filterColumnMultiSelect<TData>(
         ? !cellValue.toLowerCase().includes(value.toLowerCase())
         : true;
     case 'is_empty':
-      return String(cellValue) === null;
+      return (
+        raw === null || (Array.isArray(raw) ? raw.length === 0 : raw === '')
+      );
     case 'is_not_empty':
-      return String(cellValue) !== null;
+      return !(
+        raw === null || (Array.isArray(raw) ? raw.length === 0 : raw === '')
+      );
     default:
       return true; // displays all
   }
@@ -111,7 +154,9 @@ function filterColumnText<TData>(
 
   switch (operator) {
     case 'equals':
-      return cellValue === value?.toLocaleLowerCase();
+      return value
+        ? cellValue.toLowerCase() === value?.toLocaleLowerCase()
+        : true;
     case 'does_not_equal':
       return cellValue !== value?.toLocaleLowerCase();
     case 'contains':
@@ -141,7 +186,7 @@ function filterColumnNumber<TData>(
   filterValue: { operator: FilterOperator; value: number | null }
 ) {
   const raw = row.getValue(columnId);
-  if (row === undefined) return false;
+  if (raw === undefined) return false;
   const cellValue = Number(raw);
   if (Number.isNaN(cellValue)) return false;
   const { operator, value } = filterValue;
@@ -354,6 +399,9 @@ export const columns: ColumnDef<LLMModel>[] = [
     accessorKey: 'release_date',
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Release Date" />;
+    },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnDate(row, columnId, filterValue);
     },
     meta: { type: 'date' as ColumnType },
     minSize: 200,
