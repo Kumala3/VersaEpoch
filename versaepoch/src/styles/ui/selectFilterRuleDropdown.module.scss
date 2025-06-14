@@ -1,0 +1,134 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  width: fit-content;
+  height: fit-content;
+  background-color: white;
+  border-radius: var(--border-radius-sm);
+  padding: var(--padding-sm);
+  border: 2px solid black;
+}
+
+.topContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 1rem;
+  align-items: center;
+  height: fit-content;
+  padding-bottom: 1rem;
+
+  &__title {
+    display: flex;
+    width: fit-content;
+    font-size: var(--font-size-body-2);
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+.filterOperator {
+  display: flex;
+  transition: all 0.3 ease;
+  color: black;
+  width: fit-content;
+  flex-direction: row;
+  background-color: rgb(229, 229, 229);
+  font-weight: var(--font-weight-semi-bold);
+  font-size: var(--font-size-body-4);
+  border-radius: var(--border-radius-sm);
+  align-items: center;
+  padding: 4px;
+  gap: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &__label {
+    text-align: left;
+  }
+
+  &:hover {
+    background-color: rgb(212, 212, 211);
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.actionsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  gap: .5rem;
+}
+
+.input {
+  width: 100%;
+  padding: var(--padding-sm);
+  border: 2px solid black;
+  border-radius: var(--border-radius-sm);
+}
+
+.availableFilterRulesDropdown {
+  display: flex;
+  position: absolute;
+  top: calc(35%);
+  left: calc(-5%);
+  z-index: 103;
+  background-color: white;
+  padding: var(--padding-sm);
+  box-shadow: inset 0 0 4px 1px rgb(0, 0, 0, 0.45);
+  border-radius: var(--border-radius-sm);
+  gap: .2rem;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+}
+
+.applyButton {
+  display: flex;
+  background-color: white;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--button-inset);
+  padding: var(--padding-sm);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: var(--primary-color-hover);
+    color: white;
+  }
+}
+
+.filterRuleOption {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  text-align: left;
+  justify-content: space-between;
+  padding: var(--padding-sm);
+  font-weight: var(--font-weight-med);
+  font-size: var(--font-size-body-2);
+  background-color: white;
+  transition: all 0.3s ease;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  justify-content: space-between;
+
+  &__selected {
+    background-color: aqua;
+  }
+
+  &:hover {
+    transition: all 0.3s ease;
+    background-color: rgb(205, 205, 205);
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+  }
+}

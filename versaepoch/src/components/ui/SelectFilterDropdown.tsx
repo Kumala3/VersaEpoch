@@ -25,21 +25,27 @@ export function SelectFilterDropdown({
     };
 
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
   }, [onClose]);
 
   return (
     <div className={styles.container} ref={dropdownRef}>
-      {elements.map((element) => (
-        <button
-          key={element.id}
-          className={styles.option}
-          onClick={() => onSelect(element.id)}>
-          {element.title}
-        </button>
-      ))}
+      <span className={styles.title}>Select a column to filter:</span>
+      <div className={styles.optionsContainer}>
+        {elements.map((element) => (
+          <button
+            key={element.id}
+            className={styles.option}
+            onClick={() => onSelect(element.id)}>
+            {element.title}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

@@ -3,7 +3,8 @@
 import styles from '@/styles/llmsDirectoryColumns.module.scss';
 import Link from 'next/link';
 import { TableHeaderDropdown } from '@/components/ui/TableHeaderDropdown';
-import { ColumnDef } from '@tanstack/react-table';
+import { ColumnDef, Row } from '@tanstack/react-table';
+import { ColumnType, FilterOperator } from '@/types/Table';
 import {
   ChatgptIcon,
   ClaudeIcon,
@@ -29,6 +30,189 @@ import {
 } from '@/components/ui/UIIcons';
 import { capitalizeWord } from '@/utils/helperFunctions';
 
+function filterColumnDate<TData>(
+  row: Row<TData>,
+  columnId: string,
+  filterValue: { operator: FilterOperator; value: Date | null }
+) {
+  const raw = row.getValue(columnId);
+  if (raw === undefined) return false;
+
+  const { operator, value } = filterValue;
+
+  // handle empty checks first
+  if (operator == 'is_empty') {
+    return raw === null || raw === undefined || raw === '';
+  }
+
+  if (operator == 'is_not_empty') {
+    return !(raw === null || raw === undefined || raw === '');
+  }
+
+  // For date comparisons, we need a valid filter value
+  if (!value) return true;
+
+  const parseDate = (input: unknown): Date | null => {
+    try {
+      const date = new Date(input as string | number | Date);
+      return isNaN(date.getTime()) ? null : date;
+    } catch {
+      return null;
+    }
+  }
+
+  const normalizeDate = (date: Date): Date => {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  }
+
+  const cellDate = parseDate(raw);
+  const filterDate = parseDate(value);
+
+  if (!cellDate || !filterDate) return false;
+
+  // Normalize dates
+  const cellDateNormalized = normalizeDate(cellDate);
+  const filterDateNormalized = normalizeDate(filterDate);
+
+  switch (operator) {
+    case 'is_on':
+      return cellDateNormalized.getTime() == filterDateNormalized.getTime();
+    case 'is_after':
+      return cellDateNormalized.getTime() > filterDateNormalized.getTime();
+    case 'is_before':
+      return cellDateNormalized.getTime() < filterDateNormalized.getTime();
+    default:
+      return true;
+  }
+}
+
+function filterColumnMultiSelect<TData>(
+  row: Row<TData>,
+  columnId: string,
+  filterValue: { operator: FilterOperator; value: string | null }
+) {
+  const raw = row.getValue(columnId);
+  if (raw === undefined) return false;
+  const cellValue = String(raw);
+  const { operator, value } = filterValue;
+
+  switch (operator) {
+    case 'contains':
+      return value
+        ? cellValue.toLowerCase().includes(value.toLowerCase())
+        : true;
+    case 'does_not_contain':
+      return value
+        ? !cellValue.toLowerCase().includes(value.toLowerCase())
+        : true;
+    case 'is_empty':
+      return (
+        raw === null || (Array.isArray(raw) ? raw.length === 0 : raw === '')
+      );
+    case 'is_not_empty':
+      return !(
+        raw === null || (Array.isArray(raw) ? raw.length === 0 : raw === '')
+      );
+    default:
+      return true; // displays all
+  }
+}
+
+function filterColumnSelect<TData>(
+  row: Row<TData>,
+  columnId: string,
+  filterValue: { operator: FilterOperator; value: string | null }
+) {
+  const raw = row.getValue(columnId);
+  if (raw === undefined) return false;
+  const cellValue = String(raw);
+  const { operator, value } = filterValue;
+
+  switch (operator) {
+    case 'is':
+      return cellValue === value;
+    case 'is_not':
+      return cellValue !== value;
+    case 'is_empty':
+      return String(cellValue) === null;
+    case 'is_not_empty':
+      return String(cellValue) !== null;
+    default:
+      return true;
+  }
+}
+
+function filterColumnText<TData>(
+  row: Row<TData>,
+  columnId: string,
+  filterValue: { operator: FilterOperator; value: string | null }
+) {
+  const raw = row.getValue(columnId);
+  if (raw === undefined) return false;
+  const cellValue = String(raw);
+  const { operator, value } = filterValue;
+
+  switch (operator) {
+    case 'equals':
+      return value
+        ? cellValue.toLowerCase() === value?.toLocaleLowerCase()
+        : true;
+    case 'does_not_equal':
+      return cellValue !== value?.toLocaleLowerCase();
+    case 'contains':
+      return value
+        ? cellValue.toLowerCase().includes(value.toLowerCase())
+        : true;
+    case 'does_not_contain':
+      return value
+        ? !cellValue.toLowerCase().includes(value.toLowerCase())
+        : true;
+    case 'starts_with':
+      return cellValue.startsWith(String(value));
+    case 'ends_with':
+      return cellValue.endsWith(String(value));
+    case 'is_empty':
+      return raw === null || raw === '';
+    case 'is_not_empty':
+      return !(raw === null || raw === '');
+    default:
+      return true;
+  }
+}
+
+function filterColumnNumber<TData>(
+  row: Row<TData>,
+  columnId: string,
+  filterValue: { operator: FilterOperator; value: number | null }
+) {
+  const raw = row.getValue(columnId);
+  if (raw === undefined) return false;
+  const cellValue = Number(raw);
+  if (Number.isNaN(cellValue)) return false;
+  const { operator, value } = filterValue;
+
+  switch (operator) {
+    case 'equals':
+      return cellValue === Number(value);
+    case 'does_not_equal':
+      return cellValue !== Number(value);
+    case 'greater_than':
+      return cellValue > Number(value);
+    case 'greater_than_or_equal':
+      return cellValue >= Number(value);
+    case 'less_than':
+      return Number(cellValue) < Number(value);
+    case 'less_than_or_equal':
+      return Number(cellValue) <= Number(value);
+    case 'is_empty':
+      return raw === null || raw === '';
+    case 'is_not_empty':
+      return !(raw === null || raw === '');
+    default:
+      return true; // display all
+  }
+}
+
 export interface LLMModel {
   id: string;
   company: string;
@@ -43,31 +227,34 @@ export interface LLMModel {
   bestFor: string[];
 }
 
-const BEST_FOR_STYLES: Record<string, string> = {  
-  'Coding': styles.bestForDefault__coding,  
-  'Writing': styles.bestForDefault__writing,  
-  'Research & Analysis': styles.bestForDefault__researchAnalysis,  
-  'Brainstorming': styles.bestForDefault__brainstorming,  
-  'Productivity': styles.bestForDefault__productivity,  
-  'Lifestyle': styles.bestForDefault__lifestyle,  
-  'Cooking': styles.bestForDefault__cooking,  
-  'General Knowledge': styles.bestForDefault__generalKnowledge,  
-  'Organizing': styles.bestForDefault__organizing,  
-  'Image Generation': styles.bestForDefault__imageGeneration,  
-};  
+const BEST_FOR_STYLES: Record<string, string> = {
+  Coding: styles.bestForDefault__coding,
+  Writing: styles.bestForDefault__writing,
+  'Research & Analysis': styles.bestForDefault__researchAnalysis,
+  Brainstorming: styles.bestForDefault__brainstorming,
+  Productivity: styles.bestForDefault__productivity,
+  Lifestyle: styles.bestForDefault__lifestyle,
+  Cooking: styles.bestForDefault__cooking,
+  'General Knowledge': styles.bestForDefault__generalKnowledge,
+  Organizing: styles.bestForDefault__organizing,
+  'Image Generation': styles.bestForDefault__imageGeneration,
+};
 
-const BEST_FOR_ICONS: Record<string, React.ComponentType<{className?: string}>> = {  
-  'Coding': BestForCodingIcon,  
-  'Writing': BestForWritingIcon,  
-  'Research & Analysis': BestForResearchAnalysisIcon,  
-  'Brainstorming': BestForBrainstormingIcon,  
-  'Productivity': BestForProductivityIcon,  
-  'Lifestyle': BestForLifestyleIcon,  
-  'Cooking': BestForCookingIcon,  
-  'General Knowledge': BestForGeneralKnowledgeIcon,  
-  'Organizing': BestForOrganizingIcon,  
-  'Image Generation': BestForImageGenerationIcon,  
-}; 
+const BEST_FOR_ICONS: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
+  Coding: BestForCodingIcon,
+  Writing: BestForWritingIcon,
+  'Research & Analysis': BestForResearchAnalysisIcon,
+  Brainstorming: BestForBrainstormingIcon,
+  Productivity: BestForProductivityIcon,
+  Lifestyle: BestForLifestyleIcon,
+  Cooking: BestForCookingIcon,
+  'General Knowledge': BestForGeneralKnowledgeIcon,
+  Organizing: BestForOrganizingIcon,
+  'Image Generation': BestForImageGenerationIcon,
+};
 
 export const columns: ColumnDef<LLMModel>[] = [
   {
@@ -75,6 +262,10 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => (
       <TableHeaderDropdown column={column} title={'Company'} />
     ),
+    meta: { type: 'text' as ColumnType },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnText(row, columnId, filterValue);
+    },
     cell: ({ getValue }) => {
       const company = getValue() as string;
 
@@ -111,6 +302,10 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Model" />;
     },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnText(row, columnId, filterValue);
+    },
+    meta: { type: 'text' as ColumnType },
     minSize: 230,
     cell: ({ getValue, row }) => {
       const modelName = getValue() as string;
@@ -150,12 +345,20 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Description" />;
     },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnText(row, columnId, filterValue);
+    },
+    meta: { type: 'text' as ColumnType },
     size: 450,
   },
   {
     accessorKey: 'context_window',
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Context Window" />;
+    },
+    meta: { type: 'number' as ColumnType },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnNumber(row, columnId, filterValue);
     },
     minSize: 230,
     cell: ({ getValue }) => {
@@ -171,6 +374,10 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Max Output" />;
     },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnNumber(row, columnId, filterValue);
+    },
+    meta: { type: 'number' as ColumnType },
     minSize: 200,
     cell: ({ getValue }) => {
       const maxOutput = getValue() as number;
@@ -185,6 +392,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Knowledge Cutoff" />;
     },
+    meta: { type: 'date' as ColumnType },
     minSize: 230,
   },
   {
@@ -192,6 +400,10 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Release Date" />;
     },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnDate(row, columnId, filterValue);
+    },
+    meta: { type: 'date' as ColumnType },
     minSize: 200,
   },
   {
@@ -199,6 +411,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Documentation" />;
     },
+    meta: { type: 'url' as ColumnType },
     size: 300,
     cell: ({ getValue }) => {
       const url = getValue() as string;
@@ -223,6 +436,10 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Modalities" />;
     },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnMultiSelect(row, columnId, filterValue);
+    },
+    meta: { type: 'multi-select' as ColumnType },
     minSize: 250,
     cell: ({ getValue }) => {
       const modalities = getValue() as string[];
@@ -278,6 +495,10 @@ export const columns: ColumnDef<LLMModel>[] = [
     header: ({ column }) => {
       return <TableHeaderDropdown column={column} title="Best For" />;
     },
+    filterFn: (row, columnId, filterValue) => {
+      return filterColumnMultiSelect(row, columnId, filterValue);
+    },
+    meta: { type: 'multi-select' as ColumnType },
     minSize: 250,
     cell: ({ getValue }) => {
       const bestFors = getValue() as string[];

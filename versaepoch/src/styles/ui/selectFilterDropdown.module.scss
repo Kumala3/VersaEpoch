@@ -11,17 +11,15 @@
   border: 2px solid black;
 }
 
-.headerContainer {
+.title {
   display: flex;
   background-color: white;
-  padding: var(--padding-sm);
-  border: 2px solid black;
-  border-radius: var(--border-radius-sm);
+  color: var(--gray-color-dark);
   font-weight: var(--font-weight-semi-bold);
   font-size: var(--font-size-body-2);
 }
 
-.optionsList {
+.optionsContainer {
   padding-top: 0.5rem;
   display: flex;
   width: fit-content;
@@ -46,8 +44,7 @@
   cursor: pointer;
 
   &:hover {
-    transition: all 0.3s ease;
-    background-color: rgb(205, 205, 205);
+    background-color: var(--panel-button-hover-color  );
   }
 
   &__icon {

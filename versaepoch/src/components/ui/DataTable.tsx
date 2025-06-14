@@ -1,7 +1,10 @@
 'use client';
 
 import styles from '@/styles/ui/dataTable.module.scss';
-import { flexRender, Table as TanStackTable } from '@tanstack/react-table';
+import {
+  flexRender,
+  Table as TanStackTable,
+} from '@tanstack/react-table';
 import {
   Table,
   TableHeader,
@@ -16,7 +19,7 @@ interface DataTableProps<TData> {
 }
 
 export function DataTable<TData>({ table }: DataTableProps<TData>) {
-  const columns = table.getAllColumns();
+  const resetAllFilters = () => table.resetColumnFilters();
 
   return (
     <div className={styles.container}>
@@ -70,8 +73,17 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-right">
-                Nothing to display
+              <TableCell colSpan={table.getAllColumns().length} className={styles.nothingToDisplayCell}>
+                <div className={styles.nothingToDisplayContainer}>
+                  <h3 className={styles.nothingToDisplay}>
+                    No filter results :(
+                  </h3>
+                  <button
+                    className={styles.resetAllFiltersButton}
+                    onClick={resetAllFilters}>
+                    Reset all filters
+                  </button>
+                </div>
               </TableCell>
             </TableRow>
           )}

@@ -7,6 +7,7 @@ import {
   SortingState,
   getCoreRowModel,
   getSortedRowModel,
+  getFilteredRowModel,
   useReactTable,
 } from '@tanstack/react-table';
 import { DataTable } from '@/components/ui/DataTable';
@@ -35,6 +36,8 @@ export function LLMsDataTable({ data }: LLMsDataTableProps) {
     onColumnOrderChange: setColumnOrder,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    enableColumnFilters: true,
     enableSorting: true,
     enableColumnPinning: true,
   });

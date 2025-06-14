@@ -33,7 +33,7 @@ export function SelectSortDropdown({
 
   return (
     <div className={styles.container} ref={dropdownRef}>
-      <div className={styles.headerContainer}>Add Sort</div>
+      <div className={styles.headerContainer}>Select a column to sort:</div>
 
       <div className={styles.optionsList}>
         {elements.map((element) => (

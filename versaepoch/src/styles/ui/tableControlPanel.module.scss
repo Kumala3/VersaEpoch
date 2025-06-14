@@ -74,10 +74,6 @@
   top: calc(100% + 10px);
   right: 0;
   z-index: 100;
-  height: fit-content;
-  min-width: 300px;
-  border-radius: var(--border-radius-sm);
-  box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.75);
 }
 
 .selectDropdownContainer {
@@ -85,6 +81,16 @@
   top: calc(100% + 10px);
   right: 0;
   z-index: 100;
+  height: fit-content;
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.75);
+}
+
+.selectFilterRuleDropdownContainer {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 101;
   height: fit-content;
   border-radius: var(--border-radius-sm);
   box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.75);
