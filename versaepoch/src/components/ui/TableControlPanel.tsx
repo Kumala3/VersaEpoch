@@ -9,8 +9,8 @@ import { SelectSortDropdown } from '@/components/ui/SelectSortDropdown';
 import { TableFilterPanel } from '@/components/ui/TableFilterPanel';
 import { SelectFilterDropdown } from '@/components/ui/SelectFilterDropdown';
 import { capitalizeString } from '@/utils/helperFunctions';
-import { ColumnType, FilterOperator } from '@/types/Table';
-import { SelectFilterRuleDropdown } from '@/components/ui/SelectFilterRuleDropdown';
+import { FilterOperator } from '@/types/Table';
+import { SelectFilterRuleDropdown } from '@/components/ui/selectFilterRuleDropdown';
 
 interface TableControlPanelProps<TData> {
   table: Table<TData>;

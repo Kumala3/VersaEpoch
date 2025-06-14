@@ -118,7 +118,7 @@ function filterColumnMultiSelect<TData>(
   }
 }
 
-function filterColumnSelect<TData>(
+export function filterColumnSelect<TData>(
   row: Row<TData>,
   columnId: string,
   filterValue: { operator: FilterOperator; value: string | null }

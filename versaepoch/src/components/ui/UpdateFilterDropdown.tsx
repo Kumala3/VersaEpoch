@@ -103,8 +103,10 @@ export function UpdateFilterDropdown<TData>({
   };
 
   const handleUpdateFilter = () => {
-    onUpdateFilter(filter.id, selectedOperator, inputValue);
-    onClose();
+    if (selectedOperator !== '') {
+      onUpdateFilter(filter.id, selectedOperator, inputValue);
+      onClose();
+    }
   };
 
   // update filter dropdown click outside -> close logic
