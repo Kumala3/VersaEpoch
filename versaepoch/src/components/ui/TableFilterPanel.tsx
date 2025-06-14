@@ -105,7 +105,10 @@ export function TableFilterPanel<TData>({
                     <div className={styles.updateFilterDropdownContainer}>
                       <UpdateFilterDropdown
                         table={table}
-                        filter={filter}
+                        filter={{
+                          id: filter.id,
+                          value: filter.value as { operator: FilterOperator; value: string | number | null }
+                        }}
                         onUpdateFilter={onUpdateFilter}
                         onClose={handleCloseUpdateFilterDropdown}
                       />

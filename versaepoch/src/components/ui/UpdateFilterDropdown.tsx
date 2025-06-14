@@ -20,7 +20,7 @@ interface UpdateFilterDropdownProps<TData> {
   table: Table<TData>;
   filter: {
     id: string;
-    value: { operator: FilterOperator; value: string | number | null };
+    value: { operator: FilterOperator; value: string | Date | number | null };
   };
   onUpdateFilter: (
     columnId: string,
@@ -40,10 +40,12 @@ export function UpdateFilterDropdown<TData>({
     showAvailableFilterOperatorsDropdown,
     setShowAvailableFilterOperatorsDropdown,
   ] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string | number>('');
 
   const filterOperator = filter.value.operator;
   const filterValue = filter.value.value;
+  const [inputValue, setInputValue] = useState<string | number | Date | null>(
+    filterValue
+  );
 
   const [selectedOperator, setSelectedOperator] = useState<FilterOperator | ''>(
     filterOperator
@@ -68,7 +70,15 @@ export function UpdateFilterDropdown<TData>({
   }, []);
 
   const handleSelectFilterOperator = (operator: FilterOperator) => {
+    // Handle is empty, not empty cases to reset inputValues
+    if (operator === 'is_empty') {
+      setInputValue(null);
+    }
+    if (operator == 'is_not_empty') {
+      setInputValue('');
+    }
     setSelectedOperator(operator);
+    handleCloseAvailableFilterOperatorsDropdown();
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,10 +103,8 @@ export function UpdateFilterDropdown<TData>({
   };
 
   const handleUpdateFilter = () => {
-    if (inputValue === null) {
-      onUpdateFilter(filter.id, selectedOperator, null);
-    }
     onUpdateFilter(filter.id, selectedOperator, inputValue);
+    onClose();
   };
 
   // update filter dropdown click outside -> close logic
@@ -189,7 +197,11 @@ export function UpdateFilterDropdown<TData>({
         name="valueInput"
         className={styles.input}
         placeholder="Type a value"
-        value={inputValue}
+        value={
+          inputValue instanceof Date
+            ? inputValue.toISOString().split('T')[0]
+            : inputValue ?? ''
+        }
         onChange={handleInputChange}></input>
 
       <button className={styles.applyButton} onClick={handleUpdateFilter}>

@@ -86,6 +86,7 @@ export function SelectFilterRuleDropdown<TData>({
     if (!rule.hasValue) {
       onSelect(rule.operator, null);
     }
+    handleCloseFilterRulesDropdown();
   };
 
   const handleToggleFilterRulesDropdown = () => {
@@ -131,6 +132,7 @@ export function SelectFilterRuleDropdown<TData>({
         onSelect(selectedRule.operator, value);
       }
     }
+    handleCloseFilterRulesDropdown();
   };
 
   return (
@@ -140,7 +142,9 @@ export function SelectFilterRuleDropdown<TData>({
         <button
           className={styles.filterOperator}
           onClick={handleToggleFilterRulesDropdown}>
-          {capitalizeString(selectedRule?.label || '', '_')}
+          <span className={styles.filterOperator__label}>
+            {capitalizeString(selectedRule?.label || '', '_')}
+          </span>
           {!showFilterRulesDropdown ? (
             <ChevronDownIcon className={styles.filterOperator__icon} />
           ) : (
@@ -148,6 +152,8 @@ export function SelectFilterRuleDropdown<TData>({
           )}
         </button>
       </div>
+
+      {/* Available Filter Rules Dropdown */}
       {showFilterRulesDropdown && (
         <div
           className={styles.availableFilterRulesDropdown}
@@ -167,22 +173,22 @@ export function SelectFilterRuleDropdown<TData>({
       )}
 
       <div className={styles.actionsContainer}>
-      {getInputType() !== null && (
-        <input
-          title="Value Input"
-          type={getInputType()}
-          name="valueInput"
-          className={styles.input}
-          placeholder="Type a value..."
-          onChange={handleInputChange}
-          value={inputValue}></input>
-      )}
+        {getInputType() !== null && (
+          <input
+            title="Value Input"
+            type={getInputType()}
+            name="valueInput"
+            className={styles.input}
+            placeholder="Type a value..."
+            onChange={handleInputChange}
+            value={inputValue}></input>
+        )}
 
-      {selectedRule?.hasValue && (
-        <button className={styles.applyButton} onClick={handleApplyFilter}>
-          Apply
-        </button>
-      )}
+        {selectedRule?.hasValue && (
+          <button className={styles.applyButton} onClick={handleApplyFilter}>
+            Apply
+          </button>
+        )}
       </div>
     </div>
   );
