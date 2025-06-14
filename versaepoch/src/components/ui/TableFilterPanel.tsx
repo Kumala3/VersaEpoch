@@ -38,7 +38,6 @@ export function TableFilterPanel<TData>({
   const filterState = table.getState().columnFilters;
   const columns = table.getAllColumns().filter((col) => col.getCanFilter());
   const isFilterEnabled = false;
-  const [isAddButtonHovered, setIsAddButtonHovered] = useState<boolean>(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 

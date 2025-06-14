@@ -2,7 +2,7 @@ import styles from '@/styles/ui/selectFilterDropdown.module.scss';
 import { useEffect, useRef } from 'react';
 
 interface SelectFilterDropdownProps {
-  elements: {id: string, title: string}[];
+  elements: { id: string; title: string }[];
   onSelect: (columnId: string) => void;
   onClose: () => void;
 }
@@ -25,8 +25,11 @@ export function SelectFilterDropdown({
     };
 
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
   }, [onClose]);
 
@@ -43,7 +46,6 @@ export function SelectFilterDropdown({
           </button>
         ))}
       </div>
-      
     </div>
   );
 }

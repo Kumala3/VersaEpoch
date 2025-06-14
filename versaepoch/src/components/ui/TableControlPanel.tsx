@@ -32,7 +32,11 @@ function getAvailableSortableColumns<TData>(table: Table<TData>) {
 function getAvailableFilterableColumns<TData>(table: Table<TData>) {
   const filtersState = table.getState().columnFilters;
 
-  const columns = table.getAllColumns().filter((col) => col.getCanFilter());
+  const excludedColumns = ['knowledge_cutoff'];
+
+  const columns = table
+    .getAllColumns()
+    .filter((col) => col.getCanFilter() && !excludedColumns.includes(col.id));
 
   return columns
     .filter((col) => !filtersState.find((filter) => col.id === filter.id))
