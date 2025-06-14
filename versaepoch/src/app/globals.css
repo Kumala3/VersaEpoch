@@ -87,7 +87,7 @@
 
   /* Shadows */
   --dropdown-panel: 0 0 8px 2px rgba(3, 200, 206, 0.9);
-  --button-inset: inset 0 0 4px 1px rgb(0, 73, 75, 0.25);
+  --button-inset: inset 0 0 4px 1px rgb(0, 134, 139, 0.45);
 }
 
 /* @theme inline {

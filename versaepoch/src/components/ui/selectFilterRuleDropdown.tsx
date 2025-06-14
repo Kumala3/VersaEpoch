@@ -3,19 +3,21 @@
 import { useState, useEffect, useRef } from 'react';
 
 import styles from '@/styles/ui/selectFilterRuleDropdown.module.scss';
-import { ColumnType, FilterOperator, FilterRule } from '@/types/Table';
+import { FilterOperator, FilterRule } from '@/types/Table';
 import { Table } from '@tanstack/react-table';
 import { getColumnType, getAvailableFilterRules } from '@/utils/tableFunctions';
 import { capitalizeString } from '@/utils/helperFunctions';
+import {
+  CircleCheckIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from '@/components/ui/UIIcons';
 
 interface SelectFilterRuleDropdownProps<TData> {
   selectedColumnId: string | null;
   table: Table<TData>;
   onClose: () => void;
-  onSelect: (
-    operator: FilterOperator,
-    value: string | number | null
-  ) => void;
+  onSelect: (operator: FilterOperator, value: string | number | null) => void;
 }
 
 export function SelectFilterRuleDropdown<TData>({
@@ -25,6 +27,8 @@ export function SelectFilterRuleDropdown<TData>({
   onSelect,
 }: SelectFilterRuleDropdownProps<TData>) {
   const [inputValue, setInputValue] = useState<string | number>('');
+  const [showFilterRulesDropdown, setShowFilterRulesDropdown] =
+    useState<boolean>(false);
 
   const column = selectedColumnId ? table.getColumn(selectedColumnId) : null;
   const columnName = column ? capitalizeString(column.id, '_') : '';
@@ -36,6 +40,7 @@ export function SelectFilterRuleDropdown<TData>({
   );
 
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const filterRulesDropdown = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
@@ -55,11 +60,40 @@ export function SelectFilterRuleDropdown<TData>({
     };
   }, [onClose]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
+
+      if (
+        filterRulesDropdown.current &&
+        !filterRulesDropdown.current.contains(target)
+      ) {
+        handleCloseFilterRulesDropdown();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  });
+
   const handleRuleSelect = (rule: FilterRule) => {
     setSelectedRule(rule);
     if (!rule.hasValue) {
       onSelect(rule.operator, null);
     }
+  };
+
+  const handleToggleFilterRulesDropdown = () => {
+    setShowFilterRulesDropdown(!showFilterRulesDropdown);
+  };
+
+  const handleCloseFilterRulesDropdown = () => {
+    setShowFilterRulesDropdown(false);
   };
 
   const getInputType = () => {
@@ -103,39 +137,52 @@ export function SelectFilterRuleDropdown<TData>({
     <div className={styles.container} ref={dropdownRef}>
       <div className={styles.topContainer}>
         <p className={styles.topContainer__title}>{columnName}</p>
-        {getInputType() !== null && (
-          <input
-            title="Value Input"
-            type={getInputType()}
-            name="valueInput"
-            className={styles.input}
-            placeholder="Type a value..."
-            onChange={handleInputChange}
-            value={inputValue}></input>
-        )}
-      </div>
-      {selectedRule?.hasValue && (
         <button
-          className={styles.applyButton}
-          onClick={handleApplyFilter}>
+          className={styles.filterOperator}
+          onClick={handleToggleFilterRulesDropdown}>
+          {capitalizeString(selectedRule?.label || '', '_')}
+          {!showFilterRulesDropdown ? (
+            <ChevronDownIcon className={styles.filterOperator__icon} />
+          ) : (
+            <ChevronUpIcon className={styles.filterOperator__icon} />
+          )}
+        </button>
+      </div>
+      {showFilterRulesDropdown && (
+        <div
+          className={styles.availableFilterRulesDropdown}
+          ref={filterRulesDropdown}>
+          {availableFilterRules?.map((filterRule) => (
+            <button
+              key={filterRule.label}
+              className={styles.filterRuleOption}
+              onClick={() => handleRuleSelect(filterRule)}>
+              {capitalizeString(filterRule.label, '_')}
+              {selectedRule?.operator === filterRule.operator && (
+                <CircleCheckIcon className={styles.filterRuleOption__icon} />
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div className={styles.actionsContainer}>
+      {getInputType() !== null && (
+        <input
+          title="Value Input"
+          type={getInputType()}
+          name="valueInput"
+          className={styles.input}
+          placeholder="Type a value..."
+          onChange={handleInputChange}
+          value={inputValue}></input>
+      )}
+
+      {selectedRule?.hasValue && (
+        <button className={styles.applyButton} onClick={handleApplyFilter}>
           Apply
         </button>
       )}
-
-      <p className={styles.subHeadline}>Filter Rules:</p>
-      <div className={styles.optionsContainer}>
-        {availableFilterRules?.map((filterRule) => (
-          <button
-            key={filterRule.label}
-            className={`${styles.option} ${
-              selectedRule?.operator === filterRule.operator
-                ? styles.option__selected
-                : ''
-            }`}
-            onClick={() => handleRuleSelect(filterRule)}>
-            {filterRule.label}
-          </button>
-        ))}
       </div>
     </div>
   );

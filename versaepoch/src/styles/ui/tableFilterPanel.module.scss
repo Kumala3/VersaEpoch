@@ -28,6 +28,8 @@
 
 .filterItem {
   display: flex;
+  flex-direction: row;
+  gap: .5rem;
   justify-content: space-between;
   align-items: center;
   padding: var(--padding-sm);
@@ -86,7 +88,8 @@
   gap: 0.3rem;
 
   &:hover {
-    background-color: var(--panel-button-hover-color);
+    background-color: var(--primary-color);
+    color: white;
   }
 
   &__icon {
@@ -140,11 +143,12 @@
     font-size: var(--font-size-body-3);
   }
 
-  &__filterValue {
+  &__value {
     display: flex;
-    width: fit-content;
-    font-weight: var(--font-weight-med);
-    font-size: var(--font-size-body-3);
+    height: fit-content;
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__icon {
@@ -166,14 +170,13 @@
   display: flex;
   background-color: white;
   cursor: pointer;
-  background-color: #d0d0d0;
   padding: var(--padding-sm);
   transition: all 0.3s ease;
   border-radius: var(--border-radius-sm);
+  box-shadow: var(--button-inset);
 
   &:hover {
     background-color: var(--primary-color);
     color: white;
-    border: none;
   }
 }

@@ -87,11 +87,9 @@ export function TableFilterPanel<TData>({
                     <span className={styles.filterDropdownButton__columnName}>
                       {getColumnName(filter.id)}
                     </span>
-                    {/* <span>{filter.value.operator}</span> */}
-                    <span className={styles.filterDropdownButton__filterValue}>
+                    <span className={styles.filterDropdownButton__value}>
                       {filter.value.value}
                     </span>
-                    {/* Chevron Icon */}
                     {!showUpdateFilterDropdown ? (
                       <ChevronDownIcon
                         className={styles.filterDropdownButton__icon}
