@@ -88,7 +88,7 @@ export function TableFilterPanel<TData>({
                       {getColumnName(filter.id)}
                     </span>
                     <span className={styles.filterDropdownButton__value}>
-                      {filter.value.value}
+                      {(filter.value as {value: string | number | null}).value}
                     </span>
                     {!showUpdateFilterDropdown ? (
                       <ChevronDownIcon
