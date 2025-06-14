@@ -153,7 +153,7 @@ export function TableControlPanel<TData>({
 
   const handleFilterRuleSelect = (
     operator: FilterOperator,
-    value: string | number | null
+    value: string | number | Date | null
   ) => {
     if (selectedColumnForFilter) {
       handleAddFilter(selectedColumnForFilter, operator, value);
