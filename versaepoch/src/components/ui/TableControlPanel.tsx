@@ -141,7 +141,7 @@ export function TableControlPanel<TData>({
   const handleAddFilter = (
     columnId: string,
     operator: FilterOperator,
-    value: string | number | null
+    value: string | number | Date | null
   ) => {
     const currentFilters = table.getState().columnFilters;
     const newFilters = [
@@ -164,7 +164,7 @@ export function TableControlPanel<TData>({
   const handleUpdateFilter = (
     columnId: string,
     operator: FilterOperator,
-    value: string | Date | number
+    value: string | Date | number | null
   ) => {
     const currentFilters = table.getState().columnFilters;
     // Only update operator, value of the selected filter
