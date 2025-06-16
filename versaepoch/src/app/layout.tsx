@@ -18,8 +18,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "VersaEpoch",
-  description: "Explore the evolution of ChatGPT, Claude, and Gemini",
+  title: "VersaEpoch - Explore Evolution of ChatGPT, Claude & Gemini",
+  description: "Interactive evolution timelines, LLMs Directory - 30+ best LLMs, Prompts Directory 300+ prompts, stay ahead in the AI Era",
+  openGraph: {
+    url: "https://versaepoch.com",
+    type: 'website'  
+  }
 };
 
 export default function RootLayout({
