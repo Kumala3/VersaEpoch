@@ -4,7 +4,7 @@
   position: relative;
   width: 100%;
   height: fit-content;
-  background-color: rgb(222, 222, 222);
+  background-color: rgb(230, 230, 230);
   border-radius: var(--border-radius-sm);
   gap: 1rem;
 }
@@ -47,7 +47,7 @@
   justify-content: space-between;
   padding: var(--padding-sm);
   align-items: center;
-  background-color: rgb(180, 180, 180);
+  background-color: rgb(185, 185, 185);
 }
 
 .infoContainer {
@@ -100,10 +100,6 @@
   }
 
   .sectionElements {
-    width: 100%;
-  }
-
-  .slogan {
     width: 100%;
   }
 }
