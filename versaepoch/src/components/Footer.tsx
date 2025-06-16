@@ -25,9 +25,9 @@ export function Footer() {
             <NavDropdown
               title="Timelines"
               elements={[
-                { title: 'ChatGPT', href: '/chatgpt' },
-                { title: 'Claude', href: '/claude' },
-                { title: 'Gemini', href: '/gemini' },
+                { title: 'ChatGPT', href: '/timelines/chatgpt' },
+                { title: 'Claude', href: '/timelines/claude' },
+                { title: 'Gemini', href: '/timelines/gemini' },
               ]}
             />
             <NavElement name="LLMs Directory" href="llms-directory" />
@@ -35,9 +35,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className={styles.copyright}>
-        © All Rights Reserved 2025
-      </div>
+      <div className={styles.copyright}>© All Rights Reserved 2025</div>
     </div>
   );
 }

@@ -93,7 +93,13 @@ function ExpandIcon({
   );
 }
 
-function CollapseIcon({ width = 48, height = 48, className = "", color = "#000", onClick }: IconProps) {
+function CollapseIcon({
+  width = 48,
+  height = 48,
+  className = '',
+  color = '#000',
+  onClick,
+}: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -106,8 +112,7 @@ function CollapseIcon({ width = 48, height = 48, className = "", color = "#000",
       stroke={color}
       strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round"
-      >
+      strokeLinejoin="round">
       <path d="m6 9 6 6 6-6" />
     </svg>
   );
@@ -756,6 +761,56 @@ function CrossIcon({
   );
 }
 
+function CircleArrowRightIcon({
+  width = 48,
+  height = 48,
+  color = '#000',
+  className = '',
+}: IconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M8 12h8" />
+      <path d="m12 16 4-4-4-4" />
+    </svg>
+  );
+}
+
+function CircleArrowLeftIcon({
+  width = 48,
+  height = 48,
+  color = '#000',
+  className = '',
+}: IconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M16 12H8" />
+      <path d="m12 8-4 4 4 4" />
+    </svg>
+  );
+}
+
 function CircleCheckIcon({
   width = 48,
   height = 48,
@@ -819,4 +874,6 @@ export {
   PlusIcon,
   CrossIcon,
   CircleCheckIcon,
+  CircleArrowRightIcon,
+  CircleArrowLeftIcon,
 };
