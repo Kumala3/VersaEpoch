@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '@/styles/header.module.scss';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { NavElement } from '@/components/ui/NavElement';
+import { HeaderNavElement } from '@/components/ui/HeaderNavElement';
 import { NavDropdown } from '@/components/ui/NavDropdown';
 import { GitHubButton } from '@/components/GitHubButton';
 import { NavAccordion } from '@/components/ui/NavAccordion';
@@ -54,8 +54,8 @@ export function Header() {
             { title: 'Gemini', href: '/timelines/gemini' },
           ]}
         />
-        <NavElement name="LLMs Directory" href="/llms-directory" />
-        <NavElement name="Prompts Directory" href="/prompts-directory" />
+        <HeaderNavElement title="LLMs Directory" href="/llms-directory" />
+        <HeaderNavElement title="Prompts Directory" href="/prompts-directory" />
       </nav>
 
       {!isMenuOpened && (
@@ -91,13 +91,13 @@ export function Header() {
                 { title: 'Gemini', href: '/timelines/gemini' },
               ]}
             />
-            <NavElement
-              name="LLMs Directory"
+            <HeaderNavElement
+              title="LLMs Directory"
               href="/llms-directory"
               onClick={closeMenu}
             />
-            <NavElement
-              name="Prompts Directory"
+            <HeaderNavElement
+              title="Prompts Directory"
               href="/prompts-directory"
               onClick={closeMenu}
             />
