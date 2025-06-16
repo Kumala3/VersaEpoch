@@ -1,8 +1,9 @@
 'use client';
+
 import Image from 'next/image';
 import styles from '@/styles/header.module.scss';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavElement } from '@/components/ui/NavElement';
 import { NavDropdown } from '@/components/ui/NavDropdown';
 import { GitHubButton } from '@/components/GitHubButton';
@@ -18,6 +19,18 @@ export function Header() {
   const closeMenu = () => {
     setIsMenuOpened(false);
   };
+
+  useEffect(() => {
+    if (isMenuOpened) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpened]);
 
   return (
     <div className={styles.container}>
@@ -52,9 +65,10 @@ export function Header() {
           src={'/menu-icon.svg'}
           alt="Menu Icon"
           className={styles.menuIcon}
-          onClick={() => openMenu()}
+          onClick={openMenu}
         />
       )}
+
       {/* Mobile Menu */}
       {isMenuOpened && (
         <div className={styles.navContainerMobile}>
@@ -70,14 +84,23 @@ export function Header() {
           <nav className={styles.navMenuMobile}>
             <NavAccordion
               title="Timelines"
+              onClick={closeMenu}
               elements={[
-                { title: 'ChatGPT', href: '/chatgpt' },
-                { title: 'Claude', href: '/claude' },
-                { title: 'Gemini', href: '/gemini' },
+                { title: 'ChatGPT', href: '/timelines/chatgpt' },
+                { title: 'Claude', href: '/timelines/claude' },
+                { title: 'Gemini', href: '/timelines/gemini' },
               ]}
             />
-            <NavElement name="LLMs Directory" href="llms-directory" />
-            <NavElement name="Prompts Directory" href="prompts-directory" />
+            <NavElement
+              name="LLMs Directory"
+              href="llms-directory"
+              onClick={closeMenu}
+            />
+            <NavElement
+              name="Prompts Directory"
+              href="prompts-directory"
+              onClick={closeMenu}
+            />
           </nav>
           <GitHubButton />
         </div>

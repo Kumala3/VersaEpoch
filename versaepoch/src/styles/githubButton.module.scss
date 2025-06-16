@@ -1,26 +1,26 @@
 .container {
-    display: flex;
-    flex-direction: row;
-    width: fit-content;
-    height: fit-content;
-    min-width: 150px;
-    padding: 0.5rem;
-    border-width: 2px;
-    border-radius: var(--border-radius-sm);
-    background-color: white;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-    font-weight: var(--font-weight-semi-bold);
-    font-size: var(--font-size-body-1);
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  height: fit-content;
+  min-width: 100px;
+  padding: var(--padding-sm);
+  border: 2px black solid;
+  gap: 0.5rem;
+  border-radius: var(--border-radius-sm);
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-semi-bold);
+  font-size: var(--font-size-h6);
 }
 .logo {
-    height: 42px;
-    width: 42px;
+  height: 40px;
+  width: 40px;
 }
 
 @media (max-width: 767px) {
-    .container {
-        width: 100%;
-    }
+  .container {
+    width: 100%;
+  }
 }

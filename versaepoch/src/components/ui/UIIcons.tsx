@@ -5,6 +5,7 @@ interface IconProps {
   height?: number;
   className?: string;
   color?: string;
+  onClick?: () => void;
 }
 
 function NextIcon({ width = 48, height = 48, className }: IconProps) {
@@ -67,27 +68,48 @@ function ChevronUpIcon({ width = 48, height = 48, className }: IconProps) {
   );
 }
 
-function ExpandIcon({ width = 48, height = 48, className }: IconProps) {
+function ExpandIcon({
+  width = 48,
+  height = 48,
+  className = '',
+  color = '#000',
+  onClick,
+}: IconProps) {
   return (
-    <Image
-      src={'/expand-icon.svg'}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
-      alt="Expand Icon"
       className={className}
-    />
+      onClick={onClick}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <path d="m18 15-6-6-6 6" />
+    </svg>
   );
 }
 
-function CollapseIcon({ width = 48, height = 48, className }: IconProps) {
+function CollapseIcon({ width = 48, height = 48, className = "", color = "#000", onClick }: IconProps) {
   return (
-    <Image
-      src={'/collapse-icon.svg'}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
-      alt="Collapse Icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      onClick={onClick}
       className={className}
-    />
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
   );
 }
 
@@ -746,7 +768,7 @@ function CircleCheckIcon({
       width={width}
       height={height}
       viewBox="0 0 24 24"
-      fill='none'
+      fill="none"
       className={className}
       stroke={color}
       strokeWidth="2"
