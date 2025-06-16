@@ -93,12 +93,12 @@ export function Header() {
             />
             <NavElement
               name="LLMs Directory"
-              href="llms-directory"
+              href="/llms-directory"
               onClick={closeMenu}
             />
             <NavElement
               name="Prompts Directory"
-              href="prompts-directory"
+              href="/prompts-directory"
               onClick={closeMenu}
             />
           </nav>

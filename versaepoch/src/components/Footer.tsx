@@ -30,8 +30,8 @@ export function Footer() {
                 { title: 'Gemini', href: '/timelines/gemini' },
               ]}
             />
-            <NavElement name="LLMs Directory" href="llms-directory" />
-            <NavElement name="Prompts Directory" href="prompts-directory" />
+            <NavElement name="LLMs Directory" href="/llms-directory" />
+            <NavElement name="Prompts Directory" href="/prompts-directory" />
           </div>
         </div>
       </div>
