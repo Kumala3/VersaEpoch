@@ -126,23 +126,13 @@ export default function HomePage() {
 
       {/* LLMs Directory Section */}
       <div className={styles.llmsDirectoryContainer}>
-        <h3 className={styles.llmsDirectoryContainer__headline}>
-          LLMs Directory
-        </h3>
-        <div className={styles.llmsDirectoryContainer__showcaseContainer}>
-          <p className={styles.llmsDirectoryContainer__description}>
-            Discover 30+ LLMs from OpenAI, Anthropic, Google, make a quick,
-            informal decision of what you should use for your use case
-          </p>
-          <Image
-            width={200}
-            height={200}
-            src={'/under_development.png'}
-            // src={'/llmsDirectoryFeaturedImage.png'} /* Replace when the feature is ready */
-            alt="LLMs Directory Featured Image"
-            className={styles.llmsDirectoryContainer__featuredImage}
-          />
-        </div>
+        <FeatureShowcaseVideo
+          title="LLMs Directory"
+          videoPath="/llms_directory_overview.mp4"
+          caption="Discover 30+ LLMs from OpenAI, Anthropic, Google. Make fast,
+            informal decision of what LLMs is best suited for your use case"
+          posterImage=""
+        />
 
         <div className={styles.llmsDirectoryContainer__ctaContainer}>
           <CTAButton
