@@ -19,6 +19,7 @@
 
 .dropdownContainer {
   display: flex;
+  width: 300px;
   flex-direction: column;
   background-color: rgb(255, 255, 255);
   border-width: 2px;
@@ -26,10 +27,8 @@
   border-radius: var(--border-radius-sm);
   position: absolute;
   left: 0;
-  bottom: calc(100% + 5px);
   z-index: 10;
   gap: 0.3rem;
-  width: 100%;
   height: fit-content;
 }
 
@@ -45,7 +44,7 @@
   align-items: center;
   justify-content: space-between;
 
-  &__leftContainer{ 
+  &__leftContainer {
     display: flex;
     flex-direction: row;
     width: fit-content;
@@ -73,8 +72,6 @@
 }
 
 @media (max-width: 767px) {
-
-  /* Make the accordion element */
   .container {
     width: 100%;
   }
