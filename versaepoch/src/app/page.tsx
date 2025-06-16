@@ -7,7 +7,7 @@ import { CloseIcon } from '@/components/ui/CloseIcon';
 import { ChatbotContainer } from '@/components/ChatbotContainer';
 import { FeatureShowcaseCard } from '@/components/ui/FeatureShowcaseCard';
 import Image from 'next/image';
-import { FeatureVideo } from '@/components/ui/FeatureVideo';
+import { FeatureShowcaseVideo } from '@/components/ui/FeatureShowcaseVideo';
 
 export default function HomePage() {
   const [isChatbotExploreModalOpened, setIsChatbotExploreModalOpened] =
@@ -91,23 +91,24 @@ export default function HomePage() {
         </h2>
         <div
           className={styles.timelineOverviewContainer__mainFeaturesContainer}>
-          <FeatureVideo
+          <FeatureShowcaseVideo
             videoPath="/chatbot_timeline_overview.mp4"
             caption="Explore the evolution by viewing interactive elements ranging from models, features, releases up to new products. Learn more about a specific. View sources. Dig Deeper"
+            posterImage=""
           />
 
           <div className={styles.timelineOverviewContainer__grid}>
-            <FeatureShowcaseCard
+            <FeatureShowcaseVideo
               title="Advanced Filtering"
-              demoImageMain="/filter_feature_showcase.png"
-              mainDescription="Filter the timeline to display only specific data type such as milestone, model or feature."
-              bgColor="greenyellow"
+              videoPath="/chatbot_timeline_filter_overview.mp4"
+              caption="Filter the timeline to display exactly what you need: models, releases, updates, all is up to you!"
+              posterImage=""
             />
-            <FeatureShowcaseCard
-              title="Advanced Sorting"
-              demoImageMain="/sort_feature_showcase.png"
-              mainDescription="Sort the timeline cards by date to see exactly what you need in a few clicks!"
-              bgColor="greenyellow"
+            <FeatureShowcaseVideo
+              title="Sorting"
+              videoPath="/chatbot_timeline_sort_overview.mp4"
+              caption="Sort the timeline cards by date to see exactly what you need in a few clicks!"
+              posterImage=""
             />
           </div>
         </div>
