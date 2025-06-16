@@ -7,6 +7,7 @@ import { CloseIcon } from '@/components/ui/CloseIcon';
 import { ChatbotContainer } from '@/components/ChatbotContainer';
 import { FeatureShowcaseCard } from '@/components/ui/FeatureShowcaseCard';
 import Image from 'next/image';
+import { FeatureVideo } from '@/components/ui/FeatureVideo';
 
 export default function HomePage() {
   const [isChatbotExploreModalOpened, setIsChatbotExploreModalOpened] =
@@ -86,17 +87,14 @@ export default function HomePage() {
       {/* ChatGPT Timeline with main features overview Section */}
       <div className={styles.timelineOverviewContainer}>
         <h2 className={styles.timelineOverviewContainer__headline}>
-          Detailed, Interactive Timelines
+          Detailed, Interactive, Rich Timelines
         </h2>
         <div
           className={styles.timelineOverviewContainer__mainFeaturesContainer}>
-          <div>
-            <FeatureShowcaseCard
-              title="Comprehensive Data"
-              demoImageMain="/timeline_showcase.png"
-              mainDescription="View all models, milestones, updates, features, tools covered in one timeline!"
-            />
-          </div>
+          <FeatureVideo
+            videoPath="/chatbot_timeline_overview.mp4"
+            caption="Explore the evolution by viewing interactive elements ranging from models, features, releases up to new products. Learn more about a specific. View sources. Dig Deeper"
+          />
 
           <div className={styles.timelineOverviewContainer__grid}>
             <FeatureShowcaseCard
@@ -115,10 +113,9 @@ export default function HomePage() {
         </div>
 
         <div>
-          {/* TODO: Callout Component with text: "Don't just read, try yourself!" */}
           <div className={styles.timelineOverviewContainer__ctaContainer}>
             <CTAButton
-              title="Explore"
+              title="Explore [NOW]"
               className={styles.timelineOverviewContainer__ctaButton}
               onClick={() => redirectTo('/timelines')}
             />
@@ -133,7 +130,8 @@ export default function HomePage() {
         </h3>
         <div className={styles.llmsDirectoryContainer__showcaseContainer}>
           <p className={styles.llmsDirectoryContainer__description}>
-            Discover 100+ Real-Life GenAI UseCases from 10+ industries
+            Discover 30+ LLMs from OpenAI, Anthropic, Google, make a quick,
+            informal decision of what you should use for your use case
           </p>
           <Image
             width={200}
