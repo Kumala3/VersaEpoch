@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import styles from '@/styles/navDropdown.module.scss';
 import {
@@ -9,6 +9,8 @@ import {
   GeminiIcon,
   CircleArrowRightIcon,
 } from '@/components/ui/UIIcons';
+import { ChevronDownIcon } from '@/components/ui/UIIcons';
+import { motion } from 'motion/react';
 
 interface NavDropdownElement {
   title: string;
@@ -22,14 +24,10 @@ interface NavDropdownProps {
 
 export function NavDropdown({ title, elements }: NavDropdownProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleToggleDropdown = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log('handleToggleDropdown func was called...');
     setIsOpen(!isOpen);
-    console.log(`is dropdown open: ${isOpen}`);
   };
 
   const getChatbotIcon = (title: string) => {
@@ -45,55 +43,57 @@ export function NavDropdown({ title, elements }: NavDropdownProps) {
     }
   };
 
-  useEffect(() => {
-    // Only add event listener when dropdown is opened
-    if (!isOpen) return;
-
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
-
-      if (
-        (dropdownRef.current &&
-          !dropdownRef.current.contains(target) &&
-          containerRef,
-        !containerRef.current?.contains(target))
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen]);
-
   return (
     <div
       className={styles.container}
-      ref={containerRef}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
       onClick={handleToggleDropdown}>
-      {title}
+      <p className={styles.title}>{title}</p>
+      <motion.div
+        animate={{
+          y: isOpen ? 4 : 0,
+          scale: isOpen ? 1.05 : 1,
+        }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
+        <ChevronDownIcon className={styles.chevronIcon} />
+      </motion.div>
 
+      {/* Animated Dropdown */}
       {isOpen && (
-        <div className={styles.dropdownContainer} ref={dropdownRef}>
+        <motion.div
+          className={styles.dropdownContainer}
+          initial={{ opacity: 0, y: -10, scale: 0 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -10, scale: 0.9 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 35 }}>
           {elements.map((item, index) => (
-            <Link
-              href={item.href}
+            <motion.div
               key={index}
-              prefetch={true}
-              className={styles.dropdownElement}>
-              <div className={styles.dropdownElement__leftContainer}>
-                {getChatbotIcon(item.title)}
-                {item.title}
-              </div>
-              <CircleArrowRightIcon
-                className={styles.dropdownElement__arrowIcon}
-              />
-            </Link>
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: index * 0.35,
+                type: 'spring',
+                stiffness: 500,
+                damping: 20,
+              }}>
+              <Link
+                href={item.href}
+                key={index}
+                prefetch={true}
+                className={styles.dropdownElement}>
+                <div className={styles.dropdownElement__leftContainer}>
+                  {getChatbotIcon(item.title)}
+                  {item.title}
+                </div>
+                <CircleArrowRightIcon
+                  className={styles.dropdownElement__arrowIcon}
+                />
+              </Link>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       )}
     </div>
   );
