@@ -5,7 +5,6 @@ import styles from '@/styles/homePage.module.scss';
 import { CTAButton } from '@/components/ui/CTAButton';
 import { CloseIcon } from '@/components/ui/CloseIcon';
 import { ChatbotContainer } from '@/components/ChatbotContainer';
-import { FeatureShowcaseCard } from '@/components/ui/FeatureShowcaseCard';
 import Image from 'next/image';
 import { FeatureShowcaseVideo } from '@/components/ui/FeatureShowcaseVideo';
 
