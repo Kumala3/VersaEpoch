@@ -1,26 +1,20 @@
 .container {
-    display: flex;
-    min-width: 200px;
-    width: fit-content;
-    height: 100%;
-    max-height: 70%;
-    background-color: white;
-    border-width: 2px;
-    border-radius: var(--border-radius-sm);
-    padding: var(--padding-sm);
-    justify-content: center;
-    align-items: center;
-    font-weight: var(--font-weight-semi-bold);
-    font-size: var(--font-size-body-1);
-    transition: color 300ms ease;
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  font-weight: var(--font-weight-med);
+  font-size: var(--font-size-body-2);
+  transition: all 0.3s ease;
 }
+
 .container:hover {
-    color: var(--primary-color);
-    transition: color 300ms ease;
+  color: var(--primary-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 @media (max-width: 767px) {
-    .container {
-        width: 100%;
-    }
+  .container {
+    width: 100%;
+  }
 }

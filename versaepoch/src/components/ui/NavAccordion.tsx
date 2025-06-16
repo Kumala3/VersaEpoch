@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/styles/navAccordion.module.scss';
+import { ExpandIcon, CollapseIcon } from '@/components/ui/UIIcons';
 
 interface NavAccordionElemProps {
   title: string;
@@ -12,40 +12,24 @@ interface NavAccordionElemProps {
 interface NavAccordionProps {
   title: string;
   elements: NavAccordionElemProps[];
+  onClick: () => void;
 }
 
-export function NavAccordion({ title, elements }: NavAccordionProps) {
+export function NavAccordion({ title, elements, onClick }: NavAccordionProps) {
   const [isOpened, setIsOpened] = useState<boolean>(false);
 
-  const openAccordion = () => {
-    setIsOpened(true);
-  };
-  const closeAccordion = () => {
-    setIsOpened(false);
+  const handleToggleAccordion = () => {
+    setIsOpened(!isOpened);
   };
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.container}>
+      <div className={styles.container} onClick={handleToggleAccordion}>
         <p className={styles.title}>{title}</p>
         {!isOpened ? (
-          <Image
-            width={100}
-            height={100}
-            src={'/expand-icon.svg'}
-            alt="Expand Icon"
-            onClick={() => openAccordion()}
-            className={styles.expandIcon}
-          />
+          <ExpandIcon className={styles.icon} />
         ) : (
-          <Image
-            width={100}
-            height={100}
-            src={'/collapse-icon.svg'}
-            alt="Collapse Icon"
-            onClick={() => closeAccordion()}
-            className={styles.collapseIcon}
-          />
+          <CollapseIcon className={styles.icon} />
         )}
       </div>
 
@@ -53,8 +37,13 @@ export function NavAccordion({ title, elements }: NavAccordionProps) {
       {isOpened && (
         <div className={styles.dropdownList}>
           {elements.map((element, index) => (
-            <Link key={index} href={element.href} className={styles.dropdownElement}>
-              {/* TODO: Icon for each chatbot here */}
+            <Link
+              key={index}
+              href={element.href}
+              className={styles.dropdownElement}
+              prefetch={true}
+              onClick={onClick}>
+              {/* TODO: Add icon for each chatbot  */}
               {element.title}
             </Link>
           ))}

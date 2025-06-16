@@ -1,42 +1,57 @@
 import styles from '@/styles/footer.module.scss';
 import { NavElement } from '@/components/ui/NavElement';
-import { NavDropdown } from '@/components/ui/NavDropdown';
-import { GitHubButton } from './GitHubButton';
+import { GitHubIcon } from '@/components/ui/SocialIcons';
 
 export function Footer() {
   return (
     <div className={styles.container}>
-      {/* Navigation Section */}
       <div className={styles.sections}>
-        {/* Other Section */}
-        <div className={styles.otherSection}>
+        {/* Features Section */}
+        <div className={styles.section}>
+          <h4 className={styles.section__label}>Features</h4>
           <div className={styles.sectionElements}>
-            <span className={styles.slogan}>
-              The only wealth that expands when shared is{' '}
-              <strong>KNOWLEDGE</strong>
-            </span>
-            <GitHubButton />
+            <NavElement name="Chatbots Evolution" href="/timelines" />
+            <NavElement name="LLMs Directory" href="/llms-directory" />
+            <NavElement name="Prompts Directory" href="/prompts-directory" />
           </div>
         </div>
 
+        {/* Support Section */}
         <div className={styles.section}>
-          <h4 className={styles.sectionLabel}>Navigation</h4>
+          <h4 className={styles.section__label}>Support</h4>
           <div className={styles.sectionElements}>
-            <NavDropdown
-              title="Timelines"
-              elements={[
-                { title: 'ChatGPT', href: '/chatgpt' },
-                { title: 'Claude', href: '/claude' },
-                { title: 'Gemini', href: '/gemini' },
-              ]}
-            />
-            <NavElement name="LLMs Directory" href="llms-directory" />
-            <NavElement name="Prompts Directory" href="prompts-directory" />
+            <NavElement name="Contact VersaEpoch" href="/contact" />
+          </div>
+        </div>
+
+        {/* Company Section */}
+        <div className={styles.section}>
+          <h4 className={styles.section__label}>About Us</h4>
+          <div className={styles.sectionElements}>
+            <NavElement name="About" href="/about" />
           </div>
         </div>
       </div>
-      <div className={styles.copyright}>
-        © All Rights Reserved 2025
+
+      {/* Bottom Container */}
+      <div className={styles.bottomContainer}>
+        <div className={styles.infoContainer}>
+          © VersaEpoch 2025
+          <p className={styles.builtBySection}>
+            Built by Kostiantyn Sytnyk with{' '}
+            <span className={styles.passionWord}>passion</span> for technology
+          </p>
+        </div>
+        <nav className={styles.socialMediaLinks}>
+          <ul>
+            <li>
+              <GitHubIcon
+                link="https://github.com/Kumala3/VersaEpoch"
+                className={styles.socialMediaIcon}
+              />
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   );

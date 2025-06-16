@@ -5,8 +5,8 @@ import styles from '@/styles/homePage.module.scss';
 import { CTAButton } from '@/components/ui/CTAButton';
 import { CloseIcon } from '@/components/ui/CloseIcon';
 import { ChatbotContainer } from '@/components/ChatbotContainer';
-import { FeatureShowcaseCard } from '@/components/ui/FeatureShowcaseCard';
 import Image from 'next/image';
+import { FeatureShowcaseVideo } from '@/components/ui/FeatureShowcaseVideo';
 
 export default function HomePage() {
   const [isChatbotExploreModalOpened, setIsChatbotExploreModalOpened] =
@@ -86,39 +86,36 @@ export default function HomePage() {
       {/* ChatGPT Timeline with main features overview Section */}
       <div className={styles.timelineOverviewContainer}>
         <h2 className={styles.timelineOverviewContainer__headline}>
-          Detailed, Interactive Timelines
+          Detailed, Interactive, Rich Timelines
         </h2>
         <div
           className={styles.timelineOverviewContainer__mainFeaturesContainer}>
-          <div>
-            <FeatureShowcaseCard
-              title="Comprehensive Data"
-              demoImageMain="/timeline_showcase.png"
-              mainDescription="View all models, milestones, updates, features, tools covered in one timeline!"
-            />
-          </div>
+          <FeatureShowcaseVideo
+            videoPath="/chatbot_timeline_overview.mp4"
+            caption="Explore the evolution by viewing interactive elements ranging from models, features, releases up to new products. Learn more about a specific. View sources. Dig Deeper"
+            posterImage=""
+          />
 
           <div className={styles.timelineOverviewContainer__grid}>
-            <FeatureShowcaseCard
+            <FeatureShowcaseVideo
               title="Advanced Filtering"
-              demoImageMain="/filter_feature_showcase.png"
-              mainDescription="Filter the timeline to display only specific data type such as milestone, model or feature."
-              bgColor="greenyellow"
+              videoPath="/chatbot_timeline_filter_overview.mp4"
+              caption="Filter the timeline to display exactly what you need: models, releases, updates, all is up to you!"
+              posterImage=""
             />
-            <FeatureShowcaseCard
-              title="Advanced Sorting"
-              demoImageMain="/sort_feature_showcase.png"
-              mainDescription="Sort the timeline cards by date to see exactly what you need in a few clicks!"
-              bgColor="greenyellow"
+            <FeatureShowcaseVideo
+              title="Sorting"
+              videoPath="/chatbot_timeline_sort_overview.mp4"
+              caption="Sort the timeline cards by date to see exactly what you need in a few clicks!"
+              posterImage=""
             />
           </div>
         </div>
 
         <div>
-          {/* TODO: Callout Component with text: "Don't just read, try yourself!" */}
           <div className={styles.timelineOverviewContainer__ctaContainer}>
             <CTAButton
-              title="Explore"
+              title="Explore [NOW]"
               className={styles.timelineOverviewContainer__ctaButton}
               onClick={() => redirectTo('/timelines')}
             />
@@ -128,22 +125,13 @@ export default function HomePage() {
 
       {/* LLMs Directory Section */}
       <div className={styles.llmsDirectoryContainer}>
-        <h3 className={styles.llmsDirectoryContainer__headline}>
-          LLMs Directory
-        </h3>
-        <div className={styles.llmsDirectoryContainer__showcaseContainer}>
-          <p className={styles.llmsDirectoryContainer__description}>
-            Discover 100+ Real-Life GenAI UseCases from 10+ industries
-          </p>
-          <Image
-            width={200}
-            height={200}
-            src={'/under_development.png'}
-            // src={'/llmsDirectoryFeaturedImage.png'} /* Replace when the feature is ready */
-            alt="LLMs Directory Featured Image"
-            className={styles.llmsDirectoryContainer__featuredImage}
-          />
-        </div>
+        <FeatureShowcaseVideo
+          title="LLMs Directory"
+          videoPath="/llms_directory_overview.mp4"
+          caption="Discover 30+ LLMs from OpenAI, Anthropic, Google. Make fast,
+            informal decision of what LLMs is best suited for your use case"
+          posterImage=""
+        />
 
         <div className={styles.llmsDirectoryContainer__ctaContainer}>
           <CTAButton

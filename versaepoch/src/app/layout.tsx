@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import VercelAnalyticsClient from "@/components/AnalyticsClient";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -17,8 +18,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "VersaEpoch",
-  description: "Explore the evolution of ChatGPT, Claude, and Gemini",
+  title: "VersaEpoch - Explore Evolution of ChatGPT, Claude & Gemini",
+  description: "Interactive evolution timelines, LLMs Directory - 30+ best LLMs, Prompts Directory 300+ prompts, stay ahead in the AI Era",
+  openGraph: {
+    url: "https://versaepoch.com",
+    type: 'website'  
+  }
 };
 
 export default function RootLayout({
@@ -31,6 +36,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} rootContainer antialiased`}
       >
+        <ScrollToTop />
         <Header />
         {children}
         <VercelAnalyticsClient />
