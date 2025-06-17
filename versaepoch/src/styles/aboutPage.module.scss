@@ -1,0 +1,211 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--padding-xl, 3rem) var(--padding-lg, 2rem);
+    gap: 3rem;
+    min-height: 80vh;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 2rem 0;
+}
+
+.title {
+    font-size: var(--font-size-h1, 3rem);
+    font-weight: var(--font-weight-bold, 700);
+    color: var(--text-primary, #1a1a1a);
+    margin: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.problemStatement {
+    font-size: var(--font-size-h4, 1.5rem);
+    line-height: 1.6;
+    color: var(--text-secondary, #4a5568);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.highlightedText {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: var(--font-weight-bold, 700);
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        border-radius: 2px;
+        opacity: 0.3;
+    }
+}
+
+.aboutInfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+}
+
+.missionCard,
+.audienceCard {
+    background: white;
+    border-radius: var(--border-radius-lg, 12px);
+    padding: 2rem;
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.1),
+        0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.15),
+            0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+}
+
+.cardTitle {
+    font-size: var(--font-size-h3, 1.8rem);
+    font-weight: var(--font-weight-semi-bold, 600);
+    color: var(--text-primary, #1a1a1a);
+    margin: 0 0 1rem 0;
+}
+
+.cardContent {
+    font-size: var(--font-size-body-1, 1.1rem);
+    line-height: 1.7;
+    color: var(--text-secondary, #4a5568);
+    margin: 0;
+}
+
+.audienceList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.audienceItem {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%);
+    border-radius: var(--border-radius-md, 8px);
+    font-size: var(--font-size-body-1, 1.1rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #1a1a1a);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: translateX(4px);
+    }
+}
+
+// Responsive Design
+@media (max-width: 968px) {
+    .aboutInfo {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: var(--padding-lg, 2rem) var(--padding-md, 1rem);
+        gap: 2rem;
+    }
+
+    .title {
+        font-size: var(--font-size-h2, 2.5rem);
+    }
+
+    .problemStatement {
+        font-size: var(--font-size-h5, 1.3rem);
+    }
+
+    .missionCard,
+    .audienceCard {
+        padding: 1.5rem;
+    }
+
+    .audienceList {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: var(--font-size-h3, 2rem);
+    }
+
+    .problemStatement {
+        font-size: var(--font-size-body-1, 1.1rem);
+    }
+
+    .cardTitle {
+        font-size: var(--font-size-h4, 1.5rem);
+    }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+
+    .missionCard,
+    .audienceCard {
+        background: #2d3748;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .cardTitle {
+        color: #f7fafc;
+    }
+
+    .cardContent {
+        color: #cbd5e0;
+    }
+
+    .audienceItem {
+        background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+        color: #e2e8f0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        &:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+    }
+}
