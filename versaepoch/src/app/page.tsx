@@ -24,22 +24,61 @@ export default function HomePage() {
   return (
     <div className={styles.container}>
       <div className={styles.heroSection}>
-        <h2 className={styles.heroSection__heading}>
-          Dive into exploring the evolution of{' '}
-          <div className={styles.heroSection__animatedText}>
-            <span className={styles.heroSection__boldText}>ChatGPT</span>↓
-            <span className={styles.heroSection__boldText}>Claude</span>↓
-            <span className={styles.heroSection__boldText}>Gemini</span>
+        {/* Problem statement */}
+        <div className={styles.problemStatement}>
+          <h1 className={styles.problemStatement__headline}>
+            Stop Wasting Hours Searching for
+          </h1>
+          <span className={styles.problemStatement__highlight}>
+            Scattered AI Information
+          </span>
+          <p className={styles.problemStatement__description}>
+            Tired of jumping between countless docs, forums, blogs to understand
+            ChatGPT, Claude, Gemini?
+            <span>
+              {' '}
+              <strong>We centralize all important</strong> so You can focus on
+              what matters
+            </span>
+          </p>
+        </div>
+
+        {/* Solution Preview */}
+        <div className={styles.solutionPreview}>
+          <h2 className={styles.solutionPreview__headline}>Get Complete Chatbot Evolution Timelines in One Place</h2>
+          <div className={styles.solutionPreview__features}>
+            <div className={styles.featureItem}>
+              <span className={styles.featureItem__icon}>📈</span>
+              <span className={styles.featureItem__text}>
+                Explore evolution of ChatGPT, Claude, Gemini through{' '}
+                <strong>Detailed, Interactive Timelines</strong>
+              </span>
+            </div>
+            <div className={styles.featureItem}>
+              <span className={styles.featureItem__icon}>🤖</span>
+              <span className={styles.featureItem__text}>
+                Find exact AI Model you need with{' '}
+                <strong>LLMs Directory</strong>
+              </span>
+            </div>
+            <div className={styles.featureItem}>
+              <span className={styles.featureItem__icon}>💡</span>
+              <span className={styles.featureItem__text}>
+                Explore full possibilities of LLMs with{' '}
+                <strong>Prompts Directory</strong> (300+ ready-to-use prompts)
+              </span>
+            </div>
           </div>
-        </h2>
+        </div>
         {/* CTA Button */}
         <CTAButton
-          title="Start Exploration"
+          title="Start Your AI Exploration Now"
           onClick={openChatbotExploreModal}
+          className={styles.heroSection__ctaButton}
         />
       </div>
 
-      {/* Modal */}
+      {/* Chatbot Timelines Modal */}
       {isChatbotExploreModalOpened && (
         <div className={styles.modalBackdrop}>
           <div className={styles.chatbotExploreModalContainer}>
