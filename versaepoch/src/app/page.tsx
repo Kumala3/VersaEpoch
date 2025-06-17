@@ -30,10 +30,10 @@ export default function HomePage() {
         <div className={styles.problemStatement}>
           <h1 className={styles.problemStatement__headline}>
             Stop Wasting Hours Searching for
+            <span className={styles.problemStatement__highlight}>
+              Scattered AI Information
+            </span>
           </h1>
-          <span className={styles.problemStatement__highlight}>
-            Scattered AI Information
-          </span>
           <p className={styles.problemStatement__description}>
             Tired of jumping between countless docs, forums, blogs to understand
             ChatGPT, Claude, Gemini?

@@ -6,7 +6,7 @@ export default function About() {
       <div className={styles.hero}>
         <h1 className={styles.title}>About VersaEpoch</h1>
         <div className={styles.problemStatement}>
-          We don't chase AI Trends, We Provide{' '}
+          We don&apos;t chase AI Trends, We Provide{' '}
           <span className={styles.highlightedText}>Real Solutions</span> to Real  
           Problems of scattered, overwhelming information across thousands of
           official docs, Wikipedia, blogs, and fragmented AI resources.
