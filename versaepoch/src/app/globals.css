@@ -52,6 +52,8 @@
   --padding-sm: 0.5rem;
   --padding-md: 1rem;
   --padding-lg: 1.5rem;
+  --padding-xl: 2rem;
+  --padding-xxl: 3rem;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

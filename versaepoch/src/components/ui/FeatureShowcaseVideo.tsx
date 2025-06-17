@@ -7,10 +7,15 @@ interface FeatureShowcaseVideoProps {
   posterImage: string;
 }
 
-export function FeatureShowcaseVideo({ title, videoPath, caption, posterImage }: FeatureShowcaseVideoProps) {
+export function FeatureShowcaseVideo({
+  title,
+  videoPath,
+  caption,
+  posterImage,
+}: FeatureShowcaseVideoProps) {
   return (
     <figure className={styles.container}>
-      <h3 className={styles.title}>{title}</h3>
+      {title && <h3 className={styles.title}>{title}</h3>}
       <video
         autoPlay={true}
         loop={true}

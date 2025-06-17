@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '@/styles/homePage.module.scss';
@@ -6,6 +7,7 @@ import { CTAButton } from '@/components/ui/CTAButton';
 import { CloseIcon } from '@/components/ui/CloseIcon';
 import { ChatbotContainer } from '@/components/ChatbotContainer';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FeatureShowcaseVideo } from '@/components/ui/FeatureShowcaseVideo';
 
 export default function HomePage() {
@@ -24,22 +26,72 @@ export default function HomePage() {
   return (
     <div className={styles.container}>
       <div className={styles.heroSection}>
-        <h2 className={styles.heroSection__heading}>
-          Dive into exploring the evolution of{' '}
-          <div className={styles.heroSection__animatedText}>
-            <span className={styles.heroSection__boldText}>ChatGPT</span>↓
-            <span className={styles.heroSection__boldText}>Claude</span>↓
-            <span className={styles.heroSection__boldText}>Gemini</span>
+        {/* Problem statement */}
+        <div className={styles.problemStatement}>
+          <h1 className={styles.problemStatement__headline}>
+            Stop Wasting Hours Searching for
+          </h1>
+          <span className={styles.problemStatement__highlight}>
+            Scattered AI Information
+          </span>
+          <p className={styles.problemStatement__description}>
+            Tired of jumping between countless docs, forums, blogs to understand
+            ChatGPT, Claude, Gemini?
+            <span>
+              {' '}
+              <strong>We centralize all important</strong> so You can focus on
+              what matters
+            </span>
+          </p>
+        </div>
+
+        {/* Solution Preview */}
+        <div className={styles.solutionPreview}>
+          <h2 className={styles.solutionPreview__headline}>
+            Get Complete Chatbot Evolution Timelines in One Place
+          </h2>
+          <div className={styles.solutionPreview__features}>
+            <Link
+              href={'/timelines'}
+              prefetch={true}
+              className={styles.featureItem}>
+              <span className={styles.featureItem__icon}>📈</span>
+              <span className={styles.featureItem__text}>
+                Explore evolution of ChatGPT, Claude, Gemini through{' '}
+                <strong>Detailed, Interactive Timelines</strong>
+              </span>
+            </Link>
+            <Link
+              href={'/llms-directory'}
+              prefetch={true}
+              className={styles.featureItem}>
+              <span className={styles.featureItem__icon}>🤖</span>
+              <span className={styles.featureItem__text}>
+                Find exact AI Model you need with{' '}
+                <strong>LLMs Directory</strong>
+              </span>
+            </Link>
+            <Link
+              href={'/prompts-directory'}
+              prefetch={true}
+              className={styles.featureItem}>
+              <span className={styles.featureItem__icon}>💡</span>
+              <span className={styles.featureItem__text}>
+                Explore full possibilities of LLMs with{' '}
+                <strong>Prompts Directory</strong> (300+ ready-to-use prompts)
+              </span>
+            </Link>
           </div>
-        </h2>
+        </div>
         {/* CTA Button */}
         <CTAButton
-          title="Start Exploration"
+          title="Start Your AI Exploration Now"
           onClick={openChatbotExploreModal}
+          className={styles.heroSection__ctaButton}
         />
       </div>
 
-      {/* Modal */}
+      {/* Chatbot Timelines Modal */}
       {isChatbotExploreModalOpened && (
         <div className={styles.modalBackdrop}>
           <div className={styles.chatbotExploreModalContainer}>
@@ -112,15 +164,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div>
-          <div className={styles.timelineOverviewContainer__ctaContainer}>
-            <CTAButton
-              title="Explore [NOW]"
-              className={styles.timelineOverviewContainer__ctaButton}
-              onClick={() => redirectTo('/timelines')}
-            />
-          </div>
-        </div>
+        <CTAButton
+          title="Explore [NOW]"
+          className={styles.ctaButton}
+          onClick={() => redirectTo('/timelines')}
+        />
       </div>
 
       {/* LLMs Directory Section */}
@@ -133,13 +181,11 @@ export default function HomePage() {
           posterImage=""
         />
 
-        <div className={styles.llmsDirectoryContainer__ctaContainer}>
-          <CTAButton
-            title="Explore"
-            className={styles.llmsDirectoryContainer__ctaButton}
-            onClick={() => redirectTo('/llms-directory')}
-          />
-        </div>
+        <CTAButton
+          title="Explore"
+          className={styles.ctaButton}
+          onClick={() => redirectTo('/llms-directory')}
+        />
       </div>
 
       {/* GenAI UseCases Section */}
@@ -189,13 +235,11 @@ export default function HomePage() {
             className={styles.promptsDirectoryContainer__featuredImage}
           />
         </div>
-        <div className={styles.promptsDirectoryContainer__ctaContainer}>
-          <CTAButton
-            title="Explore"
-            className={styles.promptsDirectoryContainer__ctaButton}
-            onClick={() => redirectTo('/prompts-directory')}
-          />
-        </div>
+        <CTAButton
+          title="Explore"
+          className={styles.ctaButton}
+          onClick={() => redirectTo('/prompts-directory')}
+        />
       </div>
     </div>
   );

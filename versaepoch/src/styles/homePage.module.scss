@@ -11,38 +11,120 @@
 
 .heroSection {
   display: flex;
+  position: relative;
   flex-direction: column;
-  padding: var(--padding-lg);
-  gap: 1rem;
-  background-image: url('/heroSectionBG.jpg');
-  background-size: cover;
-  background-position: bottom;
-  background-repeat: no-repeat;
+  padding: var(--padding-xxl);
+  background: linear-gradient(135deg,
+      rgb(18, 188, 174) 30%,
+      rgb(3, 107, 96) 100%);
+  gap: 2rem;
   height: 100%;
-  border-radius: var(--border-radius-md);
-  justify-content: space-between;
+  border-radius: var(--border-radius-lg);
+  justify-content: center;
+  align-items: center;
+  color: white;
+  overflow: hidden;
 
-  &__heading {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 35%;
-    color: var(--primary-color);
-    font-weight: var(--font-weight-semi-bold);
-    font-size: var(--font-size-h3);
+  &__ctaButton {
+    padding: 1rem 2.5rem !important;
+    font-size: var(--font-size-h5) !important;
+    font-weight: var(--font-weight-bold) !important;
+    background: #ffffff !important;
+    border: 4px solid black;
+    color: black !important;
+    box-shadow: inset 0 0px 6px rgb(0, 0, 0, 0.5) !important;
+    transition: all 0.3s ease !important;
+
+    &:hover {
+      transform: translateY(-4px) !important;
+    }
+  }
+}
+
+.problemStatement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+
+  &__headline {
+    font-size: var(--font-size-h1);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.5;
   }
 
-  &__animatedText {
-    width: 100%;
+  &__highlight {
+    display: flex;
+    position: relative;
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-semi-bold);
+    background: linear-gradient(100deg, #ffda09, #efab2d);
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-sm);
+  }
+
+  &__description {
     display: flex;
     flex-direction: column;
+    font-weight: var(--font-weight-med);
+    gap: 1rem;
+    font-size: var(--font-size-h4);
+    line-height: 1.4;
+    max-width: 80%;
     justify-content: center;
     align-items: center;
+    text-align: center;
+  }
+}
+
+.solutionPreview {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+
+  &__headline {
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-med);
   }
 
-  &__boldText {
-    font-weight: var(--font-weight-bold);
-    display: inline;
+  &__features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+.featureItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem;
+  border-radius: var(--border-radius-sm);
+  background: rgba(205, 205, 205, 0.45);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  &__icon {
+    font-size: 2.5rem;
+  }
+
+  &__text {
+    font-size: var(--font-size-body-1);
+    font-weight: var(--font-weight-med);
+    text-align: center;
   }
 }
 
@@ -232,7 +314,7 @@
   }
 
   &__ctaButton {
-    width: 50% !important;
+    width: 80% !important;
     font-size: var(--font-size-h6) !important;
   }
 }
@@ -282,7 +364,7 @@
   }
 
   &__ctaButton {
-    width: 50% !important;
+    width: 80% !important;
     font-size: var(--font-size-h6) !important;
   }
 }
@@ -332,7 +414,7 @@
   }
 
   &__ctaButton {
-    width: 50% !important;
+    width: 80% !important;
     font-size: var(--font-size-h6) !important;
   }
 }
@@ -343,15 +425,59 @@
     height: 100%;
     padding: var(--padding-sm);
     align-items: center;
+  }
 
-    &__heading {
-      display: flex;
-      font-size: var(--font-size-h4);
-      width: 100%;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
+  .problemStatement {
+    display: flex;
+    max-width: 100%;
+    justify-content: center;
+    text-align: center;
+
+    &__headline {
+      font-size: var(--font-size-h2);
     }
+
+    &__description {
+      text-align: center;
+      font-size: var(--font-size-h5);
+    }
+  }
+
+  .solutionPreview {
+    max-width: 100%;
+
+    &__headline {
+      font-size: var(--font-size-h4);
+      text-align: center;
+    }
+
+    &__features {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  .timelineOverviewContainer {
+    max-width: 100%;
+    padding: var(--padding-sm);
+
+    &__mainFeaturesContainer {
+      display: flex;
+      flex-direction: column;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    &__grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  .ctaButton {
+    width: 100% !important;
   }
 
   .chatbotExploreModalContainer {
