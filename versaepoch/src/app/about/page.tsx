@@ -6,12 +6,13 @@ export default function About() {
       <div className={styles.hero}>
         <h1 className={styles.title}>About VersaEpoch</h1>
         <div className={styles.problemStatement}>
-          <span className={styles.highlightedText}>We solve a real problem</span>
-          {' '}of scattered, overwhelming information across thousands of official
-          docs, Wikipedia, blogs, and fragmented AI resources.
+          We don't chase AI Trends, We Provide{' '}
+          <span className={styles.highlightedText}>Real Solutions</span> to Real  
+          Problems of scattered, overwhelming information across thousands of
+          official docs, Wikipedia, blogs, and fragmented AI resources.
         </div>
       </div>
-      
+
       <div className={styles.aboutInfo}>
         <div className={styles.missionCard}>
           <h2 className={styles.cardTitle}>Our Mission</h2>
@@ -21,7 +22,7 @@ export default function About() {
             practical use cases, and advanced prompting techniques.
           </p>
         </div>
-        
+
         <div className={styles.audienceCard}>
           <h2 className={styles.cardTitle}>Who We Serve</h2>
           <div className={styles.audienceList}>
