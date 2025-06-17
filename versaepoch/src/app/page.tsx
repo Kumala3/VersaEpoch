@@ -47,23 +47,34 @@ export default function HomePage() {
 
         {/* Solution Preview */}
         <div className={styles.solutionPreview}>
-          <h2 className={styles.solutionPreview__headline}>Get Complete Chatbot Evolution Timelines in One Place</h2>
+          <h2 className={styles.solutionPreview__headline}>
+            Get Complete Chatbot Evolution Timelines in One Place
+          </h2>
           <div className={styles.solutionPreview__features}>
-            <Link href={"/timelines"} prefetch={true} className={styles.featureItem}>
+            <Link
+              href={'/timelines'}
+              prefetch={true}
+              className={styles.featureItem}>
               <span className={styles.featureItem__icon}>📈</span>
               <span className={styles.featureItem__text}>
                 Explore evolution of ChatGPT, Claude, Gemini through{' '}
                 <strong>Detailed, Interactive Timelines</strong>
               </span>
             </Link>
-            <Link href={"/llms-directory"} prefetch={true} className={styles.featureItem}>
+            <Link
+              href={'/llms-directory'}
+              prefetch={true}
+              className={styles.featureItem}>
               <span className={styles.featureItem__icon}>🤖</span>
               <span className={styles.featureItem__text}>
                 Find exact AI Model you need with{' '}
                 <strong>LLMs Directory</strong>
               </span>
             </Link>
-            <Link href={"/prompts-directory"} prefetch={true} className={styles.featureItem}>
+            <Link
+              href={'/prompts-directory'}
+              prefetch={true}
+              className={styles.featureItem}>
               <span className={styles.featureItem__icon}>💡</span>
               <span className={styles.featureItem__text}>
                 Explore full possibilities of LLMs with{' '}
@@ -153,15 +164,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div>
-          <div className={styles.timelineOverviewContainer__ctaContainer}>
-            <CTAButton
-              title="Explore [NOW]"
-              className={styles.timelineOverviewContainer__ctaButton}
-              onClick={() => redirectTo('/timelines')}
-            />
-          </div>
-        </div>
+        <CTAButton
+          title="Explore [NOW]"
+          className={styles.ctaButton}
+          onClick={() => redirectTo('/timelines')}
+        />
       </div>
 
       {/* LLMs Directory Section */}
@@ -174,13 +181,11 @@ export default function HomePage() {
           posterImage=""
         />
 
-        <div className={styles.llmsDirectoryContainer__ctaContainer}>
-          <CTAButton
-            title="Explore"
-            className={styles.llmsDirectoryContainer__ctaButton}
-            onClick={() => redirectTo('/llms-directory')}
-          />
-        </div>
+        <CTAButton
+          title="Explore"
+          className={styles.ctaButton}
+          onClick={() => redirectTo('/llms-directory')}
+        />
       </div>
 
       {/* GenAI UseCases Section */}
@@ -230,13 +235,11 @@ export default function HomePage() {
             className={styles.promptsDirectoryContainer__featuredImage}
           />
         </div>
-        <div className={styles.promptsDirectoryContainer__ctaContainer}>
-          <CTAButton
-            title="Explore"
-            className={styles.promptsDirectoryContainer__ctaButton}
-            onClick={() => redirectTo('/prompts-directory')}
-          />
-        </div>
+        <CTAButton
+          title="Explore"
+          className={styles.ctaButton}
+          onClick={() => redirectTo('/prompts-directory')}
+        />
       </div>
     </div>
   );
