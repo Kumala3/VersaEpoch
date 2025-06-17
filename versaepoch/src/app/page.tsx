@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '@/styles/homePage.module.scss';
@@ -6,6 +7,7 @@ import { CTAButton } from '@/components/ui/CTAButton';
 import { CloseIcon } from '@/components/ui/CloseIcon';
 import { ChatbotContainer } from '@/components/ChatbotContainer';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FeatureShowcaseVideo } from '@/components/ui/FeatureShowcaseVideo';
 
 export default function HomePage() {
@@ -47,27 +49,27 @@ export default function HomePage() {
         <div className={styles.solutionPreview}>
           <h2 className={styles.solutionPreview__headline}>Get Complete Chatbot Evolution Timelines in One Place</h2>
           <div className={styles.solutionPreview__features}>
-            <div className={styles.featureItem}>
+            <Link href={"/timelines"} prefetch={true} className={styles.featureItem}>
               <span className={styles.featureItem__icon}>📈</span>
               <span className={styles.featureItem__text}>
                 Explore evolution of ChatGPT, Claude, Gemini through{' '}
                 <strong>Detailed, Interactive Timelines</strong>
               </span>
-            </div>
-            <div className={styles.featureItem}>
+            </Link>
+            <Link href={"/llms-directory"} prefetch={true} className={styles.featureItem}>
               <span className={styles.featureItem__icon}>🤖</span>
               <span className={styles.featureItem__text}>
                 Find exact AI Model you need with{' '}
                 <strong>LLMs Directory</strong>
               </span>
-            </div>
-            <div className={styles.featureItem}>
+            </Link>
+            <Link href={"/prompts-directory"} prefetch={true} className={styles.featureItem}>
               <span className={styles.featureItem__icon}>💡</span>
               <span className={styles.featureItem__text}>
                 Explore full possibilities of LLMs with{' '}
                 <strong>Prompts Directory</strong> (300+ ready-to-use prompts)
               </span>
-            </div>
+            </Link>
           </div>
         </div>
         {/* CTA Button */}
