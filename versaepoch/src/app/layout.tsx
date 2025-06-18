@@ -21,8 +21,29 @@ export const metadata: Metadata = {
   title: "VersaEpoch - Explore Evolution of ChatGPT, Claude & Gemini",
   description: "Interactive evolution timelines, LLMs Directory - 30+ best LLMs, Prompts Directory 300+ prompts, stay ahead in the AI Era",
   openGraph: {
+    title: 'VersaEpoch - Master AI Evolution in One Place',
+    description: 'Interactive timelines, LLMs directory, and 300+ prompts. Everything you need to understand ChatGPT, Claude, and Gemini evolution.',
     url: "https://versaepoch.com",
-    type: 'website'  
+    type: 'website',
+    siteName: 'VersaEpoch',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'VersaEpoch - Explore Chatbots Evolution, Discover best LLMs and learn how to use them'
+      },
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: 'VersaEpoch - Master AI Evolution in One Place',
+    description: 'Interactive timelines, LLMs directory, and 300+ prompts. Everything you need to understand ChatGPT, Claude, and Gemini evolution.',
+    images: ['/og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
   }
 };
 
