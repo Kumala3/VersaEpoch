@@ -64,7 +64,7 @@ export function useMailerLiteSubscription({
         });
         return false;
       }
-    } catch (error) {
+    } catch {
       setState({
         status: 'error',
         message: 'Network error. Please check your connection.',

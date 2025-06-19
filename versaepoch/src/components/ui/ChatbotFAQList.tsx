@@ -1,9 +1,9 @@
 import { ChatbotAccordion } from '@/components/ui/ChatbotAccordion';
 import styles from '@/styles/ui/chatbotFAQList.module.scss';
-import { FAQChatbot } from '@/data/chatgptData';
+import { FAQChatbotType } from '@/types/Timeline';
 
 interface ChatbotFAQListProps {
-  elements: FAQChatbot[] | [];
+  elements: FAQChatbotType[] | [];
 }
 
 export function ChatbotFAQList({ elements }: ChatbotFAQListProps) {

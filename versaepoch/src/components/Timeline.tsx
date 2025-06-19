@@ -3,7 +3,7 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 import styles from '@/styles/timeline.module.scss';
 import { TimelineCard } from '@/components/TimelineCard';
 import { TimelineCardModal } from '@/components/TimelineCardModal';
-import { TimelineCardData } from '@/data/chatgptData';
+import { TimelineCardType } from '@/types/Timeline';
 import { TimelineNavigationPanel } from '@/components/TimelineNavigationPanel';
 import { TimelineFilterDropdown } from '@/components/TimelineFilterDropdown';
 import { TimelineSortDropdown } from '@/components/TimelineSortDropdown';
@@ -11,7 +11,7 @@ import { TimelineSortDropdown } from '@/components/TimelineSortDropdown';
 interface TimelineProps {
   chatbot: string;
   lastUpdatedOn: string;
-  timelineCards: TimelineCardData[] | [];
+  timelineCards: TimelineCardType[] | [];
 }
 
 export function Timeline({
@@ -47,11 +47,11 @@ export function Timeline({
     'newest' | 'oldest'
   >('oldest');
 
-  const [selectedCard, setSelectedCard] = useState<TimelineCardData | null>(
+  const [selectedCard, setSelectedCard] = useState<TimelineCardType | null>(
     null
   );
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
-  const [filteredCards, setFilteredCards] = useState<TimelineCardData[] | null>(
+  const [filteredCards, setFilteredCards] = useState<TimelineCardType[] | null>(
     timelineCards
   );
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
@@ -249,7 +249,7 @@ export function Timeline({
     goToCard(timelineCards?.length - 1);
   };
 
-  const openCardModal = (cardData: TimelineCardData) => {
+  const openCardModal = (cardData: TimelineCardType) => {
     setSelectedCard(cardData);
   };
 

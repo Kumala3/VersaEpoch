@@ -10,11 +10,11 @@ import {
   ResearchIcon,
   ProductIcon
 } from '@/components/ui/TimelineCardsIcons';
-import { TimelineCardData, NonEmptyCardTypeArray } from '@/data/chatgptData';
+import { TimelineCardType, NonEmptyCardTypeArray } from '@/types/Timeline';
 import { GlobalIcon } from '@/components/ui/UIIcons';
 
 interface TimelineCardProps {
-  data: TimelineCardData;
+  data: TimelineCardType;
   className: string;
   onClick: () => void;
 }

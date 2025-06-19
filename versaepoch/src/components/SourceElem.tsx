@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from '@/styles/sourceElem.module.scss';
-import { Source } from '@/data/chatgptData';
+import { Source } from '@/types/Timeline';
 
 export function SourceElem({ title, url }: Source) {
   return (
