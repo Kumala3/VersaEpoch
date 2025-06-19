@@ -32,14 +32,18 @@ export default function GeminiTimelinePage() {
           .eq('chatbot', 'gemini');
 
         if (timelineError || faqDataError) {
-          setError('Something went wrong. Please contact us to get everything to work 🙏');
+          setError(
+            'Something went wrong. Please contact us to get everything to work 🙏'
+          );
           return;
         }
 
         setFaqData(faqData || []);
         setTimelineData(timelineData || []);
-      } catch (error) {
-        console.log(`|For Debugging Purposes| Error: ${error}`);
+      } catch {
+        setError(
+          'Something went wrong. Please contact us to get everything to work 🙏'
+        );
       } finally {
         setLoading(false);
       }

@@ -4,8 +4,13 @@ import { useState, useEffect } from 'react';
 
 export function useIsMobile(breakpoint: number = 768) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [mounted, setMounted] = useState<boolean>(false);
 
   useEffect(() => {
+    if (typeof window ==='undefined') return;
+
+    setMounted(true);
+  
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth <= breakpoint);
     };
@@ -18,5 +23,5 @@ export function useIsMobile(breakpoint: number = 768) {
     };
   }, [breakpoint]);
 
-  return isMobile;
+  return mounted ? isMobile : false;
 }

@@ -37,26 +37,17 @@ export default function ClaudeTimeline() {
           return;
         }
 
-        if (loading) {
-          return (
-            <div>
-              <h3>Loading...</h3>
-              <Spinner />
-            </div>
-          );
-        }
-
         setFaqData(faqData || []);
         setTimelineData(timelineData || []);
-      } catch (error) {
-        console.log(`|For Debugging Purposes| Error: ${error}`);
+      } catch {
+        setError('Something went wrong. Please contact us to get everything to work 🙏')
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  });
+  }, []);
 
   if (error) {
     return <h3>{error}</h3>;
