@@ -81,7 +81,7 @@ export function MobileInDevelopmentNotice({
               updates, and special offers.{' '}
             </p>
             <p>
-              📬 No spam - only exciting news and new perks you&epos;ll love!
+              📬 No spam - only exciting news and new perks you&apos;ll love!
             </p>
             <input
               type="email"
