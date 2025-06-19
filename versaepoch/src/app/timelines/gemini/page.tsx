@@ -48,7 +48,7 @@ export default function GeminiTimelinePage() {
   }, []);
 
   if (isMobile) {
-    return <MobileInDevelopmentNotice />;
+    return <MobileInDevelopmentNotice groupId='157650217563325771' signup_source='timelines/gemini' />;
   }
 
   return (

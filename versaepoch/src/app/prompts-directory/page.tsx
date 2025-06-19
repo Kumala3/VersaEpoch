@@ -10,7 +10,7 @@ export default function PromptsDirectoryPage() {
   
   if (isMobile) {
     return (
-      <MobileInDevelopmentNotice />
+      <MobileInDevelopmentNotice groupId='157650217563325771' signup_source="prompts-directory" />
     )
   }
 

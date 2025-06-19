@@ -49,7 +49,7 @@ export default function ClaudeTimeline() {
   });
 
   if (isMobile) {
-    return <MobileInDevelopmentNotice />;
+    return <MobileInDevelopmentNotice groupId='157650217563325771' signup_source='timelines/claude' />;
   }
 
   return (

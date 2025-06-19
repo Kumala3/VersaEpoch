@@ -51,7 +51,12 @@ export default function ChatgptPageTimeline() {
   }, []);
 
   if (isMobile) {
-    return <MobileInDevelopmentNotice />;
+    return (
+      <MobileInDevelopmentNotice
+        groupId="157650217563325771"
+        signup_source="timelines/chatgpt"
+      />
+    );
   }
 
   return (
