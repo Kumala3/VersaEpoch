@@ -12,7 +12,7 @@ import { LLMModel } from '@/components/LlmsDirectoryColumns';
 export default function LLMsDirectoryPage() {
   const [tableData, setTableData] = useState<LLMModel[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<string>('');
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -27,17 +27,13 @@ export default function LLMsDirectoryPage() {
           .order('model_name', { ascending: false });
 
         if (error) {
-          return (
-            <h1>
-              Something unexpected happened. Please contact us by opening an
-              issue on GitHub
-            </h1>
-          );
+          setError(error.message);
+          return;
         }
 
         setTableData(data);
-      } catch (error) {
-        setError(error instanceof Error ? error : new Error('Unknown error'));
+      } catch {
+        setError('Something unexpected happened. Please contact us to troubleshoot issues');
       } finally {
         setLoading(false);
       }

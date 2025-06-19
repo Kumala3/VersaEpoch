@@ -41,8 +41,8 @@ export default function ChatgptPageTimeline() {
 
         setFaqData(faqData);
         setTimelineData(timelineData);
-      } catch (error) {
-        console.log(`|For Debugging Purposes| Error: ${error}`);
+      } catch {
+        setError('Something went wrong. Please contact us to get everything to work 🙏')
       } finally {
         setLoading(false);
       }
