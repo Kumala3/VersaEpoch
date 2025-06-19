@@ -15,7 +15,7 @@ import { columns, LLMModel } from '@/components/LlmsDirectoryColumns';
 import { TableControlPanel } from '@/components/ui/TableControlPanel';
 
 interface LLMsDataTableProps {
-  data: LLMModel[];
+  data: LLMModel[] | null;
 }
 
 export function LLMsDataTable({ data }: LLMsDataTableProps) {
@@ -23,8 +23,10 @@ export function LLMsDataTable({ data }: LLMsDataTableProps) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([]);
 
+  const tableData = data || [];
+
   const table = useReactTable({
-    data,
+    data: tableData,
     columns,
     state: {
       sorting,
@@ -42,10 +44,22 @@ export function LLMsDataTable({ data }: LLMsDataTableProps) {
     enableColumnPinning: true,
   });
 
+  if (!data || data.length === 0) {
+    return (
+      <div>
+        <h2>No LLMs Data available at the moment...</h2>
+      </div>
+    )
+  }
+
   return (
     <>
-      <TableControlPanel table={table} />
-      <DataTable table={table} />
+      {data && (
+        <>
+          <TableControlPanel table={table} />
+          <DataTable table={table} />
+        </>
+      )}
     </>
   );
 }

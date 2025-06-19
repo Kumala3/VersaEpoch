@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.title {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  font-size: var(--font-size-h6);
+  font-weight: var(--font-weight-bold);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: beige;
+  padding: var(--padding-lg);
+  background-image: url('/email_form_bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  object-fit: fill;
+  border-radius: var(--border-radius-md);
+}
+
+.formInnerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: white;
+  padding: var(--padding-md);
+  border-radius: var(--border-radius-md);
+}
+
+.emailInput {
+  display: flex;
+  width: 100%;
+  padding: var(--padding-sm);
+  color: black;
+  background-color: aliceblue;
+  border-radius: var(--border-radius-sm);
+  border: 2px solid var(--primary-color);
+}
+
+.submitButton {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  text-align: center;
+  color: white;
+  justify-content: center;
+  background-color: var(--primary-color);
+  padding: var(--padding-sm);
+  font-size: var(--font-size-body-1);
+  font-weight: var(--font-weight-med);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  box-shadow: inset 0 0 4px rgb(0, 0, 0, 0.75);
+}
+
+.successContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  background: linear-gradient(135deg, rgb(8, 148, 129) 20%, rgb(6, 130, 60)) 100%;
+  padding: var(--padding-sm);
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  border-radius: var(--border-radius-sm);
+  gap: .5rem;
+  color: white;
+}
+
+.successTitle {
+  color: white;
+}
+
+.successText {
+  font-size: var(--font-size-body-1);
+  font-weight: var(--font-weight-med);
+}
+
+.successHighlightedText {
+  font-size: var(--font-size-body-2);
+  font-weight: var(--font-weight-med);
+}
+
+.errorText {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
