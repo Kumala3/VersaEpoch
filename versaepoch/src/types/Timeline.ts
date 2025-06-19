@@ -15,7 +15,7 @@ type CardType =
 
 export type NonEmptyCardTypeArray = [CardType, ...CardType[]];
 
-export interface TimelineCardData {
+export interface TimelineCardType {
   id: string;
   chatbot: string;
   title: string;
@@ -23,11 +23,12 @@ export interface TimelineCardData {
   full_description: string;
   type: NonEmptyCardTypeArray;
   date: string;
+  banner_image?: string;
   year: '2022' | '2023' | '2024' | '2025';
   sources: Source[];
 }
 
-export type FAQChatbot = {
+export type FAQChatbotType = {
   title: string;
   answer: string;
 };
@@ -41,6 +42,6 @@ export type FAQChatbot = {
 {
   /* IMPORTANT: If there is no title in ChatGPT release note use this: "ChatGPT Release Notes" as a source title */
   /* IMPORTANT: Some info like BrowseComp, HealthBench don't really relate to ChatGPT but more for AI Research from OpenAI, so 
-  since I want to tell the evolution of ChatGPT, 
-  I need to move that data to another page called "Research" with options: "OpenAI", "Anthropic", "Google" */
+    since I want to tell the evolution of ChatGPT, 
+    I need to move that data to another page called "Research" with options: "OpenAI", "Anthropic", "Google" */
 }

@@ -11,16 +11,16 @@ import {
 } from '@/components/ui/TimelineCardsIcons';
 import { CloseIcon } from '@/components/ui/CloseIcon';
 import { GlobalIcon } from '@/components/ui/UIIcons';
-import { TimelineCardData, NonEmptyCardTypeArray } from '@/data/chatgptData';
+import { TimelineCardType, NonEmptyCardTypeArray } from '@/types/Timeline';
 import { SourceElem } from './SourceElem';
 
 interface TimelineCardModalProps {
   chatbot: string;
-  cardData: TimelineCardData;
+  cardData: TimelineCardType;
   onClose: () => void;
 }
 
-function generatePageURL(chatbot: string, card: TimelineCardData) {
+function generatePageURL(chatbot: string, card: TimelineCardType) {
   const slug = card.title
     .toLowerCase()
     .replace(/[.\s,;:!?'"()[\]{}\/\\]+/g, '-') // first replace

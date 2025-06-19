@@ -1,7 +1,17 @@
+'use client';
+
 import styles from '@/styles/timelinesPage.module.scss';
 import { ChatbotContainer } from '@/components/ChatbotContainer';
+import { useIsMobile } from '@/hooks/useIsMobile';
+import { MobileInDevelopmentNotice } from '@/components/MobileInDevelopmentNotice';
 
 export default function TimelinesPage() {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return <MobileInDevelopmentNotice groupId='157650217563325771' signup_source="timelines" />;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.heroSection}>

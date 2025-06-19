@@ -2,7 +2,7 @@ import { createClient } from '@/utils/supabase/server';
 import Image from 'next/image';
 import styles from '@/styles/timelineCardFullPage.module.scss';
 import Link from 'next/link';
-import { Source } from '@/data/chatgptData';
+import { Source } from '@/types/Timeline';
 import { GlobalIcon } from '@/components/ui/UIIcons';
 import { AnnouncementIcon } from '@/components/ui/TimelineCardsIcons';
 import { capitalizeWord } from '@/utils/helperFunctions';

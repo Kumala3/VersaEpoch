@@ -1,23 +1,74 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import styles from '@/styles/llmsDirectoryPage.module.scss';
 import { createClient } from '@/utils/supabase/client';
 import { LLMsDataTable } from '@/components/LLMsDataTable';
+import { useIsMobile } from '@/hooks/useIsMobile';
+import { MobileInDevelopmentNotice } from '@/components/MobileInDevelopmentNotice';
+import { Spinner } from '@/components/ui/Spinner';
+import { LLMModel } from '@/components/LlmsDirectoryColumns';
 
-export default async function LLMsDirectoryPage() {
-  const supabase = await createClient();
+export default function LLMsDirectoryPage() {
+  const [tableData, setTableData] = useState<LLMModel[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
+  const isMobile = useIsMobile();
 
-  const { data: tableData, error } = await supabase
-    .from('llms_directory')
-    .select('*')
-    .order('company', { ascending: false })
-    .order('model_name', { ascending: false });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const supabase = createClient();
+
+        const { data, error } = await supabase
+          .from('llms_directory')
+          .select('*')
+          .order('company', { ascending: false })
+          .order('model_name', { ascending: false });
+
+        if (error) {
+          return (
+            <h1>
+              Something unexpected happened. Please contact us by opening an
+              issue on GitHub
+            </h1>
+          );
+        }
+
+        setTableData(data);
+      } catch (error) {
+        setError(error instanceof Error ? error : new Error('Unknown error'));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   if (error) {
-    console.log(`Error while fetching directory table data: ${error.message}`);
     return (
       <h1>
-        Something unexpected happened. Please contact us by opening an issue on
-        GitHub
+        Something unexpected happened. Please contact us to troubleshoot issues
       </h1>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className={styles.containerLoading}>
+        <Spinner className={styles.loadingSpinner} />
+        <h4 className={styles.loadingTitle}>Loading LLMs Directory</h4>
+      </div>
+    );
+  }
+
+  if (isMobile) {
+    return (
+      <MobileInDevelopmentNotice
+        groupId={'157650217563325771'}
+        signup_source="llms_directory"
+      />
     );
   }
 

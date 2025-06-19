@@ -3,9 +3,9 @@ import { useState } from 'react';
 import styles from '@/styles/ui/chatbotAccordion.module.scss';
 import { ExpandIcon, CollapseIcon } from '@/components/ui/UIIcons';
 import { motion, AnimatePresence } from 'motion/react';
-import { FAQChatbot } from '@/data/chatgptData';
+import { FAQChatbotType } from '@/types/Timeline';
 
-export function ChatbotAccordion({ title, answer }: FAQChatbot) {
+export function ChatbotAccordion({ title, answer }: FAQChatbotType) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleAccordion = () => {
