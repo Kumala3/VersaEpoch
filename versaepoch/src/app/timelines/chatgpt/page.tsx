@@ -7,11 +7,14 @@ import { Timeline } from '@/components/Timeline';
 import { ChatbotFAQList } from '@/components/ui/ChatbotFAQList';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { MobileInDevelopmentNotice } from '@/components/MobileInDevelopmentNotice';
+import { Spinner } from '@/components/ui/Spinner';
+import { TimelineCardType, FAQChatbotType } from '@/types/Timeline';
 
 export default function ChatgptPageTimeline() {
-  const [timelineData, setTimelineData] = useState(null);
-  const [faqData, setFaqData] = useState(null);
+  const [timelineData, setTimelineData] = useState<TimelineCardType[]>([]);
+  const [faqData, setFaqData] = useState<FAQChatbotType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -30,12 +33,10 @@ export default function ChatgptPageTimeline() {
           .eq('chatbot', 'chatgpt');
 
         if (timelineError || faqDataError) {
-          return (
-            <h1>
-              Something unexpected happened. Please contact us by opening an
-              issue on GitHub
-            </h1>
+          setError(
+            'Something went wrong. Please contact us to get everything to work 🙏'
           );
+          return;
         }
 
         setFaqData(faqData);
@@ -49,6 +50,19 @@ export default function ChatgptPageTimeline() {
 
     fetchData();
   }, []);
+
+  if (error) {
+    return <h3>{error}</h3>;
+  }
+
+  if (loading) {
+    return (
+      <div>
+        <h3>Loading...</h3>
+        <Spinner />
+      </div>
+    );
+  }
 
   if (isMobile) {
     return (
