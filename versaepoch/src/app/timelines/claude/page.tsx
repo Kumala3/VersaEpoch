@@ -1,35 +1,55 @@
+'use client';
+
 import styles from '@/styles/chatbotPageTimeline.module.scss';
-import { createClient } from '@/utils/supabase/server';
+import { useState, useEffect } from 'react';
+import { createClient } from '@/utils/supabase/client';
 import { Timeline } from '@/components/Timeline';
 import { ChatbotFAQList } from '@/components/ui/ChatbotFAQList';
+import { useIsMobile } from '@/hooks/useIsMobile';
+import { MobileInDevelopmentNotice } from '@/components/MobileInDevelopmentNotice';
 
-export default async function ClaudeTimeline() {
-  const supabase = await createClient();
+export default function ClaudeTimeline() {
+  const [timelineData, setTimelineData] = useState(null);
+  const [faqData, setFaqData] = useState(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const { data: timelineCards, error: timelineDataError } = await supabase
-    .from('timeline_cards')
-    .select('*')
-    .eq('chatbot', 'claude');
+  const isMobile = useIsMobile();
 
-  const { data: faqData, error: faqDataError } = await supabase
-    .from('faq_chatbots')
-    .select('*')
-    .eq('chatbot', 'claude');
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const supabase = createClient();
 
-  if (timelineDataError) {
-    return (
-      <h1>
-        Something unexpected happened. Please contact us by opening an issue on
-        GitHub
-      </h1>
-    );
-  } else if (faqDataError) {
-    return (
-      <h1>
-        Something unexpected happened. Please contact us by opening an issue on
-        GitHub
-      </h1>
-    );
+        const { data: timelineData, error: timelineError } = await supabase
+          .from('timeline_cards')
+          .select('*')
+          .eq('chatbot', 'claude');
+        const { data: faqData, error: faqDataError } = await supabase
+          .from('faq_chatbots')
+          .select('*')
+          .eq('chatbot', 'claude');
+
+        if (timelineError || faqDataError) {
+          return (
+            <h1>
+              Something unexpected happened. Please contact us by opening an
+              issue on GitHub
+            </h1>
+          );
+        }
+
+        setFaqData(faqData);
+        setTimelineData(timelineData);
+      } catch (error) {
+        console.log(`|For Debugging Purposes| Error: ${error}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+  });
+
+  if (isMobile) {
+    return <MobileInDevelopmentNotice />;
   }
 
   return (
@@ -54,9 +74,9 @@ export default async function ClaudeTimeline() {
       </p>
 
       <Timeline
-        lastUpdatedOn="May 31, 2025"
+        lastUpdatedOn="June 19, 2025"
         chatbot="claude"
-        timelineCards={timelineCards || []}
+        timelineCards={timelineData || []}
       />
 
       <ChatbotFAQList elements={faqData || []} />

@@ -27,7 +27,12 @@ export default function LLMsDirectoryPage() {
           .order('model_name', { ascending: false });
 
         if (error) {
-          throw error;
+          return (
+            <h1>
+              Something unexpected happened. Please contact us by opening an
+              issue on GitHub
+            </h1>
+          );
         }
 
         setTableData(data);
@@ -61,7 +66,7 @@ export default function LLMsDirectoryPage() {
   if (isMobile) {
     return (
       <MobileInDevelopmentNotice
-        groupId={"157650217563325771"}
+        groupId={'157650217563325771'}
         signup_source="llms_directory"
       />
     );

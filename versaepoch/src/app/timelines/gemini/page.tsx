@@ -1,35 +1,54 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import styles from '@/styles/chatbotPageTimeline.module.scss';
-import { createClient } from '@/utils/supabase/server';
+import { createClient } from '@/utils/supabase/client';
 import { Timeline } from '@/components/Timeline';
 import { ChatbotFAQList } from '@/components/ui/ChatbotFAQList';
+import { useIsMobile } from '@/hooks/useIsMobile';
+import { MobileInDevelopmentNotice } from '@/components/MobileInDevelopmentNotice';
 
-export default async function GeminiTimelinePage() {
-  const supabase = await createClient();
+export default function GeminiTimelinePage() {
+  const [timelineData, setTimelineData] = useState(null);
+  const [faqData, setFaqData] = useState(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const isMobile = useIsMobile();
 
-  const { data: timelineCards, error: timelineCardsError } = await supabase
-    .from('timeline_cards')
-    .select('*')
-    .eq('chatbot', 'gemini');
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const supabase = createClient();
 
-  const { data: faqData, error: faqDataError } = await supabase
-    .from('faq_chatbots')
-    .select('*')
-    .eq('chatbot', 'gemini');
+        const { data: timelineData, error: timelineError } = await supabase
+          .from('timeline_cards')
+          .select('*')
+          .eq('chatbot', 'gemini');
+        const { data: faqData, error: faqDataError } = await supabase
+          .from('faq_chatbots')
+          .select('*')
+          .eq('chatbot', 'gemini');
+        if (timelineError || faqDataError) {
+          return (
+            <h1>
+              Something unexpected happened. Please contact us by opening an
+              issue on GitHub
+            </h1>
+          );
+        }
 
-  if (timelineCardsError) {
-    return (
-      <h1>
-        Something unexpected happened. Please contact us by opening an issue on
-        GitHub
-      </h1>
-    );
-  } else if (faqDataError) {
-    return(
-      <h1>
-        Something unexpected happened. Please contact us by opening an issue on
-        GitHub
-      </h1>
-    );
+        setFaqData(faqData);
+        setTimelineData(timelineData);
+      } catch (error) {
+        console.log(`|For Debugging Purposes| Error: ${error}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (isMobile) {
+    return <MobileInDevelopmentNotice />;
   }
 
   return (
@@ -53,8 +72,8 @@ export default async function GeminiTimelinePage() {
 
       <Timeline
         chatbot="gemini"
-        lastUpdatedOn="May 31, 2025"
-        timelineCards={timelineCards || []}
+        lastUpdatedOn="June 19, 2025"
+        timelineCards={timelineData || []}
       />
 
       <ChatbotFAQList elements={faqData || []} />

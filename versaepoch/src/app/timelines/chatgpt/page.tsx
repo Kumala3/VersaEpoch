@@ -1,30 +1,57 @@
+'use client';
+
 import styles from '@/styles/chatbotPageTimeline.module.scss';
-import { createClient } from '@/utils/supabase/server';
+import { useEffect, useState } from 'react';
+import { createClient } from '@/utils/supabase/client';
 import { Timeline } from '@/components/Timeline';
 import { ChatbotFAQList } from '@/components/ui/ChatbotFAQList';
+import { useIsMobile } from '@/hooks/useIsMobile';
+import { MobileInDevelopmentNotice } from '@/components/MobileInDevelopmentNotice';
 
-export default async function ChatgptPageTimeline() {
-  const supabase = await createClient();
+export default function ChatgptPageTimeline() {
+  const [timelineData, setTimelineData] = useState(null);
+  const [faqData, setFaqData] = useState(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const isMobile = useIsMobile();
 
-  const { data: timelineCards, error: timelineCardsError } = await supabase
-    .from('timeline_cards')
-    .select('*')
-    .eq('chatbot', 'chatgpt');
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const supabase = createClient();
 
-  const { data: faqData, error: faqDataError } = await supabase
-    .from('faq_chatbots')
-    .select('*')
-    .eq('chatbot', 'chatgpt');
+        const { data: timelineData, error: timelineError } = await supabase
+          .from('timeline_cards')
+          .select('*')
+          .eq('chatbot', 'chatgpt');
 
-  if (timelineCardsError) {
-    {/* IMPORTANT: Replace with Racoon working hard to fix the error and get the service back to you */}
-    return (
-      <h1>Something unexpected happened. Please contact us by opening an issue on GitHub</h1>
-    )
-  } else if (faqDataError) {
-    return (
-      <h1>Something unexpected happened. Please contact us by opening an issue on GitHub</h1>
-    )
+        const { data: faqData, error: faqDataError } = await supabase
+          .from('faq_chatbots')
+          .select('*')
+          .eq('chatbot', 'chatgpt');
+
+        if (timelineError || faqDataError) {
+          return (
+            <h1>
+              Something unexpected happened. Please contact us by opening an
+              issue on GitHub
+            </h1>
+          );
+        }
+
+        setFaqData(faqData);
+        setTimelineData(timelineData);
+      } catch (error) {
+        console.log(`|For Debugging Purposes| Error: ${error}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (isMobile) {
+    return <MobileInDevelopmentNotice />;
   }
 
   return (
@@ -44,8 +71,8 @@ export default async function ChatgptPageTimeline() {
         timeline of ChatGPT evolution covering{' '}
         <span className={styles.highlightedText2}>product updates</span>,{' '}
         <span className={styles.highlightedText2}>model releases</span>,
-        <span className={styles.highlightedText2}>features</span> {' '}
-        <span className={styles.highlightedText2}>features</span> {' '}
+        <span className={styles.highlightedText2}>features</span>{' '}
+        <span className={styles.highlightedText2}>features</span>{' '}
         <span className={styles.highlightedText2}>milestones</span> collected
         from OpenAI&apos;s official release notes, Wikipedia and top-independent
         sources.
@@ -53,10 +80,13 @@ export default async function ChatgptPageTimeline() {
         below the timeline.
       </p>
 
+      {/* TODO: Pull last updated on stat from Supabase
+        based on last table activity
+      */}
       <Timeline
         chatbot="chatgpt"
-        lastUpdatedOn={'May 28, 2025'}
-        timelineCards={timelineCards || []}
+        lastUpdatedOn={'June 19, 2025'}
+        timelineCards={timelineData || []}
       />
 
       <ChatbotFAQList elements={faqData || []} />
