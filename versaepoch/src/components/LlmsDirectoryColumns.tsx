@@ -59,11 +59,11 @@ function filterColumnDate<TData>(
     } catch {
       return null;
     }
-  }
+  };
 
   const normalizeDate = (date: Date): Date => {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  }
+  };
 
   const cellDate = parseDate(raw);
   const filterDate = parseDate(value);
@@ -309,6 +309,7 @@ export const columns: ColumnDef<LLMModel>[] = [
     minSize: 230,
     cell: ({ getValue, row }) => {
       const modelName = getValue() as string;
+      const modelId = row.original.id;
       const company = row.getValue('company') as string;
 
       const modelIcon = (company: string, className: string) => {
@@ -332,10 +333,41 @@ export const columns: ColumnDef<LLMModel>[] = [
         }
       };
 
+      const handleOpenFull = async (e: React.MouseEvent) => {
+        e.preventDefault();
+
+        try {
+          const response = await fetch('/api/llm-details', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application-json',
+            },
+            body: JSON.stringify({ modelId, modelName }),
+          });
+
+          const data = await response.json();
+
+          if (data.success && data.redirectUrl) {
+            sessionStorage.setItem('modelData', JSON.stringify(data.modelData));
+
+            window.location.href = data.redirectUrl;
+          } else {
+            console.log(`Failed to fetch model data`);
+          }
+        } catch (error) {
+          console.log(`Error fetching model: ${error}`);
+        }
+      };
+
       return (
-        <div className={styles.modelContainer}>
-          {modelIcon(company, styles.modelContainer__icon)}
-          <span>{modelName}</span>
+        <div className={styles.modelContainerWrapper}>
+          <div className={styles.modelContainer}>
+            {modelIcon(company, styles.modelContainer__icon)}
+            <span>{modelName}</span>
+          </div>
+          <button onClick={handleOpenFull} className={styles.openFullLLMButton}>
+            Open Full
+          </button>
         </div>
       );
     },
