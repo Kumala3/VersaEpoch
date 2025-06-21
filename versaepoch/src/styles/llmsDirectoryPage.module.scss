@@ -19,6 +19,7 @@
 
   &__heading {
     color: var(--primary-color);
+    font-weight: var(--font-weight-semi-bold);
     padding-bottom: .5rem;
   }
 
@@ -27,12 +28,13 @@
     width: 50%;
     background-color: beige;
     border-radius: var(--border-radius-sm);
+    font-weight: var(--font-weight-med);
     padding: var(--padding-sm);
     height: fit-content;
   }
 
   &__highlightedText {
-    text-decoration: underline wavy rgb(0, 0, 0);
+    text-decoration: underline wavy rgb(12, 184, 178);
       text-decoration-thickness: 3px;
       text-underline-offset: 6px;
   }

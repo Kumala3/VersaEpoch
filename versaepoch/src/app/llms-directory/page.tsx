@@ -70,7 +70,6 @@ export default function LLMsDirectoryPage() {
 
   return (
     <div className={styles.container}>
-      {/* Replace with actual DB component */}
       <section className={styles.heroSection}>
         <h1 className={styles.heroSection__heading}>
           <span className={styles.heroSection__highlightedText}>Discover</span>{' '}

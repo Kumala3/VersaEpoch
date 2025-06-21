@@ -46,9 +46,7 @@ export function LLMsDataTable({ data }: LLMsDataTableProps) {
 
   if (!data || data.length === 0) {
     return (
-      <div>
-        <h2>No LLMs Data available at the moment...</h2>
-      </div>
+      <h2>No LLMs Data available at the moment...</h2>
     )
   }
 
