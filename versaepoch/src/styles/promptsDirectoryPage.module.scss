@@ -1,5 +1,35 @@
 .container {
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: fit-content;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+
+  &__heading {
+    color: var(--primary-color);
+    font-weight: var(--font-weight-semi-bold);
+    padding-bottom: .5rem;
+  }
+
+  &__description {
+    display: flex;
+    width: 50%;
+    background-color: beige;
+    border-radius: var(--border-radius-sm);
+    font-weight: var(--font-weight-med);
+    padding: var(--padding-sm);
+    height: fit-content;
+  }
 }

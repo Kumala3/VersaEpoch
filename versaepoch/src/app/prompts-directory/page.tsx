@@ -1,22 +1,83 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import styles from '@/styles/promptsDirectoryPage.module.scss';
-import { UnderDevelopment } from '@/components/UnderDevelopment';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { MobileInDevelopmentNotice } from '@/components/MobileInDevelopmentNotice';
+import { PromptsDirectoryTable } from '@/components/PromptsDirectoryTable';
+import { PromptData } from '@/components/PromptsDirectoryColumns';
+import { createClient } from '@/utils/supabase/client';
+import { Spinner } from '@/components/ui/Spinner';
 
 export default function PromptsDirectoryPage() {
+  const [tableData, setTableData] = useState<PromptData[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
   const isMobile = useIsMobile();
-  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const supabase = createClient();
+
+        const { data, error } = await supabase
+          .from('prompts_directory')
+          .select('id, title, description, prompt, tags');
+
+        console.log(`Data: ${JSON.stringify(data)}`);
+
+        if (error) {
+          setError(error.message);
+          return;
+        }
+
+        setTableData(data);
+      } catch {
+        setError('Something unexpected happened. Please contact us to troubleshoot issues');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   if (isMobile) {
     return (
-      <MobileInDevelopmentNotice groupId='157650217563325771' signup_source="prompts-directory" />
-    )
+      <MobileInDevelopmentNotice
+        groupId="157650217563325771"
+        signup_source="prompts-directory"
+      />
+    );
+  }
+
+  if (error) {
+    return (
+      <h1>
+        Something unexpected happened. Please contact us to troubleshoot issues
+      </h1>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className={styles.containerLoading}>
+        <Spinner className={styles.loadingSpinner} />
+        <h4 className={styles.loadingTitle}>Loading LLMs Directory</h4>
+      </div>
+    );
   }
 
   return (
     <div className={styles.container}>
-      <UnderDevelopment />
+      <section className={styles.heroSection}>
+        <h1 className={styles.heroSection__heading}>Prompts Directory</h1>
+        <p className={styles.heroSection__description}>
+          Discover 100+ prompts across 10+ categories ranging from marketing to
+          programming.
+        </p>
+      </section>
+      <PromptsDirectoryTable data={tableData} />
     </div>
   );
 }
