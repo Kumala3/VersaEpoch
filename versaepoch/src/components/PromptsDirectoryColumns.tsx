@@ -26,9 +26,8 @@ const PromptCell = ({ prompt }: { prompt: string }) => {
       // Remove 'Copied!' text after 2000ms = 2s
       setTimeout(() => setIsCopied(false), 2000);
       setTimeout(() => setShowNotification(false), 3000);
-      console.log(`Prompt copied to clipboard: ${prompt}`);
-    } catch (error) {
-      console.log(`Failed to copy prompt: ${error}`);
+    } catch {
+      console.log(`Failed to copy prompt`);
     }
   };
 
@@ -38,7 +37,7 @@ const PromptCell = ({ prompt }: { prompt: string }) => {
       <button
         className={styles.copyButton}
         onClick={() => handleCopyPrompt(prompt)}
-        aria-label="Copy prompt to clipboard">
+        aria-label={isCopied ? "Copied to clipboard" : "Copy prompt to clipboard"}>
         <CopyIcon className={styles.copyButton__icon} />
         {isCopied ? 'Copied!' : 'Copy'}
       </button>

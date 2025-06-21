@@ -41,13 +41,8 @@ export default function PromptsDirectoryPage() {
     fetchData();
   }, []);
 
-
   if (error) {
-    return (
-      <h1>
-        Something unexpected happened. Please contact us to troubleshoot issues
-      </h1>
-    );
+    return <h1>{error}</h1>;
   }
 
   if (loading) {
