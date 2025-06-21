@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/client';
+import { toCamelCase } from '@/utils/helperFunctions';
 
 interface LLMDetailsRequest {
   modelName: string;
@@ -33,7 +34,6 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      console.log(`Supabase error: ${error}`);
       return NextResponse.json(
         {
           success: false,
@@ -50,14 +50,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const modelSlug = modelData.model_name.toLowerCase();
+    const modelSlug = modelData.model_name.replaceAll(" ", "-");
 
     const cleanURL = `/llms/${modelSlug}`;
 
     return NextResponse.json({
       success: true,
       redirectUrl: cleanURL,
-      modelData: modelData,
+      modelData: toCamelCase(modelData),
       modelId: modelId,
     });
   } catch {

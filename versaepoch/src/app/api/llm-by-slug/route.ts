@@ -1,5 +1,6 @@
 import { createClient } from '@/utils/supabase/client';
 import { NextRequest, NextResponse } from 'next/server';
+import { toCamelCase } from '@/utils/helperFunctions';
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,10 +15,12 @@ export async function POST(request: NextRequest) {
 
     const supabase = createClient();
 
+    const modelNameCorrect = modelName.replaceAll("-", " ");
+
     const { data: modelData, error } = await supabase
       .from('llms_directory')
       .select('*')
-      .eq('model_name', modelName)
+      .ilike('model_name', modelNameCorrect)
       .single();
 
     if (error) {
@@ -45,7 +48,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ success: true, modelData: modelData });
+    return NextResponse.json({ success: true, modelData: toCamelCase(modelData) });
   } catch {
     return NextResponse.json(
       { success: false, errorMessage: 'Internal Server Error' },
