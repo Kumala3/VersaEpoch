@@ -107,7 +107,7 @@ html,
 body {
   background: var(--background-primary);
   color: var(--foreground-primary);
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-geist-sans);
   margin: 0;
   padding: 0;
   min-height: 100vh !important;
@@ -115,31 +115,36 @@ body {
 }
 
 h1 {
+  font-family: var(--font-tomorrow);
   font-size: var(--font-size-h1);
-  font-weight: var(--font-weight-bold);
 }
 
 h2 {
+  font-family: var(--font-tomorrow);
   font-size: var(--font-size-h2);
   font-weight: var(--font-weight-bold);
 }
 
 h3 {
+  font-family: var(--font-tomorrow);
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-bold);
 }
 
 h4 {
+  font-family: var(--font-tomorrow);
   font-size: var(--font-size-h4);
   font-weight: var(--font-weight-bold);
 }
 
 h5 {
+  font-family: var(--font-tomorrow);
   font-size: var(--font-size-h6);
   font-weight: var(--font-weight-bold);
 }
 
 h6 {
+  font-family: var(--font-tomorrow);
   font-size: var(--font-size-h6);
   font-weight: var(--font-weight-bold);
 }

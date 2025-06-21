@@ -59,6 +59,7 @@
   white-space: normal;
   height: fit-content;
   transition: all 300ms ease;
+  font-family: var(--font-geist-mono);
 
   &:hover {
     background-color: var(--primary-color);
