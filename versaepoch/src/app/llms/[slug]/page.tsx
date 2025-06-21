@@ -335,7 +335,6 @@ export default function LLMDetailsPage() {
 
   return (
     <div className={styles.container}>
-      {/* Image for each LLM */}
       <div className={styles.topContainer}>
         {getCompanyIcon(modelData?.company ?? '')}
         <h2 className={styles.title}>{modelData?.modelName}</h2>
