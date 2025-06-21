@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import styles from '@/styles/promptsDirectoryPage.module.scss';
-import { useIsMobile } from '@/hooks/useIsMobile';
-import { MobileInDevelopmentNotice } from '@/components/MobileInDevelopmentNotice';
 import { PromptsDirectoryTable } from '@/components/PromptsDirectoryTable';
 import { PromptData } from '@/components/PromptsDirectoryColumns';
 import { createClient } from '@/utils/supabase/client';
@@ -13,7 +11,6 @@ export default function PromptsDirectoryPage() {
   const [tableData, setTableData] = useState<PromptData[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,14 +41,6 @@ export default function PromptsDirectoryPage() {
     fetchData();
   }, []);
 
-  if (isMobile) {
-    return (
-      <MobileInDevelopmentNotice
-        groupId="157650217563325771"
-        signup_source="prompts-directory"
-      />
-    );
-  }
 
   if (error) {
     return (
