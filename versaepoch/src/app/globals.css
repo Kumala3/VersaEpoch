@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -14,7 +14,7 @@
   --neutral-dark: #32614f;
   --gray-color: rgb(149, 149, 149);
   --gray-color-dark: #525151;
-  --subHeadline-color: rgb(50,50,50);
+  --subHeadline-color: rgb(50, 50, 50);
   --skeleton-bg: #e5e5e5;
   --primary-color-hover: #159e84;
   --panel-button-hover-color: #e7e7e7;
@@ -147,6 +147,13 @@ h6 {
   font-family: var(--font-tomorrow);
   font-size: var(--font-size-h6);
   font-weight: var(--font-weight-bold);
+}
+
+tr {
+  height: 100%;
+}
+table {
+  height: 100%;
 }
 
 .rootContainer {

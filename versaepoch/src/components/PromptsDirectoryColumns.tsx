@@ -34,13 +34,14 @@ const PromptCell = ({ prompt }: { prompt: string }) => {
 
   return (
     <div className={styles.promptContainer}>
+      {prompt}
       <button
         className={styles.copyButton}
-        onClick={() => handleCopyPrompt(prompt)}>
+        onClick={() => handleCopyPrompt(prompt)}
+        aria-label="Copy prompt to clipboard">
         <CopyIcon className={styles.copyButton__icon} />
         {isCopied ? 'Copied!' : 'Copy'}
       </button>
-      {prompt}
 
       {/* Notification */}
       {showNotification && (
@@ -83,6 +84,7 @@ export const columns: ColumnDef<PromptData>[] = [
     filterFn: (row, columnId, filterValue) => {
       return filterColumnText(row, columnId, filterValue);
     },
+    minSize: 180,
   },
   {
     accessorKey: 'prompt',
@@ -93,7 +95,7 @@ export const columns: ColumnDef<PromptData>[] = [
     filterFn: (row, columnId, filterValue) => {
       return filterColumnText(row, columnId, filterValue);
     },
-    minSize: 180,
+    minSize: 250,
     cell: ({ getValue }) => {
       const prompt = getValue() as string;
 
@@ -122,5 +124,6 @@ export const columns: ColumnDef<PromptData>[] = [
         </div>
       );
     },
+    minSize: 250,
   },
 ];

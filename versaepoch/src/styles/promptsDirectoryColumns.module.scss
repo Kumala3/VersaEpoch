@@ -4,14 +4,6 @@
   font-size: var(--font-size-body-1);
 }
 
-:global(table) {
-  height: 100%;
-}
-
-:global(tr) {
-  height: 100%;
-}
-
 .tagsContainer {
   display: flex;
   width: 100%;
@@ -40,7 +32,9 @@
 
 .promptContainer {
   display: flex;
+  flex-direction: column;
   position: relative;
+  gap: .5rem;
 
   &:hover .copyButton {
     opacity: 1;
@@ -92,4 +86,12 @@
   box-shadow: 0 0 8px var(--primary-color);
   z-index: 1000;
   transition: opacity 0.3s ease-in-out;
+}
+
+@media (max-width: 767px) {
+  .copyButton {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+  }
 }

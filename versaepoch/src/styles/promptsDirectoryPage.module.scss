@@ -25,11 +25,24 @@
 
   &__description {
     display: flex;
-    width: 50%;
+    width: 80%;
     background-color: beige;
     border-radius: var(--border-radius-sm);
     font-weight: var(--font-weight-med);
     padding: var(--padding-sm);
     height: fit-content;
+    font-size: var(--font-size-h6);
+  }
+}
+
+@media (max-width: 767px) {
+  .heroSection {
+
+    &__heading {
+      width: 100%;
+    }
+    &__description {
+      width: 100%;
+    }
   }
 }
