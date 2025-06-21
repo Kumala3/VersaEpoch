@@ -70,7 +70,6 @@ export default function LLMsDirectoryPage() {
 
   return (
     <div className={styles.container}>
-      {/* Replace with actual DB component */}
       <section className={styles.heroSection}>
         <h1 className={styles.heroSection__heading}>
           <span className={styles.heroSection__highlightedText}>Discover</span>{' '}
@@ -82,8 +81,9 @@ export default function LLMsDirectoryPage() {
           just see what is available out there and experiment!
         </p>
       </section>
-      {/* Explanation Section */}
+      {/* TODO: Explanation Section */}
       <LLMsDataTable data={tableData} />
+      {/* Table or List/Grid to choose like 2 blocks */}
     </div>
   );
 }

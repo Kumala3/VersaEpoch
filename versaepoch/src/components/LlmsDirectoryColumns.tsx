@@ -30,7 +30,7 @@ import {
 } from '@/components/ui/UIIcons';
 import { capitalizeWord } from '@/utils/helperFunctions';
 
-function filterColumnDate<TData>(
+export function filterColumnDate<TData>(
   row: Row<TData>,
   columnId: string,
   filterValue: { operator: FilterOperator; value: Date | null }
@@ -86,7 +86,7 @@ function filterColumnDate<TData>(
   }
 }
 
-function filterColumnMultiSelect<TData>(
+export function filterColumnMultiSelect<TData>(
   row: Row<TData>,
   columnId: string,
   filterValue: { operator: FilterOperator; value: string | null }
@@ -142,7 +142,7 @@ export function filterColumnSelect<TData>(
   }
 }
 
-function filterColumnText<TData>(
+export function filterColumnText<TData>(
   row: Row<TData>,
   columnId: string,
   filterValue: { operator: FilterOperator; value: string | null }
@@ -180,7 +180,7 @@ function filterColumnText<TData>(
   }
 }
 
-function filterColumnNumber<TData>(
+export function filterColumnNumber<TData>(
   row: Row<TData>,
   columnId: string,
   filterValue: { operator: FilterOperator; value: number | null }

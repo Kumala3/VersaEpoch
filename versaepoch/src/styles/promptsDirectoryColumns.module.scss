@@ -1,0 +1,97 @@
+.titleContainer {
+  display: flex;
+  font-weight: var(--font-weight-semi-bold);
+  font-size: var(--font-size-body-1);
+}
+
+.tagsContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  gap: 0.5rem;
+
+  &:hover .tagElement {
+    background-color: white;
+    color: black;
+    box-shadow: 0 0 6px rgb(0, 0, 0, 0.5);
+  }
+}
+
+.tagElement {
+  display: flex;
+  background-color: var(--primary-color);
+  height: fit-content;
+  padding: 4px var(--padding-sm);
+  color: white;
+  border-radius: var(--border-radius-sm);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body-2);
+  white-space: nowrap;
+}
+
+.promptContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: .5rem;
+
+  &:hover .copyButton {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.copyButton {
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 0%;
+  width: fit-content;
+  height: fit-content;
+  right: 0%;
+  gap: .5rem;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: var(--border-radius-sm);
+  padding: 4px var(--padding-sm);
+  color: black;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  z-index: 103;
+  font-weight: var(--font-weight-med);
+
+  &:hover {
+    background-color: rgb(233, 233, 233);
+  }
+
+  &__icon {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 0 8px var(--primary-color);
+  z-index: 1000;
+  transition: opacity 0.3s ease-in-out;
+}
+
+@media (max-width: 767px) {
+  .copyButton {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+  }
+}

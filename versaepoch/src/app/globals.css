@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -14,7 +14,7 @@
   --neutral-dark: #32614f;
   --gray-color: rgb(149, 149, 149);
   --gray-color-dark: #525151;
-  --subHeadline-color: rgb(50,50,50);
+  --subHeadline-color: rgb(50, 50, 50);
   --skeleton-bg: #e5e5e5;
   --primary-color-hover: #159e84;
   --panel-button-hover-color: #e7e7e7;
@@ -107,7 +107,7 @@ html,
 body {
   background: var(--background-primary);
   color: var(--foreground-primary);
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-geist-sans);
   margin: 0;
   padding: 0;
   min-height: 100vh !important;
@@ -115,33 +115,45 @@ body {
 }
 
 h1 {
+  font-family: var(--font-tomorrow);
   font-size: var(--font-size-h1);
-  font-weight: var(--font-weight-bold);
 }
 
 h2 {
+  font-family: var(--font-tomorrow);
   font-size: var(--font-size-h2);
   font-weight: var(--font-weight-bold);
 }
 
 h3 {
+  font-family: var(--font-tomorrow);
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-bold);
 }
 
 h4 {
+  font-family: var(--font-tomorrow);
   font-size: var(--font-size-h4);
   font-weight: var(--font-weight-bold);
 }
 
 h5 {
-  font-size: var(--font-size-h6);
+  font-family: var(--font-tomorrow);
+  font-size: var(--font-size-h5);
   font-weight: var(--font-weight-bold);
 }
 
 h6 {
+  font-family: var(--font-tomorrow);
   font-size: var(--font-size-h6);
   font-weight: var(--font-weight-bold);
+}
+
+tr {
+  height: 100%;
+}
+table {
+  height: 100%;
 }
 
 .rootContainer {

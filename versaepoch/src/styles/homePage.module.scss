@@ -57,13 +57,17 @@
 
   &__highlight {
     display: flex;
+    width: 100%;
     position: relative;
+
     font-size: var(--font-size-h3);
     font-weight: var(--font-weight-semi-bold);
     background: linear-gradient(100deg, #ffda09, #efab2d);
     color: black;
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius-sm);
+    align-items: center;
+    justify-content: center;
   }
 
   &__description {

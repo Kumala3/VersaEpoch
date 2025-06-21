@@ -1,24 +1,24 @@
 'use client';
 
+import { columns, PromptData } from '@/components/PromptsDirectoryColumns';
 import { useState } from 'react';
 import {
-  ColumnFiltersState,
-  ColumnOrderState,
   SortingState,
+  ColumnOrderState,
+  ColumnFiltersState,
+  useReactTable,
   getCoreRowModel,
   getSortedRowModel,
   getFilteredRowModel,
-  useReactTable,
 } from '@tanstack/react-table';
 import { DataTable } from '@/components/ui/DataTable';
-import { columns, LLMModel } from '@/components/LlmsDirectoryColumns';
 import { TableControlPanel } from '@/components/ui/TableControlPanel';
 
-interface LLMsDataTableProps {
-  data: LLMModel[] | null;
+interface PromptsDirectoryTableProps {
+  data: PromptData[] | null;
 }
 
-export function LLMsDataTable({ data }: LLMsDataTableProps) {
+export function PromptsDirectoryTable({ data }: PromptsDirectoryTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([]);
@@ -45,14 +45,12 @@ export function LLMsDataTable({ data }: LLMsDataTableProps) {
   });
 
   if (!data || data.length === 0) {
-    return (
-      <h2>No LLMs Data available at the moment...</h2>
-    )
+    return <h2>No Prompts Data available at the moment...</h2>;
   }
 
   return (
     <>
-      {data && (
+      {tableData && (
         <>
           <TableControlPanel table={table} />
           <DataTable table={table} />
