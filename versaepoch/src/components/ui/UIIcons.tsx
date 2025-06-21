@@ -902,6 +902,5 @@ export {
   CircleCheckIcon,
   CircleArrowRightIcon,
   CircleArrowLeftIcon,
-  CircleQuestionIcon,
   BadgeQuestionIcon,
 };

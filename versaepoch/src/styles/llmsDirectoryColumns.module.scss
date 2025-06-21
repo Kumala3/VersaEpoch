@@ -58,7 +58,7 @@
 
 tr:hover {
   .openFullLLMButton {
-    transition: all 0.3 ease;
+    transition: all 0.2s ease;
     opacity: 1;
     visibility: visible;
   }
@@ -86,7 +86,7 @@ tr:hover {
   right: 0;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3 ease;
+  transition: all 0.2s ease;
   background-color: white;
   box-shadow: inset 0 0 6px var(--primary-color);
   border-radius: var(--border-radius-sm);
@@ -97,7 +97,6 @@ tr:hover {
   cursor: pointer;
 
   &:hover {
-    transition: all 0.3 ease;
     box-shadow: 0 0 8px var(--primary-color);
   }
 }

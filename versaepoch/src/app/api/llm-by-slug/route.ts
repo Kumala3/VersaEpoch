@@ -26,14 +26,14 @@ export async function POST(request: NextRequest) {
     if (error) {
       if (error.details.includes('The result contains 0 rows')) {
         return NextResponse.json(
-          { success: false, errorMessage: 'Model Not Found' },
+          { success: false, message: 'Model Not Found' },
           { status: 404 }
         );
       } else {
         return NextResponse.json(
           {
             success: false,
-            errorMessage:
+            message:
               'Something went wrong. Please make sure you are looking for correct model.',
           },
           { status: 500 }
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
 
     if (!modelData) {
       return NextResponse.json(
-        { success: false, errorMessage: 'Model Not Found' },
+        { success: false, message: 'Model Not Found' },
         { status: 404 }
       );
     }
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, modelData: toCamelCase(modelData) });
   } catch {
     return NextResponse.json(
-      { success: false, errorMessage: 'Internal Server Error' },
+      { success: false, message: 'Internal Server Error' },
       { status: 500 }
     );
   }
