@@ -33,7 +33,9 @@ export default function PromptsDirectoryPage() {
 
         setTableData(data);
       } catch {
-        setError('Something unexpected happened. Please contact us to troubleshoot issues');
+        setError(
+          'Something unexpected happened. Please contact us to troubleshoot issues'
+        );
       } finally {
         setLoading(false);
       }
@@ -73,11 +75,13 @@ export default function PromptsDirectoryPage() {
       <section className={styles.heroSection}>
         <h1 className={styles.heroSection__heading}>Prompts Directory</h1>
         <p className={styles.heroSection__description}>
-          Discover 100+ prompts across 10+ categories ranging from marketing to
-          programming.
+          A top-notch best AI prompts for ChatGPT, Claude, Gemini. 100+ curated
+          prompts to get the most out of AI and revolutionize your life with
+          focus and productivity like never before.
         </p>
       </section>
       <PromptsDirectoryTable data={tableData} />
+      {/* List of prompts, not only table */}
     </div>
   );
 }
