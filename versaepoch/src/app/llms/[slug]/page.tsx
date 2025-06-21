@@ -1,7 +1,7 @@
 'use client';
 
 import styles from '@/styles/llmDetailsPage.module.scss';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactElement } from 'react';
 import { useParams } from 'next/navigation';
 import { Spinner } from '@/components/ui/Spinner';
 import Link from 'next/link';
@@ -31,6 +31,7 @@ import {
   BestForGeneralKnowledgeIcon,
   BestForOrganizingIcon,
   BestForImageGenerationIcon,
+  BadgeQuestionIcon,
 } from '@/components/ui/UIIcons';
 
 interface ModelData {
@@ -52,6 +53,7 @@ export default function LLMDetailsPage() {
   const [modelData, setModelData] = useState<ModelData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
+  const [activeModal, setActiveModal] = useState<string | null>(null);
   const params = useParams();
 
   useEffect(() => {
@@ -124,10 +126,6 @@ export default function LLMDetailsPage() {
         <div>
           <p className={styles.errorContainerNoticeText}>
             Please make sure you meant correct model.
-          </p>
-          <p>
-            If not, click on one of the buttons above to view the LLMs you are
-            looking for.
           </p>
         </div>
       </div>
@@ -203,68 +201,136 @@ export default function LLMDetailsPage() {
         return (
           <BestForCodingIcon
             color="#000"
-            className={styles.bestForElement_icon}
+            className={styles.bestForElement__icon}
           />
         );
       case 'Writing':
         return (
           <BestForWritingIcon
             color="#000"
-            className={styles.bestForElement_icon}
+            className={styles.bestForElement__icon}
           />
         );
       case 'Brainstorming':
         return (
           <BestForBrainstormingIcon
             color="#000"
-            className={styles.bestForElement_icon}
+            className={styles.bestForElement__icon}
           />
         );
       case 'Productivity':
         return (
           <BestForProductivityIcon
             color="#000"
-            className={styles.bestForElement_icon}
+            className={styles.bestForElement__icon}
           />
         );
       case 'Lifestyle':
         return (
           <BestForLifestyleIcon
             color="#000"
-            className={styles.bestForElement_icon}
+            className={styles.bestForElement__icon}
           />
         );
       case 'Cooking':
         return (
           <BestForCookingIcon
             color="#000"
-            className={styles.bestForElement_icon}
+            className={styles.bestForElement__icon}
           />
         );
       case 'General Knowledge':
         return (
           <BestForGeneralKnowledgeIcon
             color="#000"
-            className={styles.bestForElement_icon}
+            className={styles.bestForElement__icon}
           />
         );
       case 'Organizing':
         return (
           <BestForOrganizingIcon
             color="#000"
-            className={styles.bestForElement_icon}
+            className={styles.bestForElement__icon}
           />
         );
       case 'Image Generation':
         return (
           <BestForImageGenerationIcon
             color="#000"
-            className={styles.bestForElement_icon}
+            className={styles.bestForElement__icon}
           />
         );
       default:
         return;
     }
+  };
+
+  const getCompanyDescription = (company: string) => {
+    switch (company.toLowerCase()) {
+      case 'openai':
+        return (
+          <p>
+            OpenAI is an AI research and deployment company. Their mission is to
+            ensure that artificial general intelligence benefits all of
+            humanity. AI systems that are generally smarter than humans
+          </p>
+        );
+      case 'anthropic':
+        return 'Anthropic is an AI safety and research company. They build reliable, interpretable, and steerable AI systems. They believe AI will have a vast impact on the world. Anthropic is dedicated to building systems that people can rely on and generating research about the opportunities and risks of AI.';
+      case 'google':
+        return 'Google is an information and computer science company. They believe that AI is a foundational and transformational technology that will provide compelling and helpful benefits to people and society through its capacity to assist, complement, empower, and inspire people in almost every field of human endeavor.';
+      case 'meta':
+        return 'Meta is driven to build incredible things that connect people in inspiring ways.';
+      case 'xai':
+        return 'Understand the universe.  AI’s knowledge should be all-encompassing and as far-reaching as possible. We build AI specifically to advance human comprehension and capabilities.';
+      case 'deepseek':
+        return 'A Chinese AI company founded in 2023 develops LLMs that rival OpenAI reasoning models';
+      case 'mistral':
+        return 'A pioneering French AI startup founded in 2023. They envision a future where AI is abundant and accessible. They aspire to empower the world to build with—and benefit from—the most significant technology of our time.';
+      default:
+        return '';
+    }
+  };
+
+  const modalContents = {
+    company: getCompanyDescription(modelData?.company ?? ''),
+    knowledgeCutoff: 'The last time model was updated',
+    maxOutput: 'Maximum number of tokens a model can output in single response',
+    contextWindow: 'Maximum number of tokens model remembers',
+    bestFor: `Scenarios & cases model is best for`,
+    modalities: 'Data types the model supports as an input',
+  };
+
+  const handleModalOpen = (modalId: string) => {
+    setActiveModal(modalId);
+  };
+
+  const handleModalClose = () => {
+    setActiveModal(null);
+  };
+
+  const InfoModal = ({
+    modalId,
+    content,
+  }: {
+    modalId: string;
+    content: string | ReactElement;
+  }) => {
+    return (
+      <>
+        <div
+          onMouseEnter={() => handleModalOpen(modalId)}
+          onMouseLeave={handleModalClose}
+          className={styles.moreInfoContainer}>
+          <BadgeQuestionIcon color="#000" className={styles.questionIcon} />
+        </div>
+        {activeModal === modalId && (
+          <div className={styles.descriptionModal}>
+            {content}
+          </div>
+        )}
+      </>
+    );
   };
 
   return (
@@ -278,11 +344,11 @@ export default function LLMDetailsPage() {
       <div className={styles.shortDescriptionSection}>
         <h4 className={styles.sectionLabel}>About</h4>
 
-        <div className={styles.shortDescriptionContainer}>
-          <h6 className={styles.shortDescriptionContainer__leftContent}>
-            Short Description
-          </h6>
-          <p className={styles.shortDescriptionContainer__rightContent}>
+        <div className={styles.sectionElement}>
+          <div className={styles.sectionElement__leftContent}>
+            <h6>Short Description</h6>
+          </div>
+          <p className={styles.sectionElement__rightContent}>
             {modelData?.description}
           </p>
         </div>
@@ -297,18 +363,13 @@ export default function LLMDetailsPage() {
       <div className={styles.specificationsSection}>
         <div>
           <h4 className={styles.sectionLabel}>Specifications</h4>
-          <p className={styles.sectionDescription}>
-            See all key parameters that matter
-          </p>
         </div>
         <div className={styles.sectionElements}>
           <div className={styles.sectionElement}>
             <div className={styles.sectionElement__leftContent}>
               <div className={styles.companyContainer}>
                 <h6>Company</h6>
-                <p className={styles.sectionDescription}>
-                  Short company description
-                </p>
+                <InfoModal modalId="company" content={modalContents.company} />
               </div>
             </div>
             <h6 className={styles.sectionElement__rightContent}>
@@ -325,27 +386,35 @@ export default function LLMDetailsPage() {
           </div>
           <div className={styles.sectionElement}>
             <div className={styles.sectionElement__leftContent}>
-              <h6>Knowledge Cutoff</h6>
+              <div className={styles.companyContainer}>
+                <h6>Knowledge Cutoff</h6>
+                <InfoModal modalId='knowledgeCutoff' content={modalContents.knowledgeCutoff} />
+              </div>
             </div>
             <span className={styles.sectionElement__rightContent}>
-              {modelData?.knowledgeCutoff}
+              {modelData?.knowledgeCutoff ?? "None"}
             </span>
           </div>
           <div className={styles.sectionElement}>
             <div className={styles.sectionElement__leftContent}>
-              <h6>Max Output</h6>
+              <div className={styles.companyContainer}>
+                <h6>Max Output</h6>
+                <InfoModal modalId='maxOutput' content={modalContents.maxOutput} />
+              </div>
             </div>
             <span className={styles.sectionElement__rightContent}>
-              {modelData?.maxOutput}
+              {modelData?.maxOutput ?? "None"}
             </span>
           </div>
           <div className={styles.sectionElement}>
             <div className={styles.sectionElement__leftContent}>
-              <h6>Context Window</h6>
+              <div className={styles.companyContainer}>
+                <h6>Context Window</h6>
+                <InfoModal modalId='contextWindow' content={modalContents.contextWindow} />
+              </div>
             </div>
-
             <span className={styles.sectionElement__rightContent}>
-              {modelData?.contextWindow}
+              {modelData?.contextWindow ?? "None"}
             </span>
           </div>
         </div>
@@ -354,21 +423,15 @@ export default function LLMDetailsPage() {
       <div className={styles.otherSection}>
         <div>
           <h4 className={styles.sectionLabel}>Other</h4>
-          <p className={styles.sectionDescription}>
-            See cool info like Best For, Modalities
-          </p>
         </div>
 
         <div className={styles.sectionElements}>
           {modelData?.bestFor && (
             <div className={styles.sectionElement}>
               <div className={styles.sectionElement__leftContent}>
-                <div className={styles.bestForLeftContainer}>
+                <div className={styles.companyContainer}>
                   <h6>Best For</h6>
-                  <p className={styles.sectionDescription}>
-                    Understand in what scenarios, cases, and areas{' '}
-                    {modelData?.modelName} is best for
-                  </p>
+                  <InfoModal modalId='bestFor' content={modalContents.bestFor} />
                 </div>
               </div>
 
@@ -387,11 +450,9 @@ export default function LLMDetailsPage() {
 
           <div className={styles.sectionElement}>
             <div className={styles.sectionElement__leftContent}>
-              <div className={styles.modalitiesLeftContainer}>
+              <div className={styles.companyContainer}>
                 <h6>Modalities</h6>
-                <p className={styles.sectionDescription}>
-                  See what data type the model supports as an input
-                </p>
+                <InfoModal modalId='modalities' content={modalContents.modalities} />
               </div>
             </div>
             <div className={styles.sectionElement__rightContent}>
